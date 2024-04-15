@@ -106,6 +106,27 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
+        // Method to display a recipe with its name, ingredients, and steps. It takes a Recipe object as a parameter.
+        public static void DisplayRecipe(Recipe recipe)
+        {
+            Console.WriteLine($"Recipe: {recipe.recipeName}");
+            Console.WriteLine("Ingredients:");
+            // For loop to display the ingredients in the recipe object
+            for (var i = 0; i < recipe.ingredients.Count; i++)
+                Console.WriteLine(
+                    $"{i + 1}. {recipe.ingredients[i].ingName} - {recipe.ingredients[i].ingQty} {recipe.ingredients[i].ingUnit}");
+            Console.WriteLine("Steps:");
+            var stepNum = 1;
+            // For loop to display the steps in the recipe object
+            foreach (var step in recipe.steps)
+            {
+                Console.WriteLine($"{stepNum}. {step}");
+                stepNum++;
+            }
+        } // End of DisplayRecipe method
+
+        // <-------------------------------------------------------------------------------------->
+
         // Method to parse a double value using the invariant culture to handle different decimal separators (e.g. '.' and ',')
         /* The ParseDoubleInvariant method is a helper method that attempts to parse a double value from a string input.
          * It first tries to parse the input using the invariant culture (which uses '.' as the decimal separator).

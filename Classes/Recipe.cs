@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RecipeTracker.Classes
 {
-    internal class Recipe
+    public class Recipe
     {
+        public string recipeName { get; set; }
+        public List<Ingredient> ingredients { get; set; }
+        public List<string> steps { get; set; }
+        public Dictionary<Ingredient, double> originalQty { get; set; }
+
+        public Recipe()
+        {
+        }
+
+        public Recipe(string name, List<Ingredient> ing, List<string> steps, Dictionary<Ingredient, double> qty)
+        {
+            recipeName = name;
+            ingredients = ing;
+            this.steps = steps;
+            originalQty = qty;
+        }
     }
 }

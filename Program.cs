@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RecipeTracker.Classes;
 
 namespace RecipeTracker
 {
+    // This is the entry point of the program (i.e., where the program starts).
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            // Create a new Recipe object to store the recipe details.
+            var newRecipe = new Recipe();
+            // Boolean to check if the user hasn't exited the program
+            var appRunning = true;
+            // Welcome message to the user
+            Console.WriteLine("Welcome to Recipe Tracker!");
         }
     }
 }

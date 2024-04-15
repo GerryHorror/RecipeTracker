@@ -18,8 +18,11 @@ namespace RecipeTracker
                 // Console.Clear() to clear the console window before displaying the menu
                 Console.Clear();
                 // Welcome message to the user
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Welcome to Recipe Tracker!");
+                Console.ResetColor();
                 // Menu options for the user
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("What would you like to do today?");
                 Console.WriteLine(
                     "1. Add a new recipe\n2. Display a recipe\n3. Scale a recipe\n4. Reset quantities\n5. Clear a recipe\n6. Exit");

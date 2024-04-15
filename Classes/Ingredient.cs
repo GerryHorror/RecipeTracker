@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RecipeTracker.Classes
+﻿namespace RecipeTracker.Classes
 {
-    internal class Ingredient
+    public class Ingredient
     {
+        public string ingName { get; set; }
+        public double ingQty { get; set; }
+        public string ingUnit { get; set; }
+
+        public Ingredient()
+        {
+        }
+
+        public Ingredient(string name, double qty, string unit)
+        {
+            ingName = name;
+            ingQty = qty;
+            ingUnit = unit;
+        }
     }
 }

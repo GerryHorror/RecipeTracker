@@ -55,6 +55,20 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
+        // Method to scale the recipe by a factor of 0.5, 2, or 3. It multiplies the quantity of all ingredients by the given factor.
+        public bool ScaleRecipe(double factor)
+        {
+            if (factor == 0.5 || factor == 2 || factor == 3)
+            {
+                foreach (var ing in ingredients) ing.ingQty = originalQty[ing] * factor;
+                return true;
+            }
+
+            return false;
+        }
+
+        // <-------------------------------------------------------------------------------------->
+
         // Method to reset the quantity of all ingredients in the recipe to their original quantity.
         public void ResetQuantities()
         {

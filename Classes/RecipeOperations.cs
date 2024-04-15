@@ -127,6 +127,26 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
+        // Method to scale a recipe by a factor of 0.5, 2, or 3. It takes a Recipe object as a parameter.
+        public static void ScaleRecipe(Recipe recipe)
+        {
+            Console.WriteLine("Enter the scaling factor (0.5, 2, or 3):");
+            // If the input is not a valid number, display an error message
+            if (!double.TryParse(Console.ReadLine(), out var factor))
+            {
+                Console.WriteLine("Invalid input format. Please enter a valid number.");
+                return;
+            }
+            // If the recipe scaling fails, display an error message
+            if (!recipe.ScaleRecipe(factor))
+            {
+                Console.WriteLine("Invalid scaling factor. Please enter 0.5, 2, or 3.");
+                return;
+            }
+            // Display a success message if the recipe is scaled successfully
+            Console.WriteLine("Recipe scaled successfully!");
+        } // End of ScaleRecipe method
+
         // Method to parse a double value using the invariant culture to handle different decimal separators (e.g. '.' and ',')
         /* The ParseDoubleInvariant method is a helper method that attempts to parse a double value from a string input.
          * It first tries to parse the input using the invariant culture (which uses '.' as the decimal separator).

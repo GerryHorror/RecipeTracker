@@ -32,5 +32,47 @@ namespace RecipeTracker.Classes
             this.steps = steps;
             originalQty = qty;
         }
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Method to add an ingredient to the recipe. It takes the name, quantity, and unit of the ingredient as parameters.
+        public void AddIngredient(string name, double qty, string unit)
+        {
+            // Create a new Ingredient object with the given name, quantity, and unit.
+            Ingredient ing = new Ingredient(name, qty, unit);
+            ingredients.Add(ing);
+            // Add the ingredient and its original quantity to the originalQty dictionary.
+            originalQty[ing] = qty;
+        }
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Method to add a step to the recipe. It takes the step as a parameter.
+        public void AddStep(string step)
+        {
+            steps.Add(step);
+        }
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Method to reset the quantity of all ingredients in the recipe to their original quantity.
+        public void ResetQuantities()
+        {
+            // Loop through all ingredients in the recipe.
+            foreach (var ing in ingredients) ing.ingQty = originalQty[ing];
+        }
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Method to clear all ingredients and steps from the recipe.
+        public void ClearRecipe()
+        {
+            recipeName = string.Empty;
+            ingredients.Clear();
+            steps.Clear();
+            originalQty.Clear();
+        }
     }
 }
+
+// < -------------------------------------------END------------------------------------------- >

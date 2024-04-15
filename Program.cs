@@ -12,14 +12,14 @@ namespace RecipeTracker
             var newRecipe = new Recipe();
             // Boolean to check if the user hasn't exited the program
             var appRunning = true;
-            // Welcome message to the user
-            Console.WriteLine("Welcome to Recipe Tracker!");
-
             // While loop to keep the program running (i.e appRunning is true)
             while (appRunning)
             {
                 // Console.Clear() to clear the console window before displaying the menu
                 Console.Clear();
+                // Welcome message to the user
+                Console.WriteLine("Welcome to Recipe Tracker!");
+                // Menu options for the user
                 Console.WriteLine("What would you like to do today?");
                 Console.WriteLine(
                     "1. Add a new recipe\n2. Display a recipe\n3. Scale a recipe\n4. Reset quantities\n5. Clear a recipe\n6. Exit");

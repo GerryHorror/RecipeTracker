@@ -22,6 +22,10 @@ namespace RecipeTracker.Classes
         // Parameterless constructor for the Recipe class (default constructor).
         public Recipe()
         {
+            recipeName = string.Empty;
+            ingredients = new List<Ingredient>();
+            steps = new List<string>();
+            originalQty = new Dictionary<Ingredient, double>();
         }
 
         // Parameterised constructor for the Recipe class (overloaded constructor) which means it can be called with different parameters.
@@ -40,6 +44,7 @@ namespace RecipeTracker.Classes
         {
             // Create a new Ingredient object with the given name, quantity, and unit.
             Ingredient ing = new Ingredient(name, qty, unit);
+            // Add the ingredient to the ingredients list.
             ingredients.Add(ing);
             // Add the ingredient and its original quantity to the originalQty dictionary.
             originalQty[ing] = qty;

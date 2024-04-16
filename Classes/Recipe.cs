@@ -47,13 +47,17 @@ namespace RecipeTracker.Classes
             originalQty = new double[0];
         }
 
-        // This is a parameterized constructor for the Recipe class.
-        public Recipe(string name, Ingredient[] ing, string[] steps, double[] qty)
+        // This is a parameterised constructor for the Recipe class.
+        public Recipe(string name, Ingredient[] ing, string[] steps)
         {
             recipeName = name;
             ingredients = ing;
             this.steps = steps;
-            originalQty = qty;
+            originalQty = new double[ing.Length];
+            for (int i = 0; i < ing.Length; i++)
+            {
+                originalQty[i] = ing[i].ingQty;
+            }
         }
 
         // <-------------------------------------------------------------------------------------->
@@ -61,23 +65,15 @@ namespace RecipeTracker.Classes
         // Method to add an ingredient to the recipe. It takes the name, quantity, and unit of the ingredient as parameters.
         public void AddIngredient(string name, double qty, string unit)
         {
-            // Create a new Ingredient object with the given name, quantity, and unit.
             Ingredient ing = new Ingredient(name, qty, unit);
-            // Create a new array with increased size to accommodate the new ingredient.
             Ingredient[] newIngredients = new Ingredient[ingredients.Length + 1];
-            // Copy the existing ingredients to the new array.
             Array.Copy(ingredients, newIngredients, ingredients.Length);
-            // Add the new ingredient to the end of the new array.
             newIngredients[newIngredients.Length - 1] = ing;
-            // Update the ingredients property with the new array.
             ingredients = newIngredients;
-            // Create a new array with increased size to accommodate the new quantity.
+
             double[] newOriginalQty = new double[originalQty.Length + 1];
-            // Copy the existing quantities to the new array.
             Array.Copy(originalQty, newOriginalQty, originalQty.Length);
-            // Add the new quantity to the end of the new array.
             newOriginalQty[newOriginalQty.Length - 1] = qty;
-            // Update the originalQty property with the new array.
             originalQty = newOriginalQty;
         }
 
@@ -122,20 +118,18 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
-        // Method to reset the quantity of all ingredients in the recipe to their original quantity.
-        public void ResetQuantities()
+        // Method to reset the quantity of all ingredients in a recipe to the original quantity.
+        public void ResetQuantity()
         {
-            // Loop through all ingredients in the recipe.
             for (var i = 0; i < ingredients.Length; i++)
             {
-                // Reset the quantity of the ingredient to the original quantity.
                 ingredients[i].ingQty = originalQty[i];
             }
         }
 
         // <-------------------------------------------------------------------------------------->
 
-        // Method to clear all ingredients and steps from the recipe.
+        // Method to remove a recipe from the list of recipes.
         public void ClearRecipe()
         {
             recipeName = string.Empty;

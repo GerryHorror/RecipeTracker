@@ -18,6 +18,7 @@ References:
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace RecipeTracker.Classes
 {
@@ -36,121 +37,113 @@ namespace RecipeTracker.Classes
     public class RecipeOperations
     {
         // Method to add a new recipe. It prompts the user to enter the recipe name, ingredients, and steps.
-        public static Recipe[] AddRecipe(Recipe[] recipes)
+        public static Recipe[] AddRecipes(Recipe[] recipes)
         {
             Console.WriteLine("Enter the name of the recipe:");
-            var recipeName = Console.ReadLine();
+            var recipeName = Console.ReadLine().Trim();
 
-            // While loop to ensure the recipe name is not empty
             while (string.IsNullOrWhiteSpace(recipeName))
             {
                 Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
-                recipeName = Console.ReadLine();
+                recipeName = Console.ReadLine().Trim();
             }
-
-            // Create a new Recipe object
-            var recipe = new Recipe();
-
-            // Set the recipe name in the recipe object
-            recipe.recipeName = recipeName;
 
             Console.WriteLine("Enter the number of ingredients:");
             int numOfIngs;
-
-            // While loop to ensure the number of ingredients is a valid number
             while (!int.TryParse(Console.ReadLine(), out numOfIngs) || numOfIngs <= 0)
+            {
                 Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
+            }
 
-            // For loop to add ingredients to the recipe object
+            Ingredient[] ingredients = new Ingredient[numOfIngs];
+
             for (var i = 0; i < numOfIngs; i++)
             {
                 Console.Write($"Enter the name of ingredient {i + 1}: ");
-                var ingName = Console.ReadLine();
-
-                // While loop to ensure the ingredient name is not null
+                var ingName = Console.ReadLine().Trim();
                 while (string.IsNullOrWhiteSpace(ingName))
                 {
                     Console.WriteLine($"Ingredient name cannot be empty. Please enter a valid name for ingredient {i + 1}:");
-                    ingName = Console.ReadLine();
+                    ingName = Console.ReadLine().Trim();
                 }
 
                 Console.Write($"Enter the quantity of ingredient {i + 1}: ");
                 double ingQty;
-
-                // While loop to ensure the quantity is a valid number
-                while (true)
+                while (!double.TryParse(Console.ReadLine(), NumberStyles.Any, CultureInfo.InvariantCulture, out ingQty) || ingQty <= 0)
                 {
-                    try
-                    {
-                        ingQty = ParseDoubleInvariant(Console.ReadLine());
-                        if (ingQty <= 0)
-                        {
-                            Console.WriteLine($"Invalid input. Please enter a valid quantity for ingredient {i + 1}:");
-                            continue;
-                        }
-                        break;
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine($"Invalid input format. Please enter a valid number for ingredient {i + 1}:");
-                    }
+                    Console.WriteLine($"Invalid input. Please enter a valid quantity for ingredient {i + 1}:");
                 }
 
                 Console.Write($"Enter the unit of measurement of ingredient {i + 1}: ");
-                var ingUnit = Console.ReadLine();
-
-                // While loop to ensure the unit of measurement is not null
+                var ingUnit = Console.ReadLine().Trim();
                 while (string.IsNullOrWhiteSpace(ingUnit))
                 {
                     Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
-                    ingUnit = Console.ReadLine();
+                    ingUnit = Console.ReadLine().Trim();
                 }
 
-                // Add the ingredient to the recipe object
-                recipe.AddIngredient(ingName, ingQty, ingUnit);
+                ingredients[i] = new Ingredient(ingName, ingQty, ingUnit);
             }
 
             Console.WriteLine("Enter the number of steps:");
             int numOfSteps;
-
-            // While loop to ensure the number of steps is a valid number
             while (!int.TryParse(Console.ReadLine(), out numOfSteps) || numOfSteps <= 0)
+            {
                 Console.WriteLine("Invalid input. Please enter a valid number of steps:");
+            }
 
-            // For loop to add steps to the recipe object
+            string[] steps = new string[numOfSteps];
             for (var i = 0; i < numOfSteps; i++)
             {
                 Console.Write($"Enter step {i + 1}: ");
-                var step = Console.ReadLine();
-
-                // While loop to ensure the step is not null
+                var step = Console.ReadLine().Trim();
                 while (string.IsNullOrWhiteSpace(step))
                 {
                     Console.WriteLine($"Step {i + 1} cannot be empty. Please enter a valid step:");
-                    step = Console.ReadLine();
+                    step = Console.ReadLine().Trim();
                 }
 
-                recipe.AddStep(step);
+                steps[i] = step;
             }
 
-            // Add the new recipe to the array of recipes
+            Recipe recipe = new Recipe(recipeName, ingredients, steps);
+
             Array.Resize(ref recipes, recipes.Length + 1);
             recipes[recipes.Length - 1] = recipe;
 
             Console.WriteLine("Recipe added successfully!");
             return recipes;
-        } // End of AddRecipe method
+        }
 
         // <-------------------------------------------------------------------------------------->
 
         // Method to reset the quantities of all ingredients in the recipes array. It takes an array of Recipe objects as a parameter.
         public static void ResetQuantities(Recipe[] recipes)
         {
-            // For each recipe in the recipes array, call the ResetQuantities method to reset the quantities of all ingredients.
-            foreach (var recipe in recipes)
+            if (recipes.Length == 0)
             {
-                recipe.ResetQuantities();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No recipes available.");
+                Console.ResetColor();
+                return;
             }
+
+            Console.WriteLine("Available recipes:");
+            for (int i = 0; i < recipes.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
+            }
+
+            Console.WriteLine("Enter the index of the recipe you want to reset quantities for:");
+            int recipeIndex;
+            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+            }
+
+            Recipe selectedRecipe = recipes[recipeIndex - 1];
+            selectedRecipe.ResetQuantity();
+            Console.WriteLine("Quantities reset successfully!");
         }
 
         // <-------------------------------------------------------------------------------------->
@@ -161,31 +154,30 @@ namespace RecipeTracker.Classes
         {
             foreach (var recipe in recipes)
             {
-                Console.WriteLine($"Recipe: {recipe.recipeName}\n");
-
-                Console.WriteLine("Ingredients:");
-                for (var i = 0; i < recipe.ingredients.Length; i++)
+                if (!string.IsNullOrEmpty(recipe.recipeName))
                 {
-                    var ingredient = recipe.ingredients[i];
-                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
+                    Console.WriteLine($"Recipe: {recipe.recipeName}");
+                    Console.WriteLine("Ingredients:");
+                    for (var i = 0; i < recipe.ingredients.Length; i++)
+                    {
+                        var ingredient = recipe.ingredients[i];
+                        Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
+                    }
+                    Console.WriteLine("Steps:");
+                    for (var i = 0; i < recipe.steps.Length; i++)
+                    {
+                        var step = recipe.steps[i];
+                        Console.WriteLine($"{i + 1}. {step}");
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
-
-                Console.WriteLine("Steps:");
-                for (var i = 0; i < recipe.steps.Length; i++)
-                {
-                    var step = recipe.steps[i];
-                    Console.WriteLine($"{i + 1}. {step}");
-                }
-                Console.WriteLine();
-                Console.WriteLine("-----------------------------");
-                Console.WriteLine();
             }
         }
 
         // <-------------------------------------------------------------------------------------->
 
-        // Method to delete a recipe from the recipes array. It takes an array of Recipe objects as a parameter and returns the updated array.
         public static Recipe[] DeleteRecipe(Recipe[] recipes)
         {
             if (recipes.Length == 0)
@@ -202,32 +194,33 @@ namespace RecipeTracker.Classes
 
             Console.WriteLine("Enter the index of the recipe you want to delete:");
             int recipeIndex;
-
-            // While loop to ensure the recipe index is a valid number
             while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length)
-                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
-
-            Console.WriteLine("Are you sure you want to delete the recipe? (Y/N)");
-            var confirmation = Console.ReadLine();
-
-            // While loop to ensure the user enters either "Y" or "N"
-            while (!confirmation.Equals("Y", StringComparison.OrdinalIgnoreCase) && !confirmation.Equals("N", StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("Invalid input. Please enter Y (Yes) or N (No):");
+                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+            }
+
+            Console.WriteLine("Are you sure you want to delete this recipe? (Y/N)");
+            var confirmation = Console.ReadLine();
+            while (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase) &&
+                   !string.Equals(confirmation, "N", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
                 confirmation = Console.ReadLine();
             }
 
-            if (confirmation.Equals("Y", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
             {
-                // Create a new array without the deleted recipe
+                recipes[recipeIndex - 1].ClearRecipe();
+                recipes[recipeIndex - 1].recipeName = string.Empty;
+
                 Recipe[] updatedRecipes = new Recipe[recipes.Length - 1];
-                int newIndex = 0;
+                int index = 0;
                 for (int i = 0; i < recipes.Length; i++)
                 {
                     if (i != recipeIndex - 1)
                     {
-                        updatedRecipes[newIndex] = recipes[i];
-                        newIndex++;
+                        updatedRecipes[index] = recipes[i];
+                        index++;
                     }
                 }
                 recipes = updatedRecipes;

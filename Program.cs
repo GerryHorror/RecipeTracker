@@ -50,7 +50,7 @@ namespace RecipeTracker
                 {
                     // Case 1: Add a new recipe to the Recipe object
                     case "1":
-                        recipes = RecipeOperations.AddRecipe(recipes);
+                        recipes = RecipeOperations.AddRecipes(recipes);
                         break;
                     // Case 2: Display the recipe details stored in the Recipe object
                     case "2":

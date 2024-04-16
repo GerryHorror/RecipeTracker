@@ -69,3 +69,4 @@ Follow the on-screen prompts to interact with the application:
 - [C# Dictionary with Examples](https://www.geeksforgeeks.org/c-sharp-dictionary-with-examples/)
 - [C# List](https://www.c-sharpcorner.com/article/c-sharp-list/)
 - [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
+- [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)

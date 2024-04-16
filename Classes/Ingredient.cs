@@ -6,6 +6,7 @@ References:
 - [C# List](https://www.c-sharpcorner.com/article/c-sharp-list/)
 - [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
 - [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
+- [Array.Clear Method](https://learn.microsoft.com/en-us/dotnet/api/system.array.clear?view=net-8.0)
 */
 
 /// <summary>

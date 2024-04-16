@@ -1,4 +1,10 @@
-﻿/*
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace RecipeTracker.Classes
+{
+    /*
  * RecipeOperations class contains methods to add a new recipe, display a recipe, and scale a recipe.
  * The AddRecipe method prompts the user to enter the recipe name, ingredients, and steps.
  * The DisplayRecipe method displays the recipe name, ingredients, and steps.
@@ -10,11 +16,6 @@
  The core principles of OOP, such as encapsulation and separation of concerns, are demonstrated in this class.
  */
 
-using System;
-using System.Globalization;
-
-namespace RecipeTracker.Classes
-{
     public class RecipeOperations
     {
         // Method to add a new recipe. It prompts the user to enter the recipe name, ingredients, and steps.
@@ -106,23 +107,45 @@ namespace RecipeTracker.Classes
         // Method to display a recipe with its name, ingredients, and steps. It takes a Recipe object as a parameter.
         public static void DisplayRecipe(Recipe recipe)
         {
-            Console.WriteLine($"Recipe: {recipe.recipeName}");
+            Console.WriteLine($"Recipe: {recipe.recipeName}\n");
             Console.WriteLine("Ingredients:");
-            // For loop to display the ingredients in the recipe object
             for (var i = 0; i < recipe.ingredients.Length; i++)
-                Console.WriteLine(
-                    $"{i + 1}. {recipe.ingredients[i].ingName} - {recipe.ingredients[i].ingQty} {recipe.ingredients[i].ingUnit}");
-            Console.WriteLine("Steps:");
-            var stepNum = 1;
-            // For loop to display the steps in the recipe object
-            foreach (var step in recipe.steps)
             {
-                Console.WriteLine($"{stepNum}. {step}");
-                stepNum++;
+                var ingredient = recipe.ingredients[i];
+                Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}\n");
             }
-        } // End of DisplayRecipe method
+            Console.WriteLine("Steps:");
+            for (var i = 0; i < recipe.steps.Length; i++)
+            {
+                var step = recipe.steps[i];
+                Console.WriteLine($"{i + 1}. {step}");
+            }
+        }
 
         // <-------------------------------------------------------------------------------------->
+
+        // Method to delete a recipe. It takes a Recipe object as a parameter.
+        public static void DeleteRecipeConfirmation(Recipe recipe)
+        {
+            Console.WriteLine("Are you sure you want to delete the recipe? (Y/N)");
+            var confirmation = Console.ReadLine();
+
+            // While loop to ensure the user enters either "Y" or "N"
+            while (!confirmation.Equals("Y", StringComparison.OrdinalIgnoreCase) && !confirmation.Equals("N", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Invalid input. Please enter Y (Yes) or N (No):");
+                confirmation = Console.ReadLine();
+            }
+
+            if (confirmation.Equals("Y", StringComparison.OrdinalIgnoreCase))
+            {
+                recipe.ClearRecipe();
+            }
+            else
+            {
+                Console.WriteLine("Deletion canceled.");
+            }
+        }
 
         // Method to scale a recipe by a factor of 0.5, 2, or 3. It takes a Recipe object as a parameter.
         public static void ScaleRecipe(Recipe recipe)
@@ -143,6 +166,86 @@ namespace RecipeTracker.Classes
             // Display a success message if the recipe is scaled successfully
             Console.WriteLine("Recipe scaled successfully!");
         } // End of ScaleRecipe method
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Define a dictionary to store the conversion factors for different units of measurement.
+        private static readonly Dictionary<string, double> conversionFactors = new Dictionary<string, double>
+        {
+            // Conversion factors to convert each unit to the base unit (teaspoon).
+            ["tsp"] = 1, // Base unit for volume
+            ["tbsp"] = 3, // 1 tbsp = 3 tsp
+            ["cup"] = 48, // 1 cup = 48 tsp
+            ["ml"] = 0.202884, // 1 ml = 0.202884 tsp
+            ["l"] = 202.884, // 1 l = 202.884 tsp
+            ["g"] = 1, // Base unit for weight
+            ["kg"] = 1000, // 1 kg = 1000 g
+        };
+
+        // Define a dictionary to store common aliases (abbreviations) for units of measurement.
+        private static readonly Dictionary<string, string> aliases = new Dictionary<string, string>
+        {
+            ["tablespoons"] = "tbsp", // Alias for tablespoon
+            ["tablespoon"] = "tbsp", // Alias for tablespoon (singular)
+            ["teaspoons"] = "tsp", // Alias for teaspoon
+            ["teaspoon"] = "tsp", // Alias for teaspoon (singular)
+            ["cups"] = "cup", // Alias for cup (plural)
+            ["grams"] = "g", // Alias for gram
+            ["gram"] = "g", // Alias for gram (singular)
+            ["kilograms"] = "kg", // Alias for kilogram
+            ["kilogram"] = "kg", // Alias for kilogram (singular)
+            ["milliliters"] = "ml", // Alias for milliliter
+            ["milliliter"] = "ml", // Alias for milliliter (singular)
+            ["liters"] = "l", // Alias for liter
+            ["liter"] = "l" // Alias for liter (singular)
+        };
+
+        // <-------------------------------------------------------------------------------------->
+
+        // This method converts a quantity from one unit to another based on a scaling factor.
+
+        public static (double, string) ConvertUnit(string unit, double qty, double scale)
+        {
+            // Standardize the unit by converting it to lowercase and removing leading/trailing whitespace.
+            string standardizedUnit = unit.ToLower().Trim();
+
+            // Check if the unit is an alias and replace it with the standard unit.
+            if (aliases.ContainsKey(standardizedUnit))
+            {
+                standardizedUnit = aliases[standardizedUnit];
+            }
+
+            // Check if the unit is not recognised or supported.
+            if (!conversionFactors.ContainsKey(standardizedUnit))
+            {
+                throw new ArgumentException("Unit not recognised or supported.");
+            }
+
+            // Calculate the scaled quantity in the base unit defined by 'tsp' (teaspoon).
+            double baseQty = qty * conversionFactors[standardizedUnit];
+            double scaledBaseQty = baseQty * scale;
+
+            // Initialize to use the original unit if no better unit is found.
+            string bestUnit = standardizedUnit;
+            double bestQty = scaledBaseQty;
+
+            // Find the best suitable unit by comparing each unit's scaled value to find the smallest suitable magnitude greater than 1.
+            foreach (var unitPair in conversionFactors)
+            {
+                double convertedQty = scaledBaseQty / unitPair.Value;
+                // Check if the converted quantity is practical and more suitable than the current best.
+                if (convertedQty >= 1 && (convertedQty < bestQty || bestQty < 1))
+                {
+                    bestUnit = unitPair.Key;
+                    bestQty = convertedQty;
+                }
+            }
+
+            // Return the best suitable unit and quantity rounded to two decimal places.
+            return (Math.Round(bestQty, 2), bestUnit);
+        }
+
+        // <-------------------------------------------------------------------------------------->
 
         // Method to parse a double value using the invariant culture to handle different decimal separators (e.g. '.' and ',')
 
@@ -165,4 +268,6 @@ namespace RecipeTracker.Classes
             throw new FormatException("Input is not a valid number.");
         }// End of ParseDoubleInvariant method
     } // End of RecipeOperations class
-} // End of namespace RecipeTracker.Classes
+}
+
+// < -------------------------------------------END------------------------------------------- >

@@ -92,10 +92,10 @@ namespace RecipeTracker.Classes
             // Loop through all ingredients in the recipe.
             for (var i = 0; i < ingredients.Length; i++)
             {
-                // Calculate the new quantity by multiplying the original quantity by the factor.
-                double newQty = ingredients[i].ingQty * factor;
-                // Convert the unit of measurement to a suitable unit.
-                (double scaledQty, string newUnit) = ConvertUnit(ingredients[i].ingUnit, newQty, factor);
+                // Pass the original quantity and unit with the factor to ConvertUnit
+                // ConvertUnit should handle the scaling and conversion to a suitable unit.
+                (double scaledQty, string newUnit) = RecipeOperations.ConvertUnit(ingredients[i].ingUnit, ingredients[i].ingQty, factor);
+
                 // Update the quantity and unit of the ingredient.
                 ingredients[i].ingQty = scaledQty;
                 ingredients[i].ingUnit = newUnit;
@@ -128,66 +128,6 @@ namespace RecipeTracker.Classes
         }
 
         // <-------------------------------------------------------------------------------------->
-
-        // Method to convert the quantity of an ingredient to a different unit of measurement.
-        private (double, string) ConvertUnit(string unit, double qty, double scale)
-        {
-            // Dictionary to store the conversion factors for different units of measurement.
-            var conversionFactors = new Dictionary<string, double>
-    {
-        // Conversion factors for different units of measurement.
-        {"tsp", 1},      // 1 tsp
-        {"tbsp", 3},     // 3 tsp
-        {"oz", 6},       // 6 tsp (for liquid)
-        {"cup", 48},     // 48 tsp
-        {"lb", 454},     // 454 grams
-        {"g", 1},        // 1 gram
-        {"kg", 1000}     // 1000 grams
-    };
-            // Standardise the unit by converting it to lowercase and removing leading/trailing whitespace.
-            string standardizedUnit = unit.ToLower().Trim();
-            // Dictionary to store common aliases (abbreviations) for units of measurement.
-            var aliases = new Dictionary<string, string>
-    {
-        // Common aliases (abbreviations) for units of measurement.
-        {"tablespoons", "tbsp"},
-        {"teaspoons", "tsp"},
-        {"ounces", "oz"},
-        {"pounds", "lb"},
-        {"grams", "g"},
-        {"kilograms", "kg"}
-    };
-            // Check if the unit is an alias and replace it with the standard unit.
-            if (aliases.ContainsKey(standardizedUnit))
-                standardizedUnit = aliases[standardizedUnit];
-            // Check if the unit is not recognised or supported.
-            if (!conversionFactors.ContainsKey(standardizedUnit))
-            {
-                throw new ArgumentException("Unit not recognised or supported.");
-            }
-            // Calculate the base quantity in terms of the standard unit (grams).
-            double scaledQty = qty * scale;
-            double baseQty = scaledQty * conversionFactors[standardizedUnit];
-
-            // Attempt to find the best suitable unit
-            string newUnit = standardizedUnit;
-            double newQty = baseQty;
-
-            // Sort the units based on their conversion factor, largest to smallest, for better unit fit
-            var sortedUnits = conversionFactors.OrderByDescending(u => u.Value);
-            foreach (var unitPair in sortedUnits)
-            {
-                double unitQty = baseQty / unitPair.Value;
-                if (unitQty >= 1)
-                {
-                    newUnit = unitPair.Key;
-                    newQty = unitQty;
-                    break; // Stop at the first suitable larger unit
-                }
-            }
-            // Return the new quantity and unit.
-            return (Math.Round(newQty, 2), newUnit);
-        }
     }
 } // End of Recipe class
 

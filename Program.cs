@@ -50,9 +50,7 @@ namespace RecipeTracker
                         break;
                     // Case 5: Clear the recipe details stored in the Recipe object
                     case "5":
-                        newRecipe.ClearRecipe();
-                        Console.WriteLine("Recipe cleared successfully!");
-                        Console.ResetColor();
+                        RecipeOperations.DeleteRecipeConfirmation(newRecipe);
                         break;
                     // Case 6: Exit the program by setting appRunning to false
                     case "6":

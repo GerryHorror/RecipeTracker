@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+References:
+- [How do I parse a string with a decimal point to a double?](https://stackoverflow.com/questions/1354924/how-do-i-parse-a-string-with-a-decimal-point-to-a-double)
+- [Is it possible to write to the console in color in .NET?](https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net)
+- [C# Dictionary with Examples](https://www.geeksforgeeks.org/c-sharp-dictionary-with-examples/)
+- [C# List](https://www.c-sharpcorner.com/article/c-sharp-list/)
+- [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
+- [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -19,37 +29,47 @@ namespace RecipeTracker.Classes
     public class RecipeOperations
     {
         // Method to add a new recipe. It prompts the user to enter the recipe name, ingredients, and steps.
-        public static void AddRecipe(Recipe recipe)
+        public static Recipe[] AddRecipe(Recipe[] recipes)
         {
             Console.WriteLine("Enter the name of the recipe:");
             var recipeName = Console.ReadLine();
+
             // While loop to ensure the recipe name is not empty
             while (string.IsNullOrWhiteSpace(recipeName))
             {
                 Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
                 recipeName = Console.ReadLine();
             }
+
+            // Create a new Recipe object
+            var recipe = new Recipe();
+
             // Set the recipe name in the recipe object
             recipe.recipeName = recipeName;
+
             Console.WriteLine("Enter the number of ingredients:");
             int numOfIngs;
+
             // While loop to ensure the number of ingredients is a valid number
             while (!int.TryParse(Console.ReadLine(), out numOfIngs) || numOfIngs <= 0)
                 Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
+
             // For loop to add ingredients to the recipe object
             for (var i = 0; i < numOfIngs; i++)
             {
                 Console.Write($"Enter the name of ingredient {i + 1}: ");
                 var ingName = Console.ReadLine();
+
                 // While loop to ensure the ingredient name is not null
                 while (string.IsNullOrWhiteSpace(ingName))
                 {
-                    Console.WriteLine(
-                        $"Ingredient name cannot be empty. Please enter a valid name for ingredient {i + 1}:");
+                    Console.WriteLine($"Ingredient name cannot be empty. Please enter a valid name for ingredient {i + 1}:");
                     ingName = Console.ReadLine();
                 }
+
                 Console.Write($"Enter the quantity of ingredient {i + 1}: ");
                 double ingQty;
+
                 // While loop to ensure the quantity is a valid number
                 while (true)
                 {
@@ -68,65 +88,116 @@ namespace RecipeTracker.Classes
                         Console.WriteLine($"Invalid input format. Please enter a valid number for ingredient {i + 1}:");
                     }
                 }
+
                 Console.Write($"Enter the unit of measurement of ingredient {i + 1}: ");
                 var ingUnit = Console.ReadLine();
+
                 // While loop to ensure the unit of measurement is not null
                 while (string.IsNullOrWhiteSpace(ingUnit))
                 {
-                    Console.WriteLine(
-                        $"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
+                    Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
                     ingUnit = Console.ReadLine();
                 }
 
-                // Add the ingredient to the recipe object array
+                // Add the ingredient to the recipe object
                 recipe.AddIngredient(ingName, ingQty, ingUnit);
             }
+
             Console.WriteLine("Enter the number of steps:");
             int numOfSteps;
+
             // While loop to ensure the number of steps is a valid number
             while (!int.TryParse(Console.ReadLine(), out numOfSteps) || numOfSteps <= 0)
                 Console.WriteLine("Invalid input. Please enter a valid number of steps:");
+
             // For loop to add steps to the recipe object
             for (var i = 0; i < numOfSteps; i++)
             {
                 Console.Write($"Enter step {i + 1}: ");
                 var step = Console.ReadLine();
+
                 // While loop to ensure the step is not null
                 while (string.IsNullOrWhiteSpace(step))
                 {
                     Console.WriteLine($"Step {i + 1} cannot be empty. Please enter a valid step:");
                     step = Console.ReadLine();
                 }
+
                 recipe.AddStep(step);
             }
+
+            // Add the new recipe to the array of recipes
+            Array.Resize(ref recipes, recipes.Length + 1);
+            recipes[recipes.Length - 1] = recipe;
+
             Console.WriteLine("Recipe added successfully!");
+            return recipes;
         } // End of AddRecipe method
 
         // <-------------------------------------------------------------------------------------->
 
-        // Method to display a recipe with its name, ingredients, and steps. It takes a Recipe object as a parameter.
-        public static void DisplayRecipe(Recipe recipe)
+        public static void ResetQuantities(Recipe[] recipes)
         {
-            Console.WriteLine($"Recipe: {recipe.recipeName}\n");
-            Console.WriteLine("Ingredients:");
-            for (var i = 0; i < recipe.ingredients.Length; i++)
+            foreach (var recipe in recipes)
             {
-                var ingredient = recipe.ingredients[i];
-                Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}\n");
-            }
-            Console.WriteLine("Steps:");
-            for (var i = 0; i < recipe.steps.Length; i++)
-            {
-                var step = recipe.steps[i];
-                Console.WriteLine($"{i + 1}. {step}");
+                recipe.ResetQuantities();
             }
         }
 
         // <-------------------------------------------------------------------------------------->
 
-        // Method to delete a recipe. It takes a Recipe object as a parameter.
-        public static void DeleteRecipeConfirmation(Recipe recipe)
+        // Method to display multiple recipes with their name, ingredients, and steps.
+        // It takes an array of Recipe objects as a parameter.
+        public static void DisplayRecipes(Recipe[] recipes)
         {
+            foreach (var recipe in recipes)
+            {
+                Console.WriteLine($"Recipe: {recipe.recipeName}\n");
+
+                Console.WriteLine("Ingredients:");
+                for (var i = 0; i < recipe.ingredients.Length; i++)
+                {
+                    var ingredient = recipe.ingredients[i];
+                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
+                }
+                Console.WriteLine();
+
+                Console.WriteLine("Steps:");
+                for (var i = 0; i < recipe.steps.Length; i++)
+                {
+                    var step = recipe.steps[i];
+                    Console.WriteLine($"{i + 1}. {step}");
+                }
+                Console.WriteLine();
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine();
+            }
+        }
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Method to delete a recipe from the recipes array. It takes an array of Recipe objects as a parameter and returns the updated array.
+        public static Recipe[] DeleteRecipe(Recipe[] recipes)
+        {
+            if (recipes.Length == 0)
+            {
+                Console.WriteLine("No recipes available.");
+                return recipes;
+            }
+
+            Console.WriteLine("Available recipes:");
+            for (int i = 0; i < recipes.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
+            }
+
+            Console.WriteLine("Enter the index of the recipe you want to delete:");
+            int recipeIndex;
+
+            // While loop to ensure the recipe index is a valid number
+            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length)
+                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+
             Console.WriteLine("Are you sure you want to delete the recipe? (Y/N)");
             var confirmation = Console.ReadLine();
 
@@ -139,17 +210,51 @@ namespace RecipeTracker.Classes
 
             if (confirmation.Equals("Y", StringComparison.OrdinalIgnoreCase))
             {
-                recipe.ClearRecipe();
+                // Create a new array without the deleted recipe
+                Recipe[] updatedRecipes = new Recipe[recipes.Length - 1];
+                int newIndex = 0;
+                for (int i = 0; i < recipes.Length; i++)
+                {
+                    if (i != recipeIndex - 1)
+                    {
+                        updatedRecipes[newIndex] = recipes[i];
+                        newIndex++;
+                    }
+                }
+                recipes = updatedRecipes;
+                Console.WriteLine("Recipe deleted successfully!");
             }
             else
             {
                 Console.WriteLine("Deletion canceled.");
             }
+
+            return recipes;
         }
 
         // Method to scale a recipe by a factor of 0.5, 2, or 3. It takes a Recipe object as a parameter.
-        public static void ScaleRecipe(Recipe recipe)
+        public static void ScaleRecipe(Recipe[] recipes)
         {
+            if (recipes.Length == 0)
+            {
+                Console.WriteLine("No recipes available.");
+                return;
+            }
+
+            Console.WriteLine("Available recipes:");
+            for (int i = 0; i < recipes.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
+            }
+
+            Console.WriteLine("Enter the index of the recipe you want to scale:");
+            int recipeIndex;
+
+            // While loop to ensure the recipe index is a valid number
+            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length) Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+            // Get the recipe based on the index provided by the user
+            Recipe recipe = recipes[recipeIndex - 1];
+
             Console.WriteLine("Enter the scaling factor (0.5, 2, or 3):");
             // If the input is not a valid number, display an error message
             if (!double.TryParse(Console.ReadLine(), out var factor))

@@ -1,4 +1,14 @@
-﻿// Purpose: This file contains the Ingredient class which is used to store the name, quantity, and unit of an ingredient.
+﻿/*
+References:
+- [How do I parse a string with a decimal point to a double?](https://stackoverflow.com/questions/1354924/how-do-i-parse-a-string-with-a-decimal-point-to-a-double)
+- [Is it possible to write to the console in color in .NET?](https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net)
+- [C# Dictionary with Examples](https://www.geeksforgeeks.org/c-sharp-dictionary-with-examples/)
+- [C# List](https://www.c-sharpcorner.com/article/c-sharp-list/)
+- [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
+- [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
+*/
+
+// Purpose: This file contains the Ingredient class which is used to store the name, quantity, and unit of an ingredient.
 namespace RecipeTracker.Classes
 {
     public class Ingredient

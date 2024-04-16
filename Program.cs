@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+References:
+- [How do I parse a string with a decimal point to a double?](https://stackoverflow.com/questions/1354924/how-do-i-parse-a-string-with-a-decimal-point-to-a-double)
+- [Is it possible to write to the console in color in .NET?](https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net)
+- [C# Dictionary with Examples](https://www.geeksforgeeks.org/c-sharp-dictionary-with-examples/)
+- [C# List](https://www.c-sharpcorner.com/article/c-sharp-list/)
+- [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
+- [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
+*/
+
+using System;
 using RecipeTracker.Classes;
 
 namespace RecipeTracker
@@ -9,7 +19,7 @@ namespace RecipeTracker
         private static void Main(string[] args)
         {
             // Create a new Recipe object to store the recipe details.
-            var newRecipe = new Recipe();
+            Recipe[] recipes = new Recipe[0];
             // Boolean to check if the user hasn't exited the program
             var appRunning = true;
             // While loop to keep the program running (i.e appRunning is true)
@@ -33,24 +43,24 @@ namespace RecipeTracker
                 {
                     // Case 1: Add a new recipe to the Recipe object
                     case "1":
-                        RecipeOperations.AddRecipe(newRecipe);
+                        recipes = RecipeOperations.AddRecipe(recipes);
                         break;
                     // Case 2: Display the recipe details stored in the Recipe object
                     case "2":
-                        RecipeOperations.DisplayRecipe(newRecipe);
+                        RecipeOperations.DisplayRecipes(recipes);
                         break;
                     // Case 3: Scale the recipe by a factor of 0.5, 2, or 3
                     case "3":
-                        RecipeOperations.ScaleRecipe(newRecipe);
+                        RecipeOperations.ScaleRecipe(recipes);
                         break;
                     // Case 4: Reset the quantities of all ingredients in the recipe
                     case "4":
-                        newRecipe.ResetQuantities();
+                        RecipeOperations.ResetQuantities(recipes);
                         Console.WriteLine("Quantities reset successfully!");
                         break;
                     // Case 5: Clear the recipe details stored in the Recipe object
                     case "5":
-                        RecipeOperations.DeleteRecipeConfirmation(newRecipe);
+                        RecipeOperations.DeleteRecipe(recipes);
                         break;
                     // Case 6: Exit the program by setting appRunning to false
                     case "6":

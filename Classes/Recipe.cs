@@ -1,4 +1,14 @@
-﻿// This import statement is used to import the System.Collections.Generic namespace which is used to access the List and Dictionary classes.
+﻿/*
+References:
+- [How do I parse a string with a decimal point to a double?](https://stackoverflow.com/questions/1354924/how-do-i-parse-a-string-with-a-decimal-point-to-a-double)
+- [Is it possible to write to the console in color in .NET?](https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net)
+- [C# Dictionary with Examples](https://www.geeksforgeeks.org/c-sharp-dictionary-with-examples/)
+- [C# List](https://www.c-sharpcorner.com/article/c-sharp-list/)
+- [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
+- [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
+*/
+
+// This import statement is used to import the System.Collections.Generic namespace which is used to access the List and Dictionary classes.
 using System;
 using System.Collections.Generic;
 using System.Linq;

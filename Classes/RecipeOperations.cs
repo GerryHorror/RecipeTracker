@@ -17,10 +17,6 @@ namespace RecipeTracker.Classes
 {
     public class RecipeOperations
     {
-        // Default constructor for the RecipeOperations class.
-        public RecipeOperations()
-        { }
-
         // Method to add a new recipe. It prompts the user to enter the recipe name, ingredients, and steps.
         public static void AddRecipe(Recipe recipe)
         {
@@ -81,6 +77,7 @@ namespace RecipeTracker.Classes
                     ingUnit = Console.ReadLine();
                 }
 
+                // Add the ingredient to the recipe object array
                 recipe.AddIngredient(ingName, ingQty, ingUnit);
             }
             Console.WriteLine("Enter the number of steps:");
@@ -112,7 +109,7 @@ namespace RecipeTracker.Classes
             Console.WriteLine($"Recipe: {recipe.recipeName}");
             Console.WriteLine("Ingredients:");
             // For loop to display the ingredients in the recipe object
-            for (var i = 0; i < recipe.ingredients.Count; i++)
+            for (var i = 0; i < recipe.ingredients.Length; i++)
                 Console.WriteLine(
                     $"{i + 1}. {recipe.ingredients[i].ingName} - {recipe.ingredients[i].ingQty} {recipe.ingredients[i].ingUnit}");
             Console.WriteLine("Steps:");
@@ -148,6 +145,7 @@ namespace RecipeTracker.Classes
         } // End of ScaleRecipe method
 
         // Method to parse a double value using the invariant culture to handle different decimal separators (e.g. '.' and ',')
+
         /* The ParseDoubleInvariant method is a helper method that attempts to parse a double value from a string input.
          * It first tries to parse the input using the invariant culture (which uses '.' as the decimal separator).
          * If parsing with the invariant culture fails, it then tries to parse the input using the current culture.

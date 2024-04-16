@@ -65,15 +65,23 @@ namespace RecipeTracker.Classes
         // Method to add an ingredient to the recipe. It takes the name, quantity, and unit of the ingredient as parameters.
         public void AddIngredient(string name, double qty, string unit)
         {
+            // Create a new Ingredient object with the given name, quantity, and unit.
             Ingredient ing = new Ingredient(name, qty, unit);
+            // Create a new array with increased size to accommodate the new ingredient.
             Ingredient[] newIngredients = new Ingredient[ingredients.Length + 1];
+            // Copy the existing ingredients to the new array.
             Array.Copy(ingredients, newIngredients, ingredients.Length);
+            // Add the new ingredient to the end of the new array.
             newIngredients[newIngredients.Length - 1] = ing;
+            // Update the ingredients property with the new array.
             ingredients = newIngredients;
-
+            // Create a new array with increased size to accommodate the new quantity.
             double[] newOriginalQty = new double[originalQty.Length + 1];
+            // Copy the existing quantities to the new array.
             Array.Copy(originalQty, newOriginalQty, originalQty.Length);
+            // Add the new quantity to the end of the new array.
             newOriginalQty[newOriginalQty.Length - 1] = qty;
+            // Update the originalQty property with the new array.
             originalQty = newOriginalQty;
         }
 
@@ -121,6 +129,7 @@ namespace RecipeTracker.Classes
         // Method to reset the quantity of all ingredients in a recipe to the original quantity.
         public void ResetQuantity()
         {
+            // Loop through all ingredients in the recipe.
             for (var i = 0; i < ingredients.Length; i++)
             {
                 ingredients[i].ingQty = originalQty[i];

@@ -40,8 +40,9 @@ namespace RecipeTracker.Classes
         public static Recipe[] AddRecipes(Recipe[] recipes)
         {
             Console.WriteLine("Enter the name of the recipe:");
+            // Read the recipe name from the user
             var recipeName = Console.ReadLine().Trim();
-
+            // Validate the recipe name to ensure it is not empty
             while (string.IsNullOrWhiteSpace(recipeName))
             {
                 Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
@@ -50,13 +51,14 @@ namespace RecipeTracker.Classes
 
             Console.WriteLine("Enter the number of ingredients:");
             int numOfIngs;
+            // Validate the number of ingredients to ensure it is a positive integer
             while (!int.TryParse(Console.ReadLine(), out numOfIngs) || numOfIngs <= 0)
             {
                 Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
             }
-
+            // Create an array to store the ingredients
             Ingredient[] ingredients = new Ingredient[numOfIngs];
-
+            // Loop to read the ingredient details from the user
             for (var i = 0; i < numOfIngs; i++)
             {
                 Console.Write($"Enter the name of ingredient {i + 1}: ");
@@ -81,7 +83,7 @@ namespace RecipeTracker.Classes
                     Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
                     ingUnit = Console.ReadLine().Trim();
                 }
-
+                // Create a new Ingredient object with the provided details
                 ingredients[i] = new Ingredient(ingName, ingQty, ingUnit);
             }
 
@@ -91,8 +93,9 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine("Invalid input. Please enter a valid number of steps:");
             }
-
+            // Create an array to store the steps
             string[] steps = new string[numOfSteps];
+            // Loop to read the steps from the user
             for (var i = 0; i < numOfSteps; i++)
             {
                 Console.Write($"Enter step {i + 1}: ");
@@ -102,15 +105,16 @@ namespace RecipeTracker.Classes
                     Console.WriteLine($"Step {i + 1} cannot be empty. Please enter a valid step:");
                     step = Console.ReadLine().Trim();
                 }
-
+                // Add the step to the steps array
                 steps[i] = step;
             }
-
+            // Create a new Recipe object with the provided details
             Recipe recipe = new Recipe(recipeName, ingredients, steps);
-
+            // Add the new recipe to the recipes array
             Array.Resize(ref recipes, recipes.Length + 1);
+            // Add the new recipe to the last index of the recipes array
             recipes[recipes.Length - 1] = recipe;
-
+            // Display a success message
             Console.WriteLine("Recipe added successfully!");
             return recipes;
         }
@@ -120,6 +124,7 @@ namespace RecipeTracker.Classes
         // Method to reset the quantities of all ingredients in the recipes array. It takes an array of Recipe objects as a parameter.
         public static void ResetQuantities(Recipe[] recipes)
         {
+            // Check if there are no recipes available
             if (recipes.Length == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -129,19 +134,22 @@ namespace RecipeTracker.Classes
             }
 
             Console.WriteLine("Available recipes:");
+            // Display the list of available recipes for the user to choose from
             for (int i = 0; i < recipes.Length; i++)
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }
-
+            // Prompt the user to enter the index of the recipe to reset quantities for
             Console.WriteLine("Enter the index of the recipe you want to reset quantities for:");
+            // Validate the input to ensure it is a valid number within the range of available recipes
             int recipeIndex;
             while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length)
             {
                 Console.WriteLine("Invalid input. Please enter a valid recipe index:");
             }
-
+            // Get the selected recipe based on the index provided by the user
             Recipe selectedRecipe = recipes[recipeIndex - 1];
+            // Reset the quantities of all ingredients in the selected recipe
             selectedRecipe.ResetQuantity();
             Console.WriteLine("Quantities reset successfully!");
         }
@@ -152,12 +160,14 @@ namespace RecipeTracker.Classes
         // It takes an array of Recipe objects as a parameter.
         public static void DisplayRecipes(Recipe[] recipes)
         {
+            // Check if there are no recipes available
             foreach (var recipe in recipes)
             {
                 if (!string.IsNullOrEmpty(recipe.recipeName))
                 {
                     Console.WriteLine($"Recipe: {recipe.recipeName}");
                     Console.WriteLine("Ingredients:");
+                    // Display the ingredients of the recipe
                     for (var i = 0; i < recipe.ingredients.Length; i++)
                     {
                         var ingredient = recipe.ingredients[i];
@@ -178,14 +188,16 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
+        // Method to delete a recipe from the recipes array. It takes an array of Recipe objects as a parameter.
         public static Recipe[] DeleteRecipe(Recipe[] recipes)
         {
+            // Check if there are no recipes available
             if (recipes.Length == 0)
             {
                 Console.WriteLine("No recipes available.");
                 return recipes;
             }
-
+            // Display the list of available recipes for the user to choose from and prompt the user to enter the index of the recipe to delete
             Console.WriteLine("Available recipes:");
             for (int i = 0; i < recipes.Length; i++)
             {
@@ -198,7 +210,7 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine("Invalid input. Please enter a valid recipe index:");
             }
-
+            // Confirm with the user before deleting the recipe to avoid accidental deletions
             Console.WriteLine("Are you sure you want to delete this recipe? (Y/N)");
             var confirmation = Console.ReadLine();
             while (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase) &&
@@ -207,12 +219,12 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
                 confirmation = Console.ReadLine();
             }
-
+            // If the user confirms the deletion, delete the recipe
             if (string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
             {
                 recipes[recipeIndex - 1].ClearRecipe();
                 recipes[recipeIndex - 1].recipeName = string.Empty;
-
+                // Create a new array to store the updated recipes without the deleted recipe
                 Recipe[] updatedRecipes = new Recipe[recipes.Length - 1];
                 int index = 0;
                 for (int i = 0; i < recipes.Length; i++)
@@ -223,6 +235,7 @@ namespace RecipeTracker.Classes
                         index++;
                     }
                 }
+                // Update the recipes array with the updated recipes
                 recipes = updatedRecipes;
                 Console.WriteLine("Recipe deleted successfully!");
             }

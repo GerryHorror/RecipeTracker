@@ -8,6 +8,13 @@ References:
 - [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
 */
 
+/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Part 1
+/// </summary>
+
 // Purpose: This file contains the Ingredient class which is used to store the name, quantity, and unit of an ingredient.
 namespace RecipeTracker.Classes
 {

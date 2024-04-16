@@ -8,6 +8,13 @@ References:
 - [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
 */
 
+/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Part 1
+/// </summary>
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -136,8 +143,10 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
+        // Method to reset the quantities of all ingredients in the recipes array. It takes an array of Recipe objects as a parameter.
         public static void ResetQuantities(Recipe[] recipes)
         {
+            // For each recipe in the recipes array, call the ResetQuantities method to reset the quantities of all ingredients.
             foreach (var recipe in recipes)
             {
                 recipe.ResetQuantities();

@@ -27,63 +27,46 @@ namespace RecipeTracker.Classes
     public class Recipe
     {
         // Properties for the Recipe class
-
         public string recipeName { get; set; }
 
-        // An array of ingredients used in the recipe.
-        public Ingredient[] ingredients { get; set; }
+        // A list of ingredients used in the recipe.
+        public List<Ingredient> ingredients { get; set; }
 
         // A list of steps to follow to make the recipe.
-        public string[] steps { get; set; }
+        public <List>string steps { get; set; }
 
-        // A dictionary of ingredients and their original quantity used in the recipe.
-        public double[] originalQty { get; set; }
+        // A list of original quantities of ingredients used in the recipe.
+        public <List>double originalQty { get; set; }
 
         // This is the default constructor for the Recipe class.
         public Recipe()
         {
             recipeName = string.Empty;
-            ingredients = new Ingredient[0];
-            steps = new string[0];
-            originalQty = new double[0];
+            ingredients = new List<Ingredient>();
+            steps = new List<string>();
+            originalQty = new List<double>();
         }
 
         // This is a parameterised constructor for the Recipe class.
-        public Recipe(string name, Ingredient[] ing, string[] steps)
+        public Recipe(string name, List<Ingredient> ing, List<string> steps)
         {
             recipeName = name;
             ingredients = ing;
             this.steps = steps;
-            originalQty = new double[ing.Length];
-            for (int i = 0; i < ing.Length; i++)
+            originalQty = new List<double>();
+            foreach (var ingredient in ing)
             {
-                originalQty[i] = ing[i].ingQty;
+                originalQty.Add(ingredient.ingQty);
             }
         }
-
         // <-------------------------------------------------------------------------------------->
 
         // Method to add an ingredient to the recipe. It takes the name, quantity, and unit of the ingredient as parameters.
         public void AddIngredient(string name, double qty, string unit)
         {
-            // Create a new Ingredient object with the given name, quantity, and unit.
-            Ingredient ing = new Ingredient(name, qty, unit);
-            // Create a new array with increased size to accommodate the new ingredient.
-            Ingredient[] newIngredients = new Ingredient[ingredients.Length + 1];
-            // Copy the existing ingredients to the new array.
-            Array.Copy(ingredients, newIngredients, ingredients.Length);
-            // Add the new ingredient to the end of the new array.
-            newIngredients[newIngredients.Length - 1] = ing;
-            // Update the ingredients property with the new array.
-            ingredients = newIngredients;
-            // Create a new array with increased size to accommodate the new quantity.
-            double[] newOriginalQty = new double[originalQty.Length + 1];
-            // Copy the existing quantities to the new array.
-            Array.Copy(originalQty, newOriginalQty, originalQty.Length);
-            // Add the new quantity to the end of the new array.
-            newOriginalQty[newOriginalQty.Length - 1] = qty;
-            // Update the originalQty property with the new array.
-            originalQty = newOriginalQty;
+            Ingredient newIngredient = new Ingredient(name, qty, unit);
+            ingredients.Add(newIngredient);
+            originalQty.Add(qty);
         }
 
         // <-------------------------------------------------------------------------------------->

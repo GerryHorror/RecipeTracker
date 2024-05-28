@@ -27,16 +27,16 @@ namespace RecipeTracker.Classes
     public class Recipe
     {
         // Properties for the Recipe class
-        public string recipeName { get; set; }
 
+        public string recipeName { get; set; }
         // A list of ingredients used in the recipe.
         public List<Ingredient> ingredients { get; set; }
-
         // A list of steps to follow to make the recipe.
         public <List>string steps { get; set; }
-
         // A list of original quantities of ingredients used in the recipe.
         public <List>double originalQty { get; set; }
+        // A list of original units of ingredients used in the recipe.
+        public <List>string originalUnits { get; set; }
 
         // This is the default constructor for the Recipe class.
         public Recipe()
@@ -45,6 +45,7 @@ namespace RecipeTracker.Classes
             ingredients = new List<Ingredient>();
             steps = new List<string>();
             originalQty = new List<double>();
+            originalUnits = new List<string>();
         }
 
         // This is a parameterised constructor for the Recipe class.
@@ -53,11 +54,9 @@ namespace RecipeTracker.Classes
             recipeName = name;
             ingredients = ing;
             this.steps = steps;
-            originalQty = new List<double>();
-            foreach (var ingredient in ing)
-            {
-                originalQty.Add(ingredient.ingQty);
-            }
+            // Create a list of original quantities and units for the ingredients.
+            originalQty = ing.Select(ingredient => ingredient.ingQty).ToList();
+            originalUnits = ing.Select(ingredient => ingredient.ingUnit).ToList();
         }
         // <-------------------------------------------------------------------------------------->
 
@@ -114,6 +113,7 @@ namespace RecipeTracker.Classes
             for (var i = 0; i < ingredients.Count; i++)
             {
                 ingredients[i].ingQty = originalQty[i];
+                ingredients[i].ingUnit = originalUnits[i];
             }
         }
 

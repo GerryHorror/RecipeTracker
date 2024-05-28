@@ -119,10 +119,10 @@ namespace RecipeTracker.Classes
         // <-------------------------------------------------------------------------------------->
 
         // Method to reset the quantities of all ingredients in the recipes array. It takes an array of Recipe objects as a parameter.
-        public static void ResetQuantities(Recipe[] recipes)
+        public static void ResetQuantities(List<Recipe> recipes)
         {
             // Check if there are no recipes available
-            if (recipes.Length == 0)
+            if (recipes.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No recipes available.");
@@ -132,7 +132,7 @@ namespace RecipeTracker.Classes
 
             Console.WriteLine("Available recipes:");
             // Display the list of available recipes for the user to choose from
-            for (int i = 0; i < recipes.Length; i++)
+            for (int i = 0; i < recipes.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }

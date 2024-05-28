@@ -29,12 +29,16 @@ namespace RecipeTracker.Classes
         // Properties for the Recipe class
 
         public string recipeName { get; set; }
+
         // A list of ingredients used in the recipe.
         public List<Ingredient> ingredients { get; set; }
+
         // A list of steps to follow to make the recipe.
         public List<string> steps { get; set; }
+
         // A list of original quantities of ingredients used in the recipe.
         public List<double> originalQty { get; set; }
+
         // A list of original units of ingredients used in the recipe.
         public List<string> originalUnits { get; set; }
 
@@ -58,6 +62,7 @@ namespace RecipeTracker.Classes
             originalQty = ing.Select(ingredient => ingredient.ingQty).ToList();
             originalUnits = ing.Select(ingredient => ingredient.ingUnit).ToList();
         }
+
         // <-------------------------------------------------------------------------------------->
 
         // Method to add an ingredient to the recipe. It takes the name, quantity, and unit of the ingredient as parameters.
@@ -127,9 +132,11 @@ namespace RecipeTracker.Classes
             ingredients.Clear();
             // Clear the list of steps.
             steps.Clear();
-            // Clear the list of original quantities.
+            // Clear the list of original quantities and units.
             originalQty.Clear();
+            originalUnits.Clear();
         }
+
         // <-------------------------------------------------------------------------------------->
     }
 } // End of Recipe class

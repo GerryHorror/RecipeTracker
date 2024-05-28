@@ -17,6 +17,7 @@ References:
 /// </summary>
 
 using System;
+using System.Collections.Generic;
 using RecipeTracker.Classes;
 
 namespace RecipeTracker
@@ -27,7 +28,7 @@ namespace RecipeTracker
         private static void Main(string[] args)
         {
             // Create a new Recipe object to store the recipe details.
-            Recipe[] recipes = new Recipe[0];
+            List<Recipe> recipes = new List<Recipe>();
             // Boolean to check if the user hasn't exited the program
             var appRunning = true;
             // While loop to keep the program running (i.e appRunning is true)

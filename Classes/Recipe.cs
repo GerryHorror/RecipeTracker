@@ -32,11 +32,11 @@ namespace RecipeTracker.Classes
         // A list of ingredients used in the recipe.
         public List<Ingredient> ingredients { get; set; }
         // A list of steps to follow to make the recipe.
-        public <List>string steps { get; set; }
+        public List<string> steps { get; set; }
         // A list of original quantities of ingredients used in the recipe.
-        public <List>double originalQty { get; set; }
+        public List<double> originalQty { get; set; }
         // A list of original units of ingredients used in the recipe.
-        public <List>string originalUnits { get; set; }
+        public List<string> originalUnits { get; set; }
 
         // This is the default constructor for the Recipe class.
         public Recipe()
@@ -69,6 +69,8 @@ namespace RecipeTracker.Classes
             ingredients.Add(newIngredient);
             // Add the original quantity of the ingredient to the list of original quantities.
             originalQty.Add(qty);
+            // Add the original unit of the ingredient to the list of original units.
+            originalUnits.Add(unit);
         }
 
         // <-------------------------------------------------------------------------------------->
@@ -95,8 +97,7 @@ namespace RecipeTracker.Classes
             {
                 // Pass the original quantity and unit with the factor to ConvertUnit
                 // ConvertUnit should handle the scaling and conversion to a suitable unit.
-                (double scaledQty, string newUnit) = RecipeOperations.ConvertUnit(ingredients[i].ingUnit, ingredients[i].ingQty[i], factor);
-
+                (double scaledQty, string newUnit) = RecipeOperations.ConvertUnit(ingredients[i].ingUnit, ingredients[i].ingQty, factor);
                 // Update the quantity and unit of the ingredient.
                 ingredients[i].ingQty = scaledQty;
                 ingredients[i].ingUnit = newUnit;

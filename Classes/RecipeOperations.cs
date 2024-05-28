@@ -49,7 +49,6 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
                 recipeName = Console.ReadLine().Trim();
             }
-
             Console.WriteLine("Enter the number of ingredients:");
             int numOfIngs;
             // Validate the number of ingredients to ensure it is a positive integer
@@ -57,6 +56,8 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
             }
+            // Create a new List to store the ingredients of the recipe
+            List<Ingredient> ingredients = new List<Ingredient>();
             // Loop to read the ingredient details from the user
             for (var i = 0; i < numOfIngs; i++)
             {
@@ -93,7 +94,7 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("Invalid input. Please enter a valid number of steps:");
             }
             // Create a new List to store the steps of the recipe
-            List steps = new List();
+            List<string> steps = new List<string>();
             // Loop to read the steps from the user
             for (var i = 0; i < numOfSteps; i++)
             {
@@ -140,7 +141,7 @@ namespace RecipeTracker.Classes
             Console.WriteLine("Enter the index of the recipe you want to reset quantities for:");
             // Validate the input to ensure it is a valid number within the range of available recipes
             int recipeIndex;
-            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length)
+            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Count)
             {
                 Console.WriteLine("Invalid input. Please enter a valid recipe index:");
             }
@@ -373,4 +374,4 @@ namespace RecipeTracker.Classes
     } // End of RecipeOperations class
 }
 
-// < -------------------------------------------END------------------------------------------- >
+// < -------------------------------------------END------------------------------------------- 

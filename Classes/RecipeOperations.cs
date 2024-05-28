@@ -38,7 +38,7 @@ namespace RecipeTracker.Classes
     public class RecipeOperations
     {
         // Method to add a new recipe. It prompts the user to enter the recipe name, ingredients, and steps.
-        public static Recipe[] AddRecipes(Recipe[] recipes)
+        public static List<Recipe> AddRecipes(List<Recipe> recipes)
         {
             Console.WriteLine("Enter the name of the recipe:");
             // Read the recipe name from the user
@@ -57,8 +57,6 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
             }
-            // Create an array to store the ingredients
-            Ingredient[] ingredients = new Ingredient[numOfIngs];
             // Loop to read the ingredient details from the user
             for (var i = 0; i < numOfIngs; i++)
             {
@@ -84,8 +82,8 @@ namespace RecipeTracker.Classes
                     Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
                     ingUnit = Console.ReadLine().Trim();
                 }
-                // Create a new Ingredient object with the provided details
-                ingredients[i] = new Ingredient(ingName, ingQty, ingUnit);
+                // Create a new Ingredient object with the provided details and add it to the ingredients list
+                ingredients.Add(new Ingredient(ingName, ingQty, ingUnit));
             }
 
             Console.WriteLine("Enter the number of steps:");
@@ -94,8 +92,8 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine("Invalid input. Please enter a valid number of steps:");
             }
-            // Create an array to store the steps
-            string[] steps = new string[numOfSteps];
+            // Create a new List to store the steps of the recipe
+            List steps = new List();
             // Loop to read the steps from the user
             for (var i = 0; i < numOfSteps; i++)
             {
@@ -106,15 +104,13 @@ namespace RecipeTracker.Classes
                     Console.WriteLine($"Step {i + 1} cannot be empty. Please enter a valid step:");
                     step = Console.ReadLine().Trim();
                 }
-                // Add the step to the steps array
-                steps[i] = step;
+                // Add the step to the steps list.
+                steps.Add(step);
             }
             // Create a new Recipe object with the provided details
             Recipe recipe = new Recipe(recipeName, ingredients, steps);
-            // Add the new recipe to the recipes array
-            Array.Resize(ref recipes, recipes.Length + 1);
-            // Add the new recipe to the last index of the recipes array
-            recipes[recipes.Length - 1] = recipe;
+            // Add the new recipe to the recipes list
+            recipes.Add(recipe);
             // Display a success message
             Console.WriteLine("Recipe added successfully!");
             return recipes;

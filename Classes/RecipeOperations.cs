@@ -223,17 +223,16 @@ namespace RecipeTracker.Classes
             Console.WriteLine("Recipe deleted successfully!");
         }
 
-        // Method to scale a recipe by a factor of 0.5, 2, or 3. It takes a Recipe object as a parameter.
-        public static void ScaleRecipe(Recipe[] recipes)
+        public static void ScaleRecipe(List<Recipe> recipes)
         {
-            if (recipes.Length == 0)
+            if (recipes.Count == 0)
             {
                 Console.WriteLine("No recipes available.");
                 return;
             }
 
             Console.WriteLine("Available recipes:");
-            for (int i = 0; i < recipes.Length; i++)
+            for (int i = 0; i < recipes.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }
@@ -241,27 +240,35 @@ namespace RecipeTracker.Classes
             Console.WriteLine("Enter the index of the recipe you want to scale:");
             int recipeIndex;
 
-            // While loop to ensure the recipe index is a valid number
-            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length) Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+            // Ensuring the user inputs a valid recipe index
+            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Count)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+            }
+
             // Get the recipe based on the index provided by the user
             Recipe recipe = recipes[recipeIndex - 1];
 
             Console.WriteLine("Enter the scaling factor (0.5, 2, or 3):");
-            // If the input is not a valid number, display an error message
-            if (!double.TryParse(Console.ReadLine(), out var factor))
+            double factor;
+            if (!double.TryParse(Console.ReadLine(), out factor))
             {
                 Console.WriteLine("Invalid input format. Please enter a valid number.");
                 return;
             }
-            // If the recipe scaling fails, display an error message
-            if (!recipe.ScaleRecipe(factor))
+
+            if (factor != 0.5 && factor != 2 && factor != 3)
             {
                 Console.WriteLine("Invalid scaling factor. Please enter 0.5, 2, or 3.");
                 return;
             }
+
+            // Scaling the recipe
+            recipe.ScaleRecipe(factor);
+
             // Display a success message if the recipe is scaled successfully
             Console.WriteLine("Recipe scaled successfully!");
-        } // End of ScaleRecipe method
+        }
 
         // <-------------------------------------------------------------------------------------->
 

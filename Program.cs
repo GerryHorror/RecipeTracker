@@ -65,7 +65,6 @@ namespace RecipeTracker
                     // Case 4: Reset the quantities of all ingredients in the recipe
                     case "4":
                         RecipeOperations.ResetQuantities(recipes);
-                        Console.WriteLine("Quantities reset successfully!");
                         break;
                     // Case 5: Clear the recipe details stored in the Recipe object
                     case "5":

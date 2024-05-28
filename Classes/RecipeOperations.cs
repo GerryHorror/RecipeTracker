@@ -222,9 +222,11 @@ namespace RecipeTracker.Classes
             recipes.Remove(selectedRecipe);
             Console.WriteLine("Recipe deleted successfully!");
         }
-
+        // <-------------------------------------------------------------------------------------->
+        // This method scales a recipe based on a scaling factor provided by the user (0.5, 2, or 3).
         public static void ScaleRecipe(List<Recipe> recipes)
         {
+            // Check if there are no recipes available in the list
             if (recipes.Count == 0)
             {
                 Console.WriteLine("No recipes available.");
@@ -236,8 +238,8 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }
-
-            Console.WriteLine("Enter the index of the recipe you want to scale:");
+            // Prompt the user to select a recipe to scale
+            Console.WriteLine("Please select the recipe you want to scale:");
             int recipeIndex;
 
             // Ensuring the user inputs a valid recipe index
@@ -251,25 +253,23 @@ namespace RecipeTracker.Classes
 
             Console.WriteLine("Enter the scaling factor (0.5, 2, or 3):");
             double factor;
+            // Ensuring the user inputs a valid scaling factor
             if (!double.TryParse(Console.ReadLine(), out factor))
             {
                 Console.WriteLine("Invalid input format. Please enter a valid number.");
                 return;
             }
-
+            // Check if the scaling factor is valid (0.5, 2, or 3) and display an error message if not.
             if (factor != 0.5 && factor != 2 && factor != 3)
             {
                 Console.WriteLine("Invalid scaling factor. Please enter 0.5, 2, or 3.");
                 return;
             }
-
             // Scaling the recipe
             recipe.ScaleRecipe(factor);
-
             // Display a success message if the recipe is scaled successfully
             Console.WriteLine("Recipe scaled successfully!");
         }
-
         // <-------------------------------------------------------------------------------------->
 
         // Define a dictionary to store the conversion factors for different units of measurement.

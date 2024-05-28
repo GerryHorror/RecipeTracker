@@ -154,32 +154,38 @@ namespace RecipeTracker.Classes
         // <-------------------------------------------------------------------------------------->
 
         // Method to display multiple recipes with their name, ingredients, and steps.
-        // It takes an array of Recipe objects as a parameter.
-        public static void DisplayRecipes(Recipe[] recipes)
+        // It takes a list of Recipe objects as a parameter.
+        public static void DisplayRecipes(List<Recipe> recipes)
         {
             // Check if there are no recipes available
+            if (recipes.Count == 0)
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("No recipes available.");
+                Console.ResetColor();
+                return;
+            }
+
+            Console.WriteLine("Available Recipes:");
+            Console.WriteLine("------------------");
+            // Loop through each recipe in the list and display its details
             foreach (var recipe in recipes)
             {
-                if (!string.IsNullOrEmpty(recipe.recipeName))
+                Console.WriteLine($"Recipe Name: {recipe.recipeName}");
+                Console.WriteLine("Ingredients:");
+                // Loop through each ingredient in the recipe and display its details
+                for (var i = 0; i < recipe.ingredients.Count; i++)
                 {
-                    Console.WriteLine($"Recipe: {recipe.recipeName}");
-                    Console.WriteLine("Ingredients:");
-                    // Display the ingredients of the recipe
-                    for (var i = 0; i < recipe.ingredients.Length; i++)
-                    {
-                        var ingredient = recipe.ingredients[i];
-                        Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
-                    }
-                    Console.WriteLine("Steps:");
-                    for (var i = 0; i < recipe.steps.Length; i++)
-                    {
-                        var step = recipe.steps[i];
-                        Console.WriteLine($"{i + 1}. {step}");
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine("-----------------------------");
-                    Console.WriteLine();
+                    var ingredient = recipe.ingredients[i];
+                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
                 }
+                Console.WriteLine("Steps:");
+                // Loop through each step in the recipe and display it
+                for (var i = 0; i < recipe.steps.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {recipe.steps[i]}");
+                }
+                Console.WriteLine("------------------\n");
             }
         }
 

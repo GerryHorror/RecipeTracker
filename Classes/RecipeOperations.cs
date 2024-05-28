@@ -188,66 +188,39 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("------------------\n");
             }
         }
-
         // <-------------------------------------------------------------------------------------->
 
-        // Method to delete a recipe from the recipes array. It takes an array of Recipe objects as a parameter.
-        public static Recipe[] DeleteRecipe(Recipe[] recipes)
+        // Method to delete a recipe from the recipes list. It takes an array of Recipe objects as a parameter.
+        public static void DeleteRecipe(List<Recipe> recipes)
         {
             // Check if there are no recipes available
-            if (recipes.Length == 0)
+            if (recipes.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No recipes available.");
-                return recipes;
+                Console.ResetColor();
+                return;
             }
-            // Display the list of available recipes for the user to choose from and prompt the user to enter the index of the recipe to delete
+
             Console.WriteLine("Available recipes:");
-            for (int i = 0; i < recipes.Length; i++)
+            // Display the list of available recipes for the user to choose from
+            for (int i = 0; i < recipes.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }
-
+            // Prompt the user to enter the index of the recipe to delete
             Console.WriteLine("Enter the index of the recipe you want to delete:");
+            // Validate the input to ensure it is a valid number within the range of available recipes
             int recipeIndex;
-            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Length)
+            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Count)
             {
                 Console.WriteLine("Invalid input. Please enter a valid recipe index:");
             }
-            // Confirm with the user before deleting the recipe to avoid accidental deletions
-            Console.WriteLine("Are you sure you want to delete this recipe? (Y/N)");
-            var confirmation = Console.ReadLine();
-            while (!string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase) &&
-                   !string.Equals(confirmation, "N", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
-                confirmation = Console.ReadLine();
-            }
-            // If the user confirms the deletion, delete the recipe
-            if (string.Equals(confirmation, "Y", StringComparison.OrdinalIgnoreCase))
-            {
-                recipes[recipeIndex - 1].ClearRecipe();
-                recipes[recipeIndex - 1].recipeName = string.Empty;
-                // Create a new array to store the updated recipes without the deleted recipe
-                Recipe[] updatedRecipes = new Recipe[recipes.Length - 1];
-                int index = 0;
-                for (int i = 0; i < recipes.Length; i++)
-                {
-                    if (i != recipeIndex - 1)
-                    {
-                        updatedRecipes[index] = recipes[i];
-                        index++;
-                    }
-                }
-                // Update the recipes array with the updated recipes
-                recipes = updatedRecipes;
-                Console.WriteLine("Recipe deleted successfully!");
-            }
-            else
-            {
-                Console.WriteLine("Deletion canceled.");
-            }
-
-            return recipes;
+            // Get the selected recipe based on the index provided by the user
+            Recipe selectedRecipe = recipes[recipeIndex - 1];
+            // Remove the selected recipe from the recipes list
+            recipes.Remove(selectedRecipe);
+            Console.WriteLine("Recipe deleted successfully!");
         }
 
         // Method to scale a recipe by a factor of 0.5, 2, or 3. It takes a Recipe object as a parameter.

@@ -64,8 +64,11 @@ namespace RecipeTracker.Classes
         // Method to add an ingredient to the recipe. It takes the name, quantity, and unit of the ingredient as parameters.
         public void AddIngredient(string name, double qty, string unit)
         {
+            // Create a new Ingredient object with the given name, quantity, and unit.
             Ingredient newIngredient = new Ingredient(name, qty, unit);
+            // Add the new ingredient to the list of ingredients.
             ingredients.Add(newIngredient);
+            // Add the original quantity of the ingredient to the list of original quantities.
             originalQty.Add(qty);
         }
 
@@ -74,14 +77,8 @@ namespace RecipeTracker.Classes
         // Method to add a step to the recipe. It takes the step as a parameter.
         public void AddStep(string step)
         {
-            // Create a new array with increased size to accommodate the new step.
-            string[] newSteps = new string[steps.Length + 1];
-            // Copy the existing steps to the new array.
-            Array.Copy(steps, newSteps, steps.Length);
-            // Add the new step to the end of the new array.
-            newSteps[newSteps.Length - 1] = step;
-            // Update the steps property with the new array.
-            steps = newSteps;
+            // Add the step to the list of steps.
+            steps.Add(step);
         }
 
         // <-------------------------------------------------------------------------------------->
@@ -95,11 +92,11 @@ namespace RecipeTracker.Classes
             }
 
             // Loop through all ingredients in the recipe.
-            for (var i = 0; i < ingredients.Length; i++)
+            for (var i = 0; i < ingredients.Count; i++)
             {
                 // Pass the original quantity and unit with the factor to ConvertUnit
                 // ConvertUnit should handle the scaling and conversion to a suitable unit.
-                (double scaledQty, string newUnit) = RecipeOperations.ConvertUnit(ingredients[i].ingUnit, ingredients[i].ingQty, factor);
+                (double scaledQty, string newUnit) = RecipeOperations.ConvertUnit(ingredients[i].ingUnit, ingredients[i].ingQty[i], factor);
 
                 // Update the quantity and unit of the ingredient.
                 ingredients[i].ingQty = scaledQty;
@@ -114,7 +111,7 @@ namespace RecipeTracker.Classes
         public void ResetQuantity()
         {
             // Loop through all ingredients in the recipe.
-            for (var i = 0; i < ingredients.Length; i++)
+            for (var i = 0; i < ingredients.Count; i++)
             {
                 ingredients[i].ingQty = originalQty[i];
             }
@@ -125,12 +122,13 @@ namespace RecipeTracker.Classes
         // Method to remove a recipe from the list of recipes.
         public void ClearRecipe()
         {
-            recipeName = string.Empty;
-            ingredients = new Ingredient[0];
-            steps = new string[0];
-            originalQty = new double[0];
+            // Clear the list of ingredients.
+            ingredients.Clear();
+            // Clear the list of steps.
+            steps.Clear();
+            // Clear the list of original quantities.
+            originalQty.Clear();
         }
-
         // <-------------------------------------------------------------------------------------->
     }
 } // End of Recipe class

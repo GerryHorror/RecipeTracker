@@ -27,14 +27,14 @@ namespace RecipeTracker
     {
         private static void Main(string[] args)
         {
-            // Create a new Recipe object to store the recipe details.
+            // Create a new List to store the recipes.
             List<Recipe> recipes = new List<Recipe>();
             // Boolean to check if the user hasn't exited the program
             var appRunning = true;
-            // While loop to keep the program running (i.e appRunning is true)
+            // While loop to keep the program running (i.e., appRunning is true)
             while (appRunning)
             {
-                // Console.Clear() to clear the console window before displaying the menu
+                // Clear the console window before displaying the menu
                 Console.Clear();
                 // Welcome message to the user
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -50,11 +50,11 @@ namespace RecipeTracker
                 // Switch statement to handle the user's choice
                 switch (userChoice)
                 {
-                    // Case 1: Add a new recipe to the Recipe object
+                    // Case 1: Add a new recipe to the recipes list
                     case "1":
                         recipes = RecipeOperations.AddRecipes(recipes);
                         break;
-                    // Case 2: Display the recipe details stored in the Recipe object
+                    // Case 2: Display the recipes stored in the list
                     case "2":
                         RecipeOperations.DisplayRecipes(recipes);
                         break;
@@ -66,7 +66,7 @@ namespace RecipeTracker
                     case "4":
                         RecipeOperations.ResetQuantities(recipes);
                         break;
-                    // Case 5: Clear the recipe details stored in the Recipe object
+                    // Case 5: Clear the recipe details stored in the list
                     case "5":
                         RecipeOperations.DeleteRecipe(recipes);
                         break;
@@ -80,13 +80,11 @@ namespace RecipeTracker
                         Console.WriteLine("Invalid choice. Please enter a number between 1 and 6.");
                         break;
                 }
-                // Console.WriteLine() to pause the program and wait for user input before displaying the menu again
+                // Pause the program and wait for user input before displaying the menu again
                 Console.WriteLine("Press any key to continue...");
-                // Console.ReadKey() to read the user's input (any key) before displaying the menu again
+                // Read the user's input (any key) before displaying the menu again
                 Console.ReadKey();
             }
         }
     }
 }
-
-// < -------------------------------------------END------------------------------------------- >

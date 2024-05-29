@@ -221,7 +221,48 @@ namespace RecipeTracker.Classes
         }
 
         // <-------------------------------------------------------------------------------------->
+        // Quality of life improvement: ViewAllRecipes method to display all recipes in alphabetical order.
+        public static void ViewAllRecipes(List<Recipe> recipes)
+        {
+            // Check if there are no recipes available
+            if (recipes.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No recipes available.");
+                Console.ResetColor();
+                return;
+            }
 
+            // Sort the recipes by name in alphabetical order
+            var sortedRecipes = recipes.OrderBy(recipe => recipe.recipeName).ToList();
+
+            Console.WriteLine("All Available Recipes:");
+            Console.WriteLine("----------------------");
+            // Loop through each recipe in the sorted list and display its details
+            foreach (var recipe in sortedRecipes)
+            {
+                Console.WriteLine($"Recipe Name: {recipe.recipeName}");
+                Console.WriteLine("Ingredients:");
+                // Loop through each ingredient in the recipe and display its details
+                for (var i = 0; i < recipe.ingredients.Count; i++)
+                {
+                    var ingredient = recipe.ingredients[i];
+                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
+                }
+                Console.WriteLine("Steps:");
+                // Loop through each step in the recipe and display it
+                for (var i = 0; i < recipe.steps.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {recipe.steps[i]}");
+                }
+                Console.WriteLine("------------------\n");
+            }
+
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadKey();
+        }
+
+        // <-------------------------------------------------------------------------------------->
         // Method to delete a recipe from the recipes list. It takes an array of Recipe objects as a parameter.
         public static void DeleteRecipe(List<Recipe> recipes)
         {

@@ -44,40 +44,46 @@ namespace RecipeTracker
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("What would you like to do today?");
                 Console.WriteLine(
-                    "1. Add a new recipe\n2. Display a recipe\n3. Scale a recipe\n4. Reset quantities\n5. Clear a recipe\n6. Exit");
+                   "1. Add a new recipe\n2. Display a specific recipe\n3. View all recipes\n4. Scale a recipe\n5. Reset quantities\n6. Clear a recipe\n7. Exit");
                 string userChoice = Console.ReadLine();
                 Console.ResetColor();
                 // Switch statement to handle the user's choice
                 switch (userChoice)
                 {
-                    // Case 1: Add a new recipe to the recipes list
+                    // Case 1: Add a new recipe to the Recipe object
                     case "1":
                         recipes = RecipeOperations.AddRecipes(recipes);
                         break;
-                    // Case 2: Display the recipes stored in the list
+                    // Case 2: Display the recipe details stored in the Recipe object
                     case "2":
                         RecipeOperations.DisplayRecipes(recipes);
                         break;
-                    // Case 3: Scale the recipe by a factor of 0.5, 2, or 3
+                    // Case 3: View all recipes
                     case "3":
+                        RecipeOperations.ViewAllRecipes(recipes);
+                        break;
+                    // Case 4: Scale the recipe by a factor of 0.5, 2, or 3
+                    case "4":
                         RecipeOperations.ScaleRecipe(recipes);
                         break;
-                    // Case 4: Reset the quantities of all ingredients in the recipe
-                    case "4":
+                    // Case 5: Reset the quantities of all ingredients in the recipe
+                    case "5":
                         RecipeOperations.ResetQuantities(recipes);
                         break;
-                    // Case 5: Clear the recipe details stored in the list
-                    case "5":
+                    // Case 6: Clear the recipe details stored in the Recipe object
+                    case "6":
                         RecipeOperations.DeleteRecipe(recipes);
                         break;
-                    // Case 6: Exit the program by setting appRunning to false
-                    case "6":
+                    // Case 7: Exit the program by setting appRunning to false
+                    case "7":
                         Console.WriteLine("Thank you for using Recipe Tracker! Goodbye!");
                         appRunning = false;
                         break;
-                    // Default case: Display an error message for invalid choices (i.e., choices other than 1-6)
+                    // Default case: Display an error message for invalid choices (i.e., choices other than 1-7)
                     default:
-                        Console.WriteLine("Invalid choice. Please enter a number between 1 and 6.");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid choice. Please enter a number between 1 and 7.");
+                        Console.ResetColor();
                         break;
                 }
                 // Pause the program and wait for user input before displaying the menu again

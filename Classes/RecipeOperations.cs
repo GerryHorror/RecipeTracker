@@ -42,7 +42,7 @@ namespace RecipeTracker.Classes
     public class RecipeOperations
     {
         // Method to add a new recipe. It prompts the user to enter the recipe name, ingredients, and steps.
-        public static List<Recipe> AddRecipes(List<Recipe> recipes)
+        public static List<Recipe> AddRecipes(List<Recipe> recipes, NotifyUser notifyCalories)
         {
             Console.WriteLine("Enter the name of the recipe:");
             // Read the recipe name from the user
@@ -188,6 +188,10 @@ namespace RecipeTracker.Classes
             Recipe recipe = new Recipe(recipeName, ingredients, steps);
             // Add the new recipe to the recipes list
             recipes.Add(recipe);
+
+            // Calculate total calories and trigger notification if necessary
+            var result = CalculateTotalCalories(recipe, notifyCalories);
+
             // Display a success message
             Console.WriteLine("Recipe added successfully!");
             return recipes;

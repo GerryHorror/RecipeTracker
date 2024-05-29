@@ -52,7 +52,7 @@ namespace RecipeTracker
                 {
                     // Case 1: Add a new recipe to the Recipe object
                     case "1":
-                        recipes = RecipeOperations.AddRecipes(recipes);
+                        recipes = RecipeOperations.AddRecipes(recipes, NotifyUser);
                         break;
                     // Case 2: Display the recipe details stored in the Recipe object
                     case "2":
@@ -94,7 +94,7 @@ namespace RecipeTracker
         }
 
         // < -------------------------------------------------------------------------------------- >
-
+        // Private helper method to notify the user if the recipe exceeds 300 calories (as per the requirement)
         private static void NotifyUser(int totalCalories)
         {
             Console.ForegroundColor = ConsoleColor.Red;

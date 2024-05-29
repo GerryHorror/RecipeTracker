@@ -85,15 +85,25 @@ namespace RecipeTracker.Classes
                     Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
                     ingUnit = Console.ReadLine().Trim();
                 }
-                // User can now enter the number of calories for the ingredient and select the food group
+
+                // Explanation of calories
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Calories represent the amount of energy provided by a food item. The higher the calorie count, the more energy the food provides.");
+                Console.ResetColor();
+                // Prompt the user to enter the number of calories for the ingredient and validate the input
                 Console.Write($"Enter the number of calories for ingredient {i + 1}: ");
                 int calories;
                 while (!int.TryParse(Console.ReadLine(), out calories) || calories < 0)
                 {
                     Console.WriteLine($"Invalid input. Please enter a valid number of calories for ingredient {i + 1}:");
                 }
-                // Prompt the user to select the food group for the ingredient from a list of options
-                Console.WriteLine("Select the food group for ingredient {i + 1}:");
+
+                // Explanation of food groups
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Food groups classify foods based on their nutritional properties. The seven food groups are:");
+                Console.ResetColor();
+                // Display the list of food groups for the user to choose from and prompt the user to select a food group
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("1. Starchy foods");
                 Console.WriteLine("2. Vegetables and fruits");
                 Console.WriteLine("3. Dry beans, peas, lentils and soya");
@@ -101,10 +111,13 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("5. Milk and dairy products");
                 Console.WriteLine("6. Fats and oil");
                 Console.WriteLine("7. Water");
+                Console.ResetColor();
+
+                Console.Write($"Select the food group for ingredient {ingName} (1-7): ");
                 string foodGroup;
-                // Loop to validate the user input and assign the food group based on the selection
                 while (true)
                 {
+                    // Validate the input to ensure it is a valid food group (1-7) and assign the selected food group to the variable
                     switch (Console.ReadLine())
                     {
                         case "1":
@@ -136,7 +149,9 @@ namespace RecipeTracker.Classes
                             break;
 
                         default:
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Invalid choice. Please select a valid food group (1-7):");
+                            Console.ResetColor();
                             continue;
                     }
                     break;

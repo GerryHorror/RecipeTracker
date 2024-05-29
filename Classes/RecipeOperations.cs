@@ -100,7 +100,7 @@ namespace RecipeTracker.Classes
 
                 // Explanation of food groups
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Food groups classify foods based on their nutritional properties. The seven food groups are:");
+                Console.WriteLine("Food groups classify foods based on their nutritional properties. The seven food groups are:\n");
                 Console.ResetColor();
                 // Display the list of food groups for the user to choose from and prompt the user to select a food group
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -112,8 +112,8 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("6. Fats and oil");
                 Console.WriteLine("7. Water");
                 Console.ResetColor();
-
-                Console.Write($"Select the food group for ingredient {ingName} (1-7): ");
+                Console.WriteLine();
+                Console.Write($"Select the food group for the ingredient {ingName}: ");
                 string foodGroup;
                 while (true)
                 {
@@ -211,13 +211,13 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }
-            // Prompt the user to enter the index of the recipe to reset quantities for
-            Console.WriteLine("Enter the index of the recipe you want to reset quantities for:");
+            // Prompt the user to select the recipe to reset quantities for
+            Console.WriteLine("Please select the recipe you want to reset quantities for:");
             // Validate the input to ensure it is a valid number within the range of available recipes
             int recipeIndex;
             while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Count)
             {
-                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+                Console.WriteLine("Invalid input. Please select a valid recipe:");
             }
             // Get the selected recipe based on the index provided by the user
             Recipe selectedRecipe = recipes[recipeIndex - 1];
@@ -321,7 +321,7 @@ namespace RecipeTracker.Classes
                 for (var i = 0; i < recipe.ingredients.Count; i++)
                 {
                     var ingredient = recipe.ingredients[i];
-                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
+                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}, {ingredient.Calories} calories, {ingredient.FoodGroup}");
                 }
                 Console.WriteLine("Steps:");
                 // Loop through each step in the recipe and display it
@@ -331,8 +331,6 @@ namespace RecipeTracker.Classes
                 }
                 Console.WriteLine("------------------\n");
             }
-
-            Console.WriteLine("Press any key to return to the menu...");
             Console.ReadKey();
         }
 
@@ -355,13 +353,13 @@ namespace RecipeTracker.Classes
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }
-            // Prompt the user to enter the index of the recipe to delete
-            Console.WriteLine("Enter the index of the recipe you want to delete:");
+            // Prompt the user select the recipe to delete
+            Console.WriteLine("Please select the recipe you want to delete:");
             // Validate the input to ensure it is a valid number within the range of available recipes
             int recipeIndex;
             while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Count)
             {
-                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+                Console.WriteLine("Invalid input. Please select a valid recipe:");
             }
             // Get the selected recipe based on the index provided by the user
             Recipe selectedRecipe = recipes[recipeIndex - 1];
@@ -393,7 +391,7 @@ namespace RecipeTracker.Classes
             // Ensuring the user inputs a valid recipe index
             while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Count)
             {
-                Console.WriteLine("Invalid input. Please enter a valid recipe index:");
+                Console.WriteLine("Invalid input. Please select a valid recipe:");
             }
 
             // Get the recipe based on the index provided by the user

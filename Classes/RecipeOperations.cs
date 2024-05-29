@@ -396,24 +396,58 @@ namespace RecipeTracker.Classes
             }
 
             Console.WriteLine("Available recipes:");
+            Console.WriteLine(new string('-', 40));
             // Display the list of available recipes for the user to choose from
             for (int i = 0; i < recipes.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {recipes[i].recipeName}");
             }
-            // Prompt the user select the recipe to delete
-            Console.WriteLine("Please select the recipe you want to delete:");
+            Console.WriteLine(new string('-', 40));
+
+            // Prompt the user to select the recipe to delete
+            Console.WriteLine("Please select the recipe you want to delete by entering the corresponding number:");
             // Validate the input to ensure it is a valid number within the range of available recipes
             int recipeIndex;
             while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 1 || recipeIndex > recipes.Count)
             {
-                Console.WriteLine("Invalid input. Please select a valid recipe:");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input. Please select a valid recipe number:");
+                Console.ResetColor();
             }
+
             // Get the selected recipe based on the index provided by the user
             Recipe selectedRecipe = recipes[recipeIndex - 1];
-            // Remove the selected recipe from the recipes list
-            recipes.Remove(selectedRecipe);
-            Console.WriteLine("Recipe deleted successfully!");
+
+            // Ask for confirmation before deleting
+            Console.WriteLine($"Are you sure you want to delete '{selectedRecipe.recipeName}'? (yes/no)");
+            string confirmation;
+            // Validate the input to ensure it is either 'yes' or 'no'
+            while (true)
+            {
+                confirmation = Console.ReadLine().ToLower();
+                if (confirmation == "yes" || confirmation == "no")
+                {
+                    break;
+                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input. Please enter 'yes' or 'no':");
+                Console.ResetColor();
+            }
+
+            if (confirmation == "yes")
+            {
+                // Remove the selected recipe from the recipes list
+                recipes.Remove(selectedRecipe);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Recipe deleted successfully!");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Deletion cancelled.");
+                Console.ResetColor();
+            }
         }
 
         // <-------------------------------------------------------------------------------------->

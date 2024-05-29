@@ -8,7 +8,8 @@ References:
 - [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
 - [Array.Clear Method](https://learn.microsoft.com/en-us/dotnet/api/system.array.clear?view=net-8.0)
 - [C# OrderBy Method](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.orderby?view=net-5.0)
-- [Food Groups](https://sweetlife.org.za/what-are-the-different-food-groupsa-simple-explanation/)
+- [Food Groups](https://sweetlife.org.za/what-are-the-different-food-groups-a-simple-explanation/)
+- [Calorie Intake Chart](https://www.webmd.com/diet/calories-chart)
 */
 
 /// <summary>
@@ -319,17 +320,19 @@ namespace RecipeTracker.Classes
             }
 
             // Calculate the total calories in the recipe and display it
-            int totalCalories = CalculateTotalCalories(recipe);
+            var result = CalculateTotalCalories(recipe);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Total Calories: {totalCalories}");
+            Console.WriteLine($"Total Calories: {result.TotalCalories}");
             Console.ResetColor();
+            Console.WriteLine(result.CalorieInfo);
             Console.ReadKey();
         }
 
         // <-------------------------------------------------------------------------------------->
 
         // Method to calculate the total calories in a recipe based on the ingredients.
-        public static int CalculateTotalCalories(Recipe recipe)
+        // This method is a tuple (it returns multiple values) containing the total calories and a string with calorie information.
+        public static (int TotalCalories, string CalorieInfo) CalculateTotalCalories(Recipe recipe)
         {
             // Initialise the total calories to 0
             int totalCalories = 0;
@@ -338,7 +341,26 @@ namespace RecipeTracker.Classes
             {
                 totalCalories += ingredient.Calories;
             }
-            return totalCalories;
+
+            // Return the total calories and a string with the calorie information
+            string calorieInfo;
+            if (totalCalories < 200)
+            {
+                calorieInfo = "This recipe is low in calories, making it a great option for a snack or a light meal.";
+            }
+            else if (totalCalories >= 200 && totalCalories <= 500)
+            {
+                calorieInfo = "This recipe has a moderate amount of calories, suitable for a balanced meal.";
+            }
+            else if (totalCalories > 500 && totalCalories <= 800)
+            {
+                calorieInfo = "This recipe is high in calories, so it should be consumed in moderation.";
+            }
+            else
+            {
+                calorieInfo = "This recipe is very high in calories and should be consumed sparingly.";
+            }
+            return (totalCalories, calorieInfo);
         }
 
         // <-------------------------------------------------------------------------------------->

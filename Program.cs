@@ -92,5 +92,14 @@ namespace RecipeTracker
                 Console.ReadKey();
             }
         }
+
+        // < -------------------------------------------------------------------------------------- >
+
+        private static void NotifyUser(int totalCalories)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Warning: This recipe exceeds 300 calories with a total of {totalCalories} calories!");
+            Console.ResetColor();
+        }
     }
 }

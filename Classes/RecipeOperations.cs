@@ -195,7 +195,7 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
-        // Method to reset the quantities of all ingredients in the recipes array. It takes an array of Recipe objects as a parameter.
+        // Method to reset the quantities of all ingredients in the recipes array.
         public static void ResetQuantities(List<Recipe> recipes)
         {
             // Check if there are no recipes available
@@ -268,14 +268,14 @@ namespace RecipeTracker.Classes
             // Check if the user wants to return to the main menu
             if (recipeIndex > 0)
             {
-                DisplayRecipeDetails(sortedRecipes[recipeIndex - 1]);
+                DisplayRecipeDetails(sortedRecipes[recipeIndex - 1], NotifyIfHighCalories);
             }
         }
 
         // <-------------------------------------------------------------------------------------->
 
         // Method to display the details of a recipe from the recipes list based on the index provided by the user.
-        public static void DisplayRecipeDetails(Recipe recipe)
+        public static void DisplayRecipeDetails(Recipe recipe, NotifyUser notifyCalories)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -321,7 +321,7 @@ namespace RecipeTracker.Classes
             }
 
             // Calculate the total calories in the recipe and display it
-            var result = CalculateTotalCalories(recipe);
+            var result = CalculateTotalCalories(recipe, notifyCalories);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Total Calories: {result.TotalCalories}");
             Console.ResetColor();
@@ -335,7 +335,7 @@ namespace RecipeTracker.Classes
 
         // Method to calculate the total calories in a recipe based on the ingredients.
         // This method is a tuple (it returns multiple values) containing the total calories and a string with calorie information.
-        public static (int TotalCalories, string CalorieInfo, ConsoleColor InfoColor) CalculateTotalCalories(Recipe recipe)
+        public static (int TotalCalories, string CalorieInfo, ConsoleColor InfoColor) CalculateTotalCalories(Recipe recipe, NotifyUser notifyCalories)
         {
             // Initialise the total calories to 0
             int totalCalories = 0;
@@ -343,6 +343,12 @@ namespace RecipeTracker.Classes
             foreach (var ingredient in recipe.ingredients)
             {
                 totalCalories += ingredient.Calories;
+            }
+
+            // Notify the user if the total calories exceed 300 using the delegate
+            if (totalCalories > 300)
+            {
+                notifyCalories?.Invoke(totalCalories);
             }
 
             // Return the total calories and a string with the calorie information
@@ -369,6 +375,19 @@ namespace RecipeTracker.Classes
                 infoColor = ConsoleColor.Red;
             }
             return (totalCalories, calorieInfo, infoColor);
+        }
+
+        // This is a delegate that will notify the user once calories for a recipe exceeds 300.
+        public delegate void NotifyUser(int totalCalories);
+
+        public static void NotifyIfHighCalories(int totalCalories)
+        {
+            if (totalCalories > 300)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Warning: This recipe exceeds 300 calories with a total of {totalCalories} calories!");
+                Console.ResetColor();
+            }
         }
 
         // <-------------------------------------------------------------------------------------->

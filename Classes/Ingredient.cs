@@ -16,7 +16,7 @@ References:
 ///   POE Part 1
 /// </summary>
 
-// Purpose: This file contains the Ingredient class which is used to store the name, quantity, and unit of an ingredient.
+// Purpose: This file contains the Ingredient class which is used to store the name, quantity, unit, calories, and food group of an ingredient.
 namespace RecipeTracker.Classes
 {
     public class Ingredient
@@ -26,6 +26,8 @@ namespace RecipeTracker.Classes
         public string ingName { get; set; }
         public double ingQty { get; set; }
         public string ingUnit { get; set; }
+        public int Calories { get; set; }
+        public string FoodGroup { get; set; }
 
         //Parameterless constructor for the Ingredient class (default constructor).
         //This is called when an object of the class is created without any parameters.
@@ -34,11 +36,13 @@ namespace RecipeTracker.Classes
         }
 
         //Parameterised constructor for the Ingredient class (overloaded constructor) which means it can be called with different parameters.
-        public Ingredient(string name, double qty, string unit)
+        public Ingredient(string name, double qty, string unit, int calories, string foodGroup)
         {
             ingName = name;
             ingQty = qty;
             ingUnit = unit;
+            Calories = calories;
+            FoodGroup = foodGroup;
         }
     }
 }

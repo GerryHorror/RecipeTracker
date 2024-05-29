@@ -248,7 +248,9 @@ namespace RecipeTracker.Classes
             // Loop through each recipe in the sorted list and display its name and index
             for (int i = 0; i < sortedRecipes.Count; i++)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"{i + 1}. {sortedRecipes[i].recipeName}");
+                Console.ResetColor();
             }
 
             Console.WriteLine("------------------\n");
@@ -279,7 +281,7 @@ namespace RecipeTracker.Classes
             for (var i = 0; i < recipe.ingredients.Count; i++)
             {
                 var ingredient = recipe.ingredients[i];
-                Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
+                Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}, {ingredient.Calories} calories, {ingredient.FoodGroup}");
             }
             Console.WriteLine("Steps:");
             // Loop through each step in the recipe and display it

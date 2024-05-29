@@ -85,8 +85,65 @@ namespace RecipeTracker.Classes
                     Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
                     ingUnit = Console.ReadLine().Trim();
                 }
+                // User can now enter the number of calories for the ingredient and select the food group
+                Console.Write($"Enter the number of calories for ingredient {i + 1}: ");
+                int calories;
+                while (!int.TryParse(Console.ReadLine(), out calories) || calories < 0)
+                {
+                    Console.WriteLine($"Invalid input. Please enter a valid number of calories for ingredient {i + 1}:");
+                }
+                // Prompt the user to select the food group for the ingredient from a list of options
+                Console.WriteLine("Select the food group for ingredient {i + 1}:");
+                Console.WriteLine("1. Starchy foods");
+                Console.WriteLine("2. Vegetables and fruits");
+                Console.WriteLine("3. Dry beans, peas, lentils and soya");
+                Console.WriteLine("4. Chicken, fish, meat and eggs");
+                Console.WriteLine("5. Milk and dairy products");
+                Console.WriteLine("6. Fats and oil");
+                Console.WriteLine("7. Water");
+                string foodGroup;
+                // Loop to validate the user input and assign the food group based on the selection
+                while (true)
+                {
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            foodGroup = "Starchy foods";
+                            break;
+
+                        case "2":
+                            foodGroup = "Vegetables and fruits";
+                            break;
+
+                        case "3":
+                            foodGroup = "Dry beans, peas, lentils and soya";
+                            break;
+
+                        case "4":
+                            foodGroup = "Chicken, fish, meat and eggs";
+                            break;
+
+                        case "5":
+                            foodGroup = "Milk and dairy products";
+                            break;
+
+                        case "6":
+                            foodGroup = "Fats and oil";
+                            break;
+
+                        case "7":
+                            foodGroup = "Water";
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid choice. Please select a valid food group (1-7):");
+                            continue;
+                    }
+                    break;
+                }
+
                 // Create a new Ingredient object with the provided details and add it to the ingredients list
-                ingredients.Add(new Ingredient(ingName, ingQty, ingUnit));
+                ingredients.Add(new Ingredient(ingName, ingQty, ingUnit, calories, foodGroup));
             }
 
             Console.WriteLine("Enter the number of steps:");

@@ -10,6 +10,7 @@ References:
 - [C# OrderBy Method](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.orderby?view=net-5.0)
 - [Food Groups](https://sweetlife.org.za/what-are-the-different-food-groups-a-simple-explanation/)
 - [Calorie Intake Chart](https://www.webmd.com/diet/calories-chart)
+- [Tuple Method in C#](https://www.geeksforgeeks.org/c-sharp-tuple-class/)
 */
 
 /// <summary>
@@ -324,7 +325,9 @@ namespace RecipeTracker.Classes
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Total Calories: {result.TotalCalories}");
             Console.ResetColor();
+            Console.ForegroundColor = result.InfoColor;
             Console.WriteLine(result.CalorieInfo);
+            Console.ResetColor();
             Console.ReadKey();
         }
 
@@ -332,7 +335,7 @@ namespace RecipeTracker.Classes
 
         // Method to calculate the total calories in a recipe based on the ingredients.
         // This method is a tuple (it returns multiple values) containing the total calories and a string with calorie information.
-        public static (int TotalCalories, string CalorieInfo) CalculateTotalCalories(Recipe recipe)
+        public static (int TotalCalories, string CalorieInfo, ConsoleColor InfoColor) CalculateTotalCalories(Recipe recipe)
         {
             // Initialise the total calories to 0
             int totalCalories = 0;
@@ -344,23 +347,28 @@ namespace RecipeTracker.Classes
 
             // Return the total calories and a string with the calorie information
             string calorieInfo;
+            ConsoleColor infoColor;
             if (totalCalories < 200)
             {
                 calorieInfo = "This recipe is low in calories, making it a great option for a snack or a light meal.";
+                infoColor = ConsoleColor.Cyan;
             }
             else if (totalCalories >= 200 && totalCalories <= 500)
             {
                 calorieInfo = "This recipe has a moderate amount of calories, suitable for a balanced meal.";
+                infoColor = ConsoleColor.Yellow;
             }
             else if (totalCalories > 500 && totalCalories <= 800)
             {
                 calorieInfo = "This recipe is high in calories, so it should be consumed in moderation.";
+                infoColor = ConsoleColor.DarkYellow;
             }
             else
             {
                 calorieInfo = "This recipe is very high in calories and should be consumed sparingly.";
+                infoColor = ConsoleColor.Red;
             }
-            return (totalCalories, calorieInfo);
+            return (totalCalories, calorieInfo, infoColor);
         }
 
         // <-------------------------------------------------------------------------------------->

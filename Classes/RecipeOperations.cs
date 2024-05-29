@@ -8,6 +8,7 @@ References:
 - [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
 - [Array.Clear Method](https://learn.microsoft.com/en-us/dotnet/api/system.array.clear?view=net-8.0)
 - [C# OrderBy Method](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.orderby?view=net-5.0)
+- [Food Groups](https://sweetlife.org.za/what-are-the-different-food-groupsa-simple-explanation/)
 */
 
 /// <summary>
@@ -317,7 +318,27 @@ namespace RecipeTracker.Classes
                 Console.WriteLine(new string('-', 40));
             }
 
+            // Calculate the total calories in the recipe and display it
+            int totalCalories = CalculateTotalCalories(recipe);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Total Calories: {totalCalories}");
+            Console.ResetColor();
             Console.ReadKey();
+        }
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Method to calculate the total calories in a recipe based on the ingredients.
+        public static int CalculateTotalCalories(Recipe recipe)
+        {
+            // Initialise the total calories to 0
+            int totalCalories = 0;
+            // Loop through each ingredient in the recipe and add its calories to the total
+            foreach (var ingredient in recipe.ingredients)
+            {
+                totalCalories += ingredient.Calories;
+            }
+            return totalCalories;
         }
 
         // <-------------------------------------------------------------------------------------->

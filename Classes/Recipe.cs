@@ -66,10 +66,10 @@ namespace RecipeTracker.Classes
         // <-------------------------------------------------------------------------------------->
 
         // Method to add an ingredient to the recipe. It takes the name, quantity, and unit of the ingredient as parameters.
-        public void AddIngredient(string name, double qty, string unit)
+        public void AddIngredient(string name, double qty, string unit, int calories, string foodGroup)
         {
             // Create a new Ingredient object with the given name, quantity, and unit.
-            Ingredient newIngredient = new Ingredient(name, qty, unit);
+            Ingredient newIngredient = new Ingredient(name, qty, unit, calories, foodGroup);
             // Add the new ingredient to the list of ingredients.
             ingredients.Add(newIngredient);
             // Add the original quantity of the ingredient to the list of original quantities.

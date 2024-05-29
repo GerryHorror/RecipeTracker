@@ -156,8 +156,7 @@ namespace RecipeTracker.Classes
 
         // <-------------------------------------------------------------------------------------->
 
-        // Method to display multiple recipes with their name, ingredients, and steps.
-        // It takes a list of Recipe objects as a parameter.
+        // Method to display the details of a recipe. It takes a Recipe object as a parameter.
         public static void DisplayRecipes(List<Recipe> recipes)
         {
             // Check if there are no recipes available
@@ -174,25 +173,51 @@ namespace RecipeTracker.Classes
 
             Console.WriteLine("Available Recipes:");
             Console.WriteLine("------------------");
-            // Loop through each recipe in the list and display its details
-            foreach (var recipe in sortedRecipes)
+            // Loop through each recipe in the sorted list and display its name and index
+            for (int i = 0; i < sortedRecipes.Count; i++)
             {
-                Console.WriteLine($"Recipe Name: {recipe.recipeName}");
-                Console.WriteLine("Ingredients:");
-                // Loop through each ingredient in the recipe and display its details
-                for (var i = 0; i < recipe.ingredients.Count; i++)
-                {
-                    var ingredient = recipe.ingredients[i];
-                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
-                }
-                Console.WriteLine("Steps:");
-                // Loop through each step in the recipe and display it
-                for (var i = 0; i < recipe.steps.Count; i++)
-                {
-                    Console.WriteLine($"{i + 1}. {recipe.steps[i]}");
-                }
-                Console.WriteLine("------------------\n");
+                Console.WriteLine($"{i + 1}. {sortedRecipes[i].recipeName}");
             }
+
+            Console.WriteLine("------------------\n");
+            Console.WriteLine("Enter the number of the recipe you want to view, or 0 to return to the menu:");
+            // Validate the input to ensure it is a valid number within the range of available recipes
+            int recipeIndex;
+            while (!int.TryParse(Console.ReadLine(), out recipeIndex) || recipeIndex < 0 || recipeIndex > sortedRecipes.Count)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input. Please enter a valid recipe number:");
+                Console.ResetColor();
+            }
+            // Check if the user wants to return to the main menu
+            if (recipeIndex > 0)
+            {
+                DisplayRecipeDetails(sortedRecipes[recipeIndex - 1]);
+            }
+        }
+
+        // <-------------------------------------------------------------------------------------->
+
+        // Method to display the details of a recipe from the recipes list based on the index provided by the user.
+        public static void DisplayRecipeDetails(Recipe recipe)
+        {
+            Console.WriteLine($"Recipe Name: {recipe.recipeName}");
+            Console.WriteLine("Ingredients:");
+            // Loop through each ingredient in the recipe and display its details
+            for (var i = 0; i < recipe.ingredients.Count; i++)
+            {
+                var ingredient = recipe.ingredients[i];
+                Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}");
+            }
+            Console.WriteLine("Steps:");
+            // Loop through each step in the recipe and display it
+            for (var i = 0; i < recipe.steps.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {recipe.steps[i]}");
+            }
+            Console.WriteLine("------------------\n");
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadKey();
         }
 
         // <-------------------------------------------------------------------------------------->

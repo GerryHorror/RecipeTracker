@@ -100,7 +100,7 @@ namespace RecipeTracker.Classes
 
                 // Explanation of food groups
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Food groups classify foods based on their nutritional properties. The seven food groups are:\n");
+                Console.WriteLine("Food groups classify foods based on their nutritional properties. The seven food groups are:");
                 Console.ResetColor();
                 // Display the list of food groups for the user to choose from and prompt the user to select a food group
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -112,7 +112,6 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("6. Fats and oil");
                 Console.WriteLine("7. Water");
                 Console.ResetColor();
-                Console.WriteLine();
                 Console.Write($"Select the food group for the ingredient {ingName}: ");
                 string foodGroup;
                 while (true)
@@ -275,22 +274,49 @@ namespace RecipeTracker.Classes
         // Method to display the details of a recipe from the recipes list based on the index provided by the user.
         public static void DisplayRecipeDetails(Recipe recipe)
         {
-            Console.WriteLine($"Recipe Name: {recipe.recipeName}");
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Recipe Name:");
+            Console.ResetColor();
+            Console.WriteLine($"  {recipe.recipeName}");
+
+            Console.WriteLine(new string('-', 40));
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Ingredients:");
+            Console.ResetColor();
+            Console.WriteLine(new string('-', 40));
+
             // Loop through each ingredient in the recipe and display its details
             for (var i = 0; i < recipe.ingredients.Count; i++)
             {
                 var ingredient = recipe.ingredients[i];
-                Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}, {ingredient.Calories} calories, {ingredient.FoodGroup}");
+                Console.WriteLine($"Ingredient {i + 1}:");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"  Name: {ingredient.ingName}");
+                Console.ResetColor();
+                Console.WriteLine($"  Quantity: {ingredient.ingQty} {ingredient.ingUnit}");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine($"  Calories: {ingredient.Calories}");
+                Console.ResetColor();
+                Console.WriteLine($"  Food Group: {ingredient.FoodGroup}");
+                Console.WriteLine(new string('-', 40));
             }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Steps:");
+            Console.ResetColor();
+            Console.WriteLine(new string('-', 40));
+
             // Loop through each step in the recipe and display it
             for (var i = 0; i < recipe.steps.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {recipe.steps[i]}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"Step {i + 1}:");
+                Console.ResetColor();
+                Console.WriteLine($"  {recipe.steps[i]}");
+                Console.WriteLine(new string('-', 40));
             }
-            Console.WriteLine("------------------\n");
-            Console.WriteLine("Press any key to return to the menu...");
+
             Console.ReadKey();
         }
 
@@ -331,6 +357,7 @@ namespace RecipeTracker.Classes
                 }
                 Console.WriteLine("------------------\n");
             }
+            Console.WriteLine("Press any key to return to the menu...");
             Console.ReadKey();
         }
 

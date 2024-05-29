@@ -7,6 +7,7 @@ References:
 - [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
 - [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
 - [Array.Clear Method](https://learn.microsoft.com/en-us/dotnet/api/system.array.clear?view=net-8.0)
+- [C# OrderBy Method](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.orderby?view=net-5.0)
 */
 
 /// <summary>
@@ -49,6 +50,7 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
                 recipeName = Console.ReadLine().Trim();
             }
+
             Console.WriteLine("Enter the number of ingredients:");
             int numOfIngs;
             // Validate the number of ingredients to ensure it is a positive integer
@@ -161,16 +163,19 @@ namespace RecipeTracker.Classes
             // Check if there are no recipes available
             if (recipes.Count == 0)
             {
-                Console.ForegroundColor= ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No recipes available.");
                 Console.ResetColor();
                 return;
             }
 
+            // Sort the recipes by name in alphabetical order
+            var sortedRecipes = recipes.OrderBy(recipe => recipe.recipeName).ToList();
+
             Console.WriteLine("Available Recipes:");
             Console.WriteLine("------------------");
             // Loop through each recipe in the list and display its details
-            foreach (var recipe in recipes)
+            foreach (var recipe in sortedRecipes)
             {
                 Console.WriteLine($"Recipe Name: {recipe.recipeName}");
                 Console.WriteLine("Ingredients:");
@@ -189,6 +194,7 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("------------------\n");
             }
         }
+
         // <-------------------------------------------------------------------------------------->
 
         // Method to delete a recipe from the recipes list. It takes an array of Recipe objects as a parameter.
@@ -223,6 +229,7 @@ namespace RecipeTracker.Classes
             recipes.Remove(selectedRecipe);
             Console.WriteLine("Recipe deleted successfully!");
         }
+
         // <-------------------------------------------------------------------------------------->
         // This method scales a recipe based on a scaling factor provided by the user (0.5, 2, or 3).
         public static void ScaleRecipe(List<Recipe> recipes)
@@ -271,6 +278,7 @@ namespace RecipeTracker.Classes
             // Display a success message if the recipe is scaled successfully
             Console.WriteLine("Recipe scaled successfully!");
         }
+
         // <-------------------------------------------------------------------------------------->
 
         // Define a dictionary to store the conversion factors for different units of measurement.
@@ -374,4 +382,4 @@ namespace RecipeTracker.Classes
     } // End of RecipeOperations class
 }
 
-// < -------------------------------------------END------------------------------------------- 
+// < -------------------------------------------END------------------------------------------- >

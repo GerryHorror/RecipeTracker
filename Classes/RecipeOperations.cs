@@ -33,16 +33,16 @@ using System.Linq;
 namespace RecipeTracker.Classes
 {
     /*
- * RecipeOperations class contains methods to add a new recipe, display a recipe, and scale a recipe.
- * The AddRecipe method prompts the user to enter the recipe name, ingredients, and steps.
- * The DisplayRecipe method displays the recipe name, ingredients, and steps.
- * The ScaleRecipe method prompts the user to enter a scaling factor and scales the recipe accordingly.
- * The ParseDoubleInvariant method is a helper method to parse a double value using the invariant culture.
+    * RecipeOperations class contains methods to add a new recipe, display a recipe, and scale a recipe.
+    * The AddRecipe method prompts the user to enter the recipe name, ingredients, and steps.
+    * The DisplayRecipe method displays the recipe name, ingredients, and steps.
+    * The ScaleRecipe method prompts the user to enter a scaling factor and scales the recipe accordingly.
+    * The ParseDoubleInvariant method is a helper method to parse a double value using the invariant culture.
 
- The aim of this class is to separate the recipe operations from the main program logic. This separation
- of concerns helps in organizing the code and making it more modular, reusable, and easier to maintain.
- The core principles of OOP, such as encapsulation and separation of concerns, are demonstrated in this class.
- */
+    The aim of this class is to separate the recipe operations from the main program logic. This separation
+    of concerns helps in organizing the code and making it more modular, reusable, and easier to maintain.
+    The core principles of OOP, such as encapsulation and separation of concerns, are demonstrated in this class.
+    */
 
     public class RecipeOperations
     {

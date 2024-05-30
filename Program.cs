@@ -44,7 +44,7 @@ namespace RecipeTracker
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("What would you like to do today?");
                 Console.WriteLine(
-                   "1. Add a new recipe\n2. Display a specific recipe\n3. View all recipes\n4. Scale a recipe\n5. Reset quantities\n6. Clear a recipe\n7. Exit");
+                   "1. Add a new recipe\n2. Display a recipe\n3. View all recipes\n4. Scale a recipe\n5. Reset quantities\n6. Clear a recipe\n7. Exit");
                 string userChoice = Console.ReadLine();
                 Console.ResetColor();
                 // Switch statement to handle the user's choice

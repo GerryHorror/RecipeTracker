@@ -55,12 +55,30 @@ To run this project, you will need:
 
 Follow the on-screen prompts to interact with the application:
 
-- Enter 1 to add a new recipe.
-- Enter 2 to display a recipe.
-- Enter 3 to scale a recipe.
-- Enter 4 to reset ingredient quantities.
-- Enter 5 to clear a recipe.
-- Enter 6 to exit the application.
+- Enter `1` to add a new recipe.
+- Enter `2` to display a specific recipe.
+- Enter `3` to view all recipes.
+- Enter `4` to scale a recipe.
+- Enter `5` to reset ingredient quantities.
+- Enter `6` to clear a recipe.
+- Enter `7` to exit the application.
+
+## Running the Unit Tests
+1. **Open the Test Explorer:**
+   - In Visual Studio, go to `Test` > `Test Explorer` to open the Test Explorer window.
+
+2. **Run All Tests:**
+   - In the Test Explorer window, click on `Run All` to execute all unit tests. The results will be displayed, showing which tests passed or failed.
+
+## Updates
+
+- **Ingredient Validation:** Improved validation for ingredient entries to ensure calories cannot be null or negative, with special handling for water which can have zero calories.
+- **Enhanced Display:** Added colour coding and structured display for ingredients, steps, and calorie information.
+- **Delegate Notification:** Implemented delegate notifications to alert users when the total calories of a recipe exceed 300.
+- **Food Group Selection:** Users can now select a food group for each ingredient, ensuring better nutritional categorization.
+- **Recipe Reset:** Fixed issue with resetting recipes to ensure the units of measurement are restored correctly.
+- **Unit Tests:** Extensive unit tests added to cover scenarios such as multiple ingredients, single ingredients, zero calories, and negative calories.
+
 
 ## References
 

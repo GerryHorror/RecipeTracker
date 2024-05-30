@@ -451,28 +451,54 @@ namespace RecipeTracker.Classes
             // Sort the recipes by name in alphabetical order
             var sortedRecipes = recipes.OrderBy(recipe => recipe.recipeName).ToList();
 
+            Console.Clear(); // Clear the console for a better viewing experience
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("All Available Recipes:");
-            Console.WriteLine("----------------------");
+            Console.WriteLine(new string('=', 50));
+            Console.ResetColor();
+
             // Loop through each recipe in the sorted list and display its details
             foreach (var recipe in sortedRecipes)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"Recipe Name: {recipe.recipeName}");
+                Console.ResetColor();
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Ingredients:");
+                Console.ResetColor();
+                Console.WriteLine(new string('-', 50));
+
                 // Loop through each ingredient in the recipe and display its details
                 for (var i = 0; i < recipe.ingredients.Count; i++)
                 {
                     var ingredient = recipe.ingredients[i];
-                    Console.WriteLine($"{i + 1}. {ingredient.ingName} - {ingredient.ingQty} {ingredient.ingUnit}, {ingredient.Calories} calories, {ingredient.FoodGroup}");
+                    Console.WriteLine($"{i + 1}. {ingredient.ingName}");
+                    Console.WriteLine($"   Quantity: {ingredient.ingQty} {ingredient.ingUnit}");
+                    Console.WriteLine($"   Calories: {ingredient.Calories}");
+                    Console.WriteLine($"   Food Group: {ingredient.FoodGroup}");
+                    Console.WriteLine(new string('-', 50));
                 }
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Steps:");
+                Console.ResetColor();
+                Console.WriteLine(new string('-', 50));
+
                 // Loop through each step in the recipe and display it
                 for (var i = 0; i < recipe.steps.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {recipe.steps[i]}");
+                    Console.WriteLine($"Step {i + 1}: {recipe.steps[i]}");
+                    Console.WriteLine(new string('-', 50));
                 }
-                Console.WriteLine("------------------\n");
+
+                Console.WriteLine(new string('=', 50));
+                Console.WriteLine();
             }
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Press any key to return to the menu...");
+            Console.ResetColor();
             Console.ReadKey();
         }
 

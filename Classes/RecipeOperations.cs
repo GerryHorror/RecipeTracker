@@ -60,7 +60,9 @@ namespace RecipeTracker.Classes
                 // Validate the recipe name to ensure it is not empty
                 while (string.IsNullOrWhiteSpace(recipeName))
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
+                    Console.ResetColor();
                     recipeName = Console.ReadLine().Trim();
                 }
 
@@ -69,7 +71,9 @@ namespace RecipeTracker.Classes
                 // Validate the number of ingredients to ensure it is a positive integer
                 while (!int.TryParse(Console.ReadLine(), out numOfIngs) || numOfIngs <= 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
+                    Console.ResetColor();
                 }
                 // Create a new List to store the ingredients of the recipe
                 List<Ingredient> ingredients = new List<Ingredient>();
@@ -80,7 +84,9 @@ namespace RecipeTracker.Classes
                     var ingName = Console.ReadLine().Trim();
                     while (string.IsNullOrWhiteSpace(ingName))
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"Ingredient name cannot be empty. Please enter a valid name for ingredient {i + 1}:");
+                        Console.ResetColor();
                         ingName = Console.ReadLine().Trim();
                     }
 
@@ -88,7 +94,9 @@ namespace RecipeTracker.Classes
                     double ingQty;
                     while (!double.TryParse(Console.ReadLine(), NumberStyles.Any, CultureInfo.InvariantCulture, out ingQty) || ingQty <= 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"Invalid input. Please enter a valid quantity for ingredient {i + 1}:");
+                        Console.ResetColor();
                     }
 
                     Console.Write($"Enter the unit of measurement of ingredient {i + 1}: ");
@@ -238,11 +246,11 @@ namespace RecipeTracker.Classes
                 Console.WriteLine("Recipe added successfully!");
 
                 // Ask the user if they want to add another recipe or return to the main menu
-                Console.WriteLine("Do you want to add another recipe? (yes/no)");
+                Console.WriteLine("Do you want to add another recipe?");
                 var addMoreInput = Console.ReadLine().Trim().ToLower();
                 while (addMoreInput != "yes" && addMoreInput != "no")
                 {
-                    Console.WriteLine("Invalid input. Please enter 'yes' or 'no':");
+                    Console.WriteLine("Invalid input. Please enter 'Yes' or 'No':");
                     addMoreInput = Console.ReadLine().Trim().ToLower();
                 }
 

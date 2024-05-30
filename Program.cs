@@ -7,13 +7,22 @@ References:
 - [C# Data Structure for Multiple Unit Conversions](https://stackoverflow.com/questions/495110/c-sharp-data-structure-for-multiple-unit-conversions)
 - [Measurement Conversions for Recipes](https://www.thespruceeats.com/recipe-conversions-486768)
 - [Array.Clear Method](https://learn.microsoft.com/en-us/dotnet/api/system.array.clear?view=net-8.0)
+- [C# OrderBy Method](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.orderby?view=net-5.0)
+- [Food Groups](https://sweetlife.org.za/what-are-the-different-food-groups-a-simple-explanation/)
+- [Calorie Intake Chart](https://www.webmd.com/diet/calories-chart)
+- [Tuple Method in C#](https://www.geeksforgeeks.org/c-sharp-tuple-class/)
+- [C# Delegates](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/)
+- [C# Delegates and Events](https://www.tutorialsteacher.com/csharp/csharp-delegates)
+- [C# Simple Unit Test](https://docs.microsoft.com/en-us/visualstudio/test/walkthrough-creating-and-running-unit-tests-for-managed-code)
+- [C# Unit Testing](https://docs.microsoft.com/en-us/visualstudio/test/unit-test-basics)
+- [C# Unit Testing with MSTest](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest)
 */
 
 /// <summary>
 ///   Gérard Blankenberg
 ///   ST10046280
 ///   Module: PROG6221
-///   POE Part 1
+///   POE Part 2
 /// </summary>
 
 using System;

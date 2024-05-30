@@ -30,6 +30,17 @@ using System;
 using System.Collections.Generic;
 using RecipeTracker.Classes;
 
+/*
+The purpose of the unit tests is to test the CalculateTotalCalories method in the RecipeOperations class.
+The CalculateTotalCalories method calculates the total calories of a recipe by summing the calories of all the ingredients in the recipe.
+CalculateTotalCalories_MultipleIngredients - This test checks if the CalculateTotalCalories method returns the correct total calories when there are multiple ingredients in the recipe.
+CalculateTotalCalories_SingleIngredient - This test checks if the CalculateTotalCalories method returns the correct total calories when there is only one ingredient in the recipe.
+CalculateTotalCalories_IngredientsWithZeroCalories - This test checks if the CalculateTotalCalories method returns the correct total calories when there are ingredients with zero calories in the recipe.
+CalculateTotalCalories_MixedCalories - This test checks if the CalculateTotalCalories method returns the correct total calories when there are ingredients with different calorie values in the recipe.
+CalculateTotalCalories_CaloriesCannotBeZeroForNonWater - This test checks if the CalculateTotalCalories method returns an error message when an ingredient has zero calories and is not water.
+CalculateTotalCalories_NegativeCalories - This test checks if the CalculateTotalCalories method returns an error message when an ingredient has negative calories.
+*/
+
 namespace RecipeTrackerUT
 {
     [TestClass]

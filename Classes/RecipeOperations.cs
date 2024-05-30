@@ -92,11 +92,14 @@ namespace RecipeTracker.Classes
                     }
 
                     Console.Write($"Enter the unit of measurement of ingredient {i + 1}: ");
-                    var ingUnit = Console.ReadLine().Trim();
-                    while (string.IsNullOrWhiteSpace(ingUnit))
+                    var ingUnit = Console.ReadLine().Trim().ToLower();
+                    while (string.IsNullOrWhiteSpace(ingUnit) || double.TryParse(ingUnit, out _) ||
+                           (!conversionFactors.ContainsKey(ingUnit) && !aliases.ContainsKey(ingUnit)))
                     {
-                        Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
-                        ingUnit = Console.ReadLine().Trim();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Unit of measurement cannot be empty, a number, or an unrecognised unit. Please enter a valid unit for ingredient {i + 1}:");
+                        Console.ResetColor();
+                        ingUnit = Console.ReadLine().Trim().ToLower();
                     }
 
                     // Explanation of calories

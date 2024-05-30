@@ -96,9 +96,31 @@ namespace RecipeTracker.Classes
                 // Prompt the user to enter the number of calories for the ingredient and validate the input
                 Console.Write($"Enter the number of calories for ingredient {i + 1}: ");
                 int calories;
-                while (!int.TryParse(Console.ReadLine(), out calories) || calories < 0)
+                while (true)
                 {
-                    Console.WriteLine($"Invalid input. Please enter a valid number of calories for ingredient {i + 1}:");
+                    var input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Calories cannot be null. Please enter a valid number of calories for ingredient {i + 1}:");
+                        Console.ResetColor();
+                        continue;
+                    }
+                    if (!int.TryParse(input, out calories))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Invalid input. Please enter a valid number of calories for ingredient {i + 1}:");
+                        Console.ResetColor();
+                        continue;
+                    }
+                    if (calories < 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Calories cannot be negative. Please enter a valid number of calories for ingredient {i + 1}:");
+                        Console.ResetColor();
+                        continue;
+                    }
+                    break;
                 }
 
                 // Explanation of food groups
@@ -347,6 +369,16 @@ namespace RecipeTracker.Classes
             foreach (var ingredient in recipe.ingredients)
             {
                 totalCalories += ingredient.Calories;
+
+                if (ingredient.Calories < 0)
+                {
+                    return (0, "Calories cannot be negative.", ConsoleColor.Red);
+                }
+
+                if (ingredient.Calories == null)
+                {
+                    return (0, "Calories cannot be null.", ConsoleColor.Red);
+                }
             }
 
             // Notify the user if the total calories exceed 300 using the delegate

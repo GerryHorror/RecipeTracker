@@ -44,185 +44,206 @@ namespace RecipeTracker.Classes
         // Method to add a new recipe. It prompts the user to enter the recipe name, ingredients, and steps.
         public static List<Recipe> AddRecipes(List<Recipe> recipes, NotifyUser notifyCalories)
         {
-            Console.WriteLine("Enter the name of the recipe:");
-            // Read the recipe name from the user
-            var recipeName = Console.ReadLine().Trim();
-            // Validate the recipe name to ensure it is not empty
-            while (string.IsNullOrWhiteSpace(recipeName))
+            // Boolean to check if the user wants to add more recipes or return to the main menu
+            bool addMore = true;
+
+            while (addMore)
             {
-                Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
-                recipeName = Console.ReadLine().Trim();
-            }
-
-            Console.WriteLine("Enter the number of ingredients:");
-            int numOfIngs;
-            // Validate the number of ingredients to ensure it is a positive integer
-            while (!int.TryParse(Console.ReadLine(), out numOfIngs) || numOfIngs <= 0)
-            {
-                Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
-            }
-            // Create a new List to store the ingredients of the recipe
-            List<Ingredient> ingredients = new List<Ingredient>();
-            // Loop to read the ingredient details from the user
-            for (var i = 0; i < numOfIngs; i++)
-            {
-                Console.Write($"Enter the name of ingredient {i + 1}: ");
-                var ingName = Console.ReadLine().Trim();
-                while (string.IsNullOrWhiteSpace(ingName))
+                Console.WriteLine("Enter the name of the recipe:");
+                // Read the recipe name from the user
+                var recipeName = Console.ReadLine().Trim();
+                // Validate the recipe name to ensure it is not empty
+                while (string.IsNullOrWhiteSpace(recipeName))
                 {
-                    Console.WriteLine($"Ingredient name cannot be empty. Please enter a valid name for ingredient {i + 1}:");
-                    ingName = Console.ReadLine().Trim();
+                    Console.WriteLine("Recipe name cannot be empty. Please enter a valid name:");
+                    recipeName = Console.ReadLine().Trim();
                 }
 
-                Console.Write($"Enter the quantity of ingredient {i + 1}: ");
-                double ingQty;
-                while (!double.TryParse(Console.ReadLine(), NumberStyles.Any, CultureInfo.InvariantCulture, out ingQty) || ingQty <= 0)
+                Console.WriteLine("Enter the number of ingredients:");
+                int numOfIngs;
+                // Validate the number of ingredients to ensure it is a positive integer
+                while (!int.TryParse(Console.ReadLine(), out numOfIngs) || numOfIngs <= 0)
                 {
-                    Console.WriteLine($"Invalid input. Please enter a valid quantity for ingredient {i + 1}:");
+                    Console.WriteLine("Invalid input. Please enter a valid number of ingredients:");
                 }
-
-                Console.Write($"Enter the unit of measurement of ingredient {i + 1}: ");
-                var ingUnit = Console.ReadLine().Trim();
-                while (string.IsNullOrWhiteSpace(ingUnit))
+                // Create a new List to store the ingredients of the recipe
+                List<Ingredient> ingredients = new List<Ingredient>();
+                // Loop to read the ingredient details from the user
+                for (var i = 0; i < numOfIngs; i++)
                 {
-                    Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
-                    ingUnit = Console.ReadLine().Trim();
-                }
-
-                // Explanation of calories
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Calories represent the amount of energy provided by a food item. The higher the calorie count, the more energy the food provides.");
-                Console.ResetColor();
-                // Prompt the user to enter the number of calories for the ingredient and validate the input
-                Console.Write($"Enter the number of calories for ingredient {i + 1}: ");
-                int calories;
-                while (true)
-                {
-                    var input = Console.ReadLine();
-                    if (string.IsNullOrEmpty(input))
+                    Console.Write($"Enter the name of ingredient {i + 1}: ");
+                    var ingName = Console.ReadLine().Trim();
+                    while (string.IsNullOrWhiteSpace(ingName))
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Calories cannot be null. Please enter a valid number of calories for ingredient {i + 1}:");
-                        Console.ResetColor();
-                        continue;
+                        Console.WriteLine($"Ingredient name cannot be empty. Please enter a valid name for ingredient {i + 1}:");
+                        ingName = Console.ReadLine().Trim();
                     }
-                    if (!int.TryParse(input, out calories))
+
+                    Console.Write($"Enter the quantity of ingredient {i + 1}: ");
+                    double ingQty;
+                    while (!double.TryParse(Console.ReadLine(), NumberStyles.Any, CultureInfo.InvariantCulture, out ingQty) || ingQty <= 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Invalid input. Please enter a valid number of calories for ingredient {i + 1}:");
-                        Console.ResetColor();
-                        continue;
+                        Console.WriteLine($"Invalid input. Please enter a valid quantity for ingredient {i + 1}:");
                     }
-                    if (calories < 0)
+
+                    Console.Write($"Enter the unit of measurement of ingredient {i + 1}: ");
+                    var ingUnit = Console.ReadLine().Trim();
+                    while (string.IsNullOrWhiteSpace(ingUnit))
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Calories cannot be negative. Please enter a valid number of calories for ingredient {i + 1}:");
-                        Console.ResetColor();
-                        continue;
+                        Console.WriteLine($"Unit of measurement cannot be empty. Please enter a valid unit for ingredient {i + 1}:");
+                        ingUnit = Console.ReadLine().Trim();
                     }
-                    if (calories == 0 && ingName.ToLower() != "water")
+
+                    // Explanation of calories
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Calories represent the amount of energy provided by a food item. The higher the calorie count, the more energy the food provides.");
+                    Console.ResetColor();
+                    // Prompt the user to enter the number of calories for the ingredient and validate the input
+                    Console.Write($"Enter the number of calories for ingredient {i + 1}: ");
+                    int calories;
+                    while (true)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Calories cannot be 0 except for water. Please enter a valid number of calories for ingredient {i + 1}:");
-                        Console.ResetColor();
-                        continue;
-                    }
-                    break;
-                }
-
-                // Explanation of food groups
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Food groups classify foods based on their nutritional properties. The seven food groups are:");
-                Console.ResetColor();
-                // Display the list of food groups for the user to choose from and prompt the user to select a food group
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("1. Starchy foods");
-                Console.WriteLine("2. Vegetables and fruits");
-                Console.WriteLine("3. Dry beans, peas, lentils and soya");
-                Console.WriteLine("4. Chicken, fish, meat and eggs");
-                Console.WriteLine("5. Milk and dairy products");
-                Console.WriteLine("6. Fats and oil");
-                Console.WriteLine("7. Water");
-                Console.ResetColor();
-                Console.Write($"Select the food group for the ingredient {ingName}: ");
-                string foodGroup;
-                while (true)
-                {
-                    // Validate the input to ensure it is a valid food group (1-7) and assign the selected food group to the variable
-                    switch (Console.ReadLine())
-                    {
-                        case "1":
-                            foodGroup = "Starchy foods";
-                            break;
-
-                        case "2":
-                            foodGroup = "Vegetables and fruits";
-                            break;
-
-                        case "3":
-                            foodGroup = "Dry beans, peas, lentils and soya";
-                            break;
-
-                        case "4":
-                            foodGroup = "Chicken, fish, meat and eggs";
-                            break;
-
-                        case "5":
-                            foodGroup = "Milk and dairy products";
-                            break;
-
-                        case "6":
-                            foodGroup = "Fats and oil";
-                            break;
-
-                        case "7":
-                            foodGroup = "Water";
-                            break;
-
-                        default:
+                        var input = Console.ReadLine();
+                        if (string.IsNullOrEmpty(input))
+                        {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Invalid choice. Please select a valid food group (1-7):");
+                            Console.WriteLine($"Calories cannot be null. Please enter a valid number of calories for ingredient {i + 1}:");
                             Console.ResetColor();
                             continue;
+                        }
+                        if (!int.TryParse(input, out calories))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"Invalid input. Please enter a valid number of calories for ingredient {i + 1}:");
+                            Console.ResetColor();
+                            continue;
+                        }
+                        if (calories < 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"Calories cannot be negative. Please enter a valid number of calories for ingredient {i + 1}:");
+                            Console.ResetColor();
+                            continue;
+                        }
+                        if (calories == 0 && ingName.ToLower() != "water")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"Calories cannot be 0 except for water. Please enter a valid number of calories for ingredient {i + 1}:");
+                            Console.ResetColor();
+                            continue;
+                        }
+                        break;
                     }
-                    break;
+
+                    // Explanation of food groups
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Food groups classify foods based on their nutritional properties. The seven food groups are:");
+                    Console.ResetColor();
+                    // Display the list of food groups for the user to choose from and prompt the user to select a food group
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("1. Starchy foods");
+                    Console.WriteLine("2. Vegetables and fruits");
+                    Console.WriteLine("3. Dry beans, peas, lentils and soya");
+                    Console.WriteLine("4. Chicken, fish, meat and eggs");
+                    Console.WriteLine("5. Milk and dairy products");
+                    Console.WriteLine("6. Fats and oil");
+                    Console.WriteLine("7. Water");
+                    Console.ResetColor();
+                    Console.Write($"Select the food group for the ingredient {ingName}: ");
+                    string foodGroup;
+                    while (true)
+                    {
+                        // Validate the input to ensure it is a valid food group (1-7) and assign the selected food group to the variable
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                foodGroup = "Starchy foods";
+                                break;
+
+                            case "2":
+                                foodGroup = "Vegetables and fruits";
+                                break;
+
+                            case "3":
+                                foodGroup = "Dry beans, peas, lentils and soya";
+                                break;
+
+                            case "4":
+                                foodGroup = "Chicken, fish, meat and eggs";
+                                break;
+
+                            case "5":
+                                foodGroup = "Milk and dairy products";
+                                break;
+
+                            case "6":
+                                foodGroup = "Fats and oil";
+                                break;
+
+                            case "7":
+                                foodGroup = "Water";
+                                break;
+
+                            default:
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Invalid choice. Please select a valid food group (1-7):");
+                                Console.ResetColor();
+                                continue;
+                        }
+                        break;
+                    }
+
+                    // Create a new Ingredient object with the provided details and add it to the ingredients list
+                    ingredients.Add(new Ingredient(ingName, ingQty, ingUnit, calories, foodGroup));
                 }
 
-                // Create a new Ingredient object with the provided details and add it to the ingredients list
-                ingredients.Add(new Ingredient(ingName, ingQty, ingUnit, calories, foodGroup));
-            }
-
-            Console.WriteLine("Enter the number of steps:");
-            int numOfSteps;
-            while (!int.TryParse(Console.ReadLine(), out numOfSteps) || numOfSteps <= 0)
-            {
-                Console.WriteLine("Invalid input. Please enter a valid number of steps:");
-            }
-            // Create a new List to store the steps of the recipe
-            List<string> steps = new List<string>();
-            // Loop to read the steps from the user
-            for (var i = 0; i < numOfSteps; i++)
-            {
-                Console.Write($"Enter step {i + 1}: ");
-                var step = Console.ReadLine().Trim();
-                while (string.IsNullOrWhiteSpace(step))
+                Console.WriteLine("Enter the number of steps:");
+                int numOfSteps;
+                while (!int.TryParse(Console.ReadLine(), out numOfSteps) || numOfSteps <= 0)
                 {
-                    Console.WriteLine($"Step {i + 1} cannot be empty. Please enter a valid step:");
-                    step = Console.ReadLine().Trim();
+                    Console.WriteLine("Invalid input. Please enter a valid number of steps:");
                 }
-                // Add the step to the steps list.
-                steps.Add(step);
+                // Create a new List to store the steps of the recipe
+                List<string> steps = new List<string>();
+                // Loop to read the steps from the user
+                for (var i = 0; i < numOfSteps; i++)
+                {
+                    Console.Write($"Enter step {i + 1}: ");
+                    var step = Console.ReadLine().Trim();
+                    while (string.IsNullOrWhiteSpace(step))
+                    {
+                        Console.WriteLine($"Step {i + 1} cannot be empty. Please enter a valid step:");
+                        step = Console.ReadLine().Trim();
+                    }
+                    // Add the step to the steps list.
+                    steps.Add(step);
+                }
+                // Create a new Recipe object with the provided details
+                Recipe recipe = new Recipe(recipeName, ingredients, steps);
+                // Add the new recipe to the recipes list
+                recipes.Add(recipe);
+
+                // Calculate total calories and trigger notification if necessary
+                var result = CalculateTotalCalories(recipe, notifyCalories);
+
+                // Display a success message
+                Console.WriteLine("Recipe added successfully!");
+
+                // Ask the user if they want to add another recipe or return to the main menu
+                Console.WriteLine("Do you want to add another recipe? (yes/no)");
+                var addMoreInput = Console.ReadLine().Trim().ToLower();
+                while (addMoreInput != "yes" && addMoreInput != "no")
+                {
+                    Console.WriteLine("Invalid input. Please enter 'yes' or 'no':");
+                    addMoreInput = Console.ReadLine().Trim().ToLower();
+                }
+
+                if (addMoreInput == "no")
+                {
+                    addMore = false;
+                }
             }
-            // Create a new Recipe object with the provided details
-            Recipe recipe = new Recipe(recipeName, ingredients, steps);
-            // Add the new recipe to the recipes list
-            recipes.Add(recipe);
 
-            // Calculate total calories and trigger notification if necessary
-            var result = CalculateTotalCalories(recipe, notifyCalories);
-
-            // Display a success message
-            Console.WriteLine("Recipe added successfully!");
             return recipes;
         }
 

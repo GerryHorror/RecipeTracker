@@ -120,6 +120,13 @@ namespace RecipeTracker.Classes
                         Console.ResetColor();
                         continue;
                     }
+                    if (calories == 0 && ingName.ToLower() != "water")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Calories cannot be 0 except for water. Please enter a valid number of calories for ingredient {i + 1}:");
+                        Console.ResetColor();
+                        continue;
+                    }
                     break;
                 }
 
@@ -365,20 +372,22 @@ namespace RecipeTracker.Classes
         {
             // Initialise the total calories to 0
             int totalCalories = 0;
+
             // Loop through each ingredient in the recipe and add its calories to the total
             foreach (var ingredient in recipe.ingredients)
             {
-                totalCalories += ingredient.Calories;
+                // Check if calories for the ingredient are null and return an error message
+                if (ingredient.Calories == 0 && ingredient.ingName.ToLower() != "water")
+                {
+                    return (0, "Calories cannot be 0 except for water", ConsoleColor.Red);
+                }
 
+                // Check if the calories for the ingredient are negative and return an error message
                 if (ingredient.Calories < 0)
                 {
-                    return (0, "Calories cannot be negative.", ConsoleColor.Red);
+                    return (0, "Calories cannot be negative", ConsoleColor.Red);
                 }
-
-                if (ingredient.Calories == null)
-                {
-                    return (0, "Calories cannot be null.", ConsoleColor.Red);
-                }
+                totalCalories += ingredient.Calories;
             }
 
             // Notify the user if the total calories exceed 300 using the delegate

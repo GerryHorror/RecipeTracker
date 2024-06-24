@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Recipe Tracker" Height="600" Width="1000" ResizeMode="NoResize" Background="#F0F0F0">
     <Window.Resources>
-        <Style x:Key="PrimaryBtn" TargetType="Button">
+        <Style x:Key="PrimaryButton" TargetType="Button">
             <Setter Property="Background" Value="#2E86C1" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderThickness" Value="0" />
@@ -27,7 +27,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="SecondaryBtn" TargetType="Button">
+        <Style x:Key="SecondaryButton" TargetType="Button">
             <Setter Property="Background" Value="#85C1E9" />
             <Setter Property="Foreground" Value="#333333" />
             <Setter Property="BorderThickness" Value="0" />
@@ -48,4 +48,83 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Background="#2E86C1" Grid.Row="0">
+            <Menu Background="Transparent" Foreground="White">
+                <MenuItem Header="File">
+                    <MenuItem Header="Exit" Click="ExitMenuItem_Click" Foreground="#333333" />
+                </MenuItem>
+            </Menu>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Background="White" CornerRadius="10" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Recipes" FontSize="20" FontWeight="Bold" Margin="10" Foreground="#333333" />
+                    <ListBox x:Name="RecipeListBox" Grid.Row="1" SelectionChanged="RecipeListBox_SelectionChanged"
+                             BorderThickness="0" Background="Transparent">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" Padding="5" Foreground="#333333" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Background="White" CornerRadius="10" Margin="10,0,0,0">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="RecipeNameTextBlock" Grid.Row="0" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#333333" />
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="Ingredients:" FontWeight="Bold" Margin="0,0,0,10" Foreground="#666666" />
+                            <ItemsControl x:Name="IngredientsItemsControl" Margin="0,0,0,20">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Margin="0,0,0,5" Foreground="#333333" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <TextBlock Text="Steps:" FontWeight="Bold" Margin="0,0,0,10" Foreground="#666666" />
+                            <ItemsControl x:Name="StepsItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Margin="0,0,0,5" Foreground="#333333" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                        <Button Content="Add Recipe" Click="AddRecipe_Click" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0" />
+                        <Button Content="Scale Recipe" Click="ScaleRecipe_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
+                        <Button Content="Reset Quantities" Click="ResetQuantities_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
+                        <Button Content="Delete Recipe" Click="DeleteRecipe_Click" Style="{StaticResource PrimaryButton}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
 </Window>

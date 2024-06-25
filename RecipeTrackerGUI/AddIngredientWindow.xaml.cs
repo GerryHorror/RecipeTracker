@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RecipeTrackerGUI
 {
@@ -19,9 +8,49 @@ namespace RecipeTrackerGUI
     /// </summary>
     public partial class AddIngredientWindow : Window
     {
+        public Ingredient NewIngredient { get; private set; }
+
         public AddIngredientWindow()
         {
             InitializeComponent();
+        }
+
+        private void AddIngredient_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(QuantityTextBox.Text) || string.IsNullOrWhiteSpace(UnitTextBox.Text) || string.IsNullOrWhiteSpace(CaloriesTextBox.Text) || FoodGroupComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please fill in all fields", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!double.TryParse(QuantityTextBox.Text, out double quantity))
+            {
+                MessageBox.Show("Please enter a valid number for quantity.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!int.TryParse(CaloriesTextBox.Text, out int calories))
+            {
+                MessageBox.Show("Please enter a valid number for calories.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            NewIngredient = new Ingredient(
+                NameTextBox.Text,
+                quantity,
+                UnitTextBox.Text,
+                calories,
+                (FoodGroupComboBox.SelectedItem as ComboBoxItem).Content.ToString()
+                );
+
+            DialogResult = true;
+            Close();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
         }
     }
 }

@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Recipe.cs" />
     <Compile Include="ScaleRecipeWindow.xaml.cs">
       <DependentUpon>ScaleRecipeWindow.xaml</DependentUpon>
     </Compile>

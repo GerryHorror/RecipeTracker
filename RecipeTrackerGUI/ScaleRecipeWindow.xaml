@@ -59,7 +59,7 @@
 
             <TextBlock Text="Select scaling factor:" Grid.Row="0" Foreground="#333333" />
             <ComboBox x:Name="ScaleFactorComboBox" Grid.Row="1" Margin="0,10,0,0">
-                <ComboBoxItem>0.5</ComboBoxItem>
+                <ComboBoxItem>0,5</ComboBoxItem>
                 <ComboBoxItem>2</ComboBoxItem>
                 <ComboBoxItem>3</ComboBoxItem>
             </ComboBox>

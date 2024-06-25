@@ -19,5 +19,10 @@
             Calories = calories;
             FoodGroup = foodGroup;
         }
+
+        public override string ToString()
+        {
+            return $"{ingName}: {ingQty} {ingUnit} ({Calories} calories, {FoodGroup})";
+        }
     }
 }

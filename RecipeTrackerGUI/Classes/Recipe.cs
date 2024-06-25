@@ -11,6 +11,10 @@ namespace RecipeTrackerGUI.Classes
         public List<double> originalQty { get; set; }
         public List<string> originalUnits { get; set; }
 
+        public delegate void NotifyUser(int totalCalories);
+
+        public static event NotifyUser CalorieNotification;
+
         public Recipe()
         {
             recipeName = string.Empty;
@@ -72,6 +76,37 @@ namespace RecipeTrackerGUI.Classes
             steps.Clear();
             originalQty.Clear();
             originalUnits.Clear();
+        }
+
+        public int CalculateTotalCalories()
+        {
+            int totalCalories = ingredients.Sum(i => i.Calories);
+            if (totalCalories > 300)
+            {
+                CalorieNotification?.Invoke(totalCalories);
+            }
+            return totalCalories;
+        }
+
+        public string GetCalorieInfo()
+        {
+            int totalCalories = CalculateTotalCalories();
+            if (totalCalories < 200)
+            {
+                return "This recipe is low in calories, making it a great option for a snack or a light meal.";
+            }
+            else if (totalCalories >= 200 && totalCalories <= 500)
+            {
+                return "This recipe has a moderate amount of calories, suitable for a balanced meal.";
+            }
+            else if (totalCalories > 500 && totalCalories <= 800)
+            {
+                return "This recipe is high in calories, so it should be consumed in moderation.";
+            }
+            else
+            {
+                return "This recipe is very high in calories and should be consumed sparingly.";
+            }
         }
     }
 }

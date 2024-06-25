@@ -18,6 +18,7 @@ namespace RecipeTrackerGUI
             InitializeComponent();
             recipes = new List<Recipe>();
             UpdateRecipeList();
+            Recipe.CalorieNotification += NotifyHighCalories;
         }
 
         private void UpdateRecipeList()
@@ -43,6 +44,18 @@ namespace RecipeTrackerGUI
                 $"{i.ingName}: {i.ingQty} {i.ingUnit} ({i.Calories} calories, {i.FoodGroup})");
 
             StepsItemsControl.ItemsSource = recipe.steps.Select((s, index) => $"{index + 1}. {s}");
+
+            int totalCalories = recipe.CalculateTotalCalories();
+            CaloriesTextBlock.Text = $"Total Calories: {totalCalories}";
+            CalorieInfoTextBlock.Text = recipe.GetCalorieInfo();
+        }
+
+        private void NotifyHighCalories(int totalCalories)
+        {
+            MessageBox.Show($"Warning: This recipe exceeds 300 calories with a total of {totalCalories} calories!",
+                            "High Calorie Warning",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
         }
 
         private void AddRecipe_Click(object sender, RoutedEventArgs e)

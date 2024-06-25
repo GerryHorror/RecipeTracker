@@ -48,6 +48,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -90,13 +91,19 @@
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="RecipeNameTextBlock" Grid.Row="0" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#333333" />
+                    <TextBlock x:Name="RecipeNameTextBlock" Grid.Row="0" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" Foreground="#333333" />
 
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Grid.Row="1" Margin="0,0,0,10">
+                        <TextBlock x:Name="CaloriesTextBlock" FontWeight="Bold" Foreground="#333333" />
+                        <TextBlock x:Name="CalorieInfoTextBlock" TextWrapping="Wrap" Foreground="#666666" />
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <TextBlock Text="Ingredients:" FontWeight="Bold" Margin="0,0,0,10" Foreground="#666666" />
                             <ItemsControl x:Name="IngredientsItemsControl" Margin="0,0,0,20">
@@ -117,7 +124,7 @@
                         </StackPanel>
                     </ScrollViewer>
 
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
                         <Button Content="Add Recipe" Click="AddRecipe_Click" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0" />
                         <Button Content="Scale Recipe" Click="ScaleRecipe_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
                         <Button Content="Reset Quantities" Click="ResetQuantities_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />

@@ -35,6 +35,16 @@ namespace RecipeTrackerGUI
             }
         }
 
+        private void DisplayRecipe(Recipe recipe)
+        {
+            RecipeNameTextBlock.Text = recipe.recipeName;
+
+            IngredientsItemsControl.ItemsSource = recipe.ingredients.Select(i =>
+                $"{i.ingName}: {i.ingQty} {i.ingUnit} ({i.Calories} calories, {i.FoodGroup})");
+
+            StepsItemsControl.ItemsSource = recipe.steps.Select((s, index) => $"{index + 1}. {s}");
+        }
+
         private void AddRecipe_Click(object sender, RoutedEventArgs e)
         {
             AddRecipeWindow addRecipeWindow = new AddRecipeWindow();
@@ -58,7 +68,7 @@ namespace RecipeTrackerGUI
             }
             else
             {
-                MessageBox.Show("Please select a recipe to scale.", "No recipe selected", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please select a recipe to scale.", "No Recipe Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -67,13 +77,38 @@ namespace RecipeTrackerGUI
             if (RecipeListBox.SelectedIndex != -1)
             {
                 Recipe selectedRecipe = recipes[RecipeListBox.SelectedIndex];
-                selectedRecipe.ResetQuantites();
+                selectedRecipe.ResetQuantity();
                 DisplayRecipe(selectedRecipe);
             }
             else
             {
                 MessageBox.Show("Please select a recipe to reset quantities.", "No Recipe Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void DeleteRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            if (RecipeListBox.SelectedIndex != -1)
+            {
+                Recipe selectedRecipe = recipes[RecipeListBox.SelectedIndex];
+                if (MessageBox.Show($"Are you sure you want to delete the recipe '{selectedRecipe.recipeName}'?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    recipes.Remove(selectedRecipe);
+                    UpdateRecipeList();
+                    RecipeNameTextBlock.Text = "";
+                    IngredientsItemsControl.ItemsSource = null;
+                    StepsItemsControl.ItemsSource = null;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a recipe to delete.", "No Recipe Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

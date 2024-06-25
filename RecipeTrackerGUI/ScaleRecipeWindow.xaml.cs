@@ -11,7 +11,7 @@ namespace RecipeTrackerGUI
     {
         private Recipe recipe;
 
-        public ScaleRecipeWindow()
+        public ScaleRecipeWindow(Recipe recipe)
         {
             InitializeComponent();
             this.recipe = recipe;
@@ -21,7 +21,7 @@ namespace RecipeTrackerGUI
         {
             if (ScaleFactorComboBox.SelectedItem == null)
             {
-                MessageBox.Show("Please select a scale factor.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please select a scaling factor.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -29,7 +29,7 @@ namespace RecipeTrackerGUI
 
             if (recipe.ScaleRecipe(scaleFactor))
             {
-                MessageBox.Show("Recipe scaled successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Recipe scaled successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 DialogResult = true;
                 Close();
             }

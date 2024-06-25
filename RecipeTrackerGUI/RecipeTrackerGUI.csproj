@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Ingredient.cs" />
     <Compile Include="Classes\Recipe.cs" />
+    <Compile Include="Classes\RecipeOperations.cs" />
     <Compile Include="ScaleRecipeWindow.xaml.cs">
       <DependentUpon>ScaleRecipeWindow.xaml</DependentUpon>
     </Compile>

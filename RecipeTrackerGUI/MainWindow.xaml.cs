@@ -12,28 +12,19 @@ namespace RecipeTrackerGUI
     public partial class MainWindow : Window
     {
         private List<Recipe> recipes;
+        private bool calorieWarningShown = false;
 
         public MainWindow()
         {
             InitializeComponent();
             recipes = new List<Recipe>();
             UpdateRecipeList();
-            Recipe.CalorieNotification += NotifyHighCalories;
         }
 
         private void UpdateRecipeList()
         {
             RecipeListBox.ItemsSource = null;
             RecipeListBox.ItemsSource = recipes.Select(r => r.recipeName);
-        }
-
-        private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (RecipeListBox.SelectedIndex != -1)
-            {
-                Recipe selectedRecipe = recipes[RecipeListBox.SelectedIndex];
-                DisplayRecipe(selectedRecipe);
-            }
         }
 
         private void DisplayRecipe(Recipe recipe)
@@ -48,6 +39,25 @@ namespace RecipeTrackerGUI
             int totalCalories = recipe.CalculateTotalCalories();
             CaloriesTextBlock.Text = $"Total Calories: {totalCalories}";
             CalorieInfoTextBlock.Text = recipe.GetCalorieInfo();
+
+            if (totalCalories > 300 && !calorieWarningShown)
+            {
+                MessageBox.Show($"Warning: This recipe exceeds 300 calories with a total of {totalCalories} calories!",
+                                "High Calorie Warning",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                calorieWarningShown = true;
+            }
+        }
+
+        private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (RecipeListBox.SelectedIndex != -1)
+            {
+                Recipe selectedRecipe = recipes[RecipeListBox.SelectedIndex];
+                calorieWarningShown = false;
+                DisplayRecipe(selectedRecipe);
+            }
         }
 
         private void NotifyHighCalories(int totalCalories)
@@ -76,6 +86,7 @@ namespace RecipeTrackerGUI
                 ScaleRecipeWindow scaleRecipeWindow = new ScaleRecipeWindow(selectedRecipe);
                 if (scaleRecipeWindow.ShowDialog() == true)
                 {
+                    calorieWarningShown = false;
                     DisplayRecipe(selectedRecipe);
                 }
             }

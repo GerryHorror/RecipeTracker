@@ -11,10 +11,6 @@ namespace RecipeTrackerGUI.Classes
         public List<double> originalQty { get; set; }
         public List<string> originalUnits { get; set; }
 
-        public delegate void NotifyUser(int totalCalories);
-
-        public static event NotifyUser CalorieNotification;
-
         public Recipe()
         {
             recipeName = string.Empty;
@@ -80,12 +76,7 @@ namespace RecipeTrackerGUI.Classes
 
         public int CalculateTotalCalories()
         {
-            int totalCalories = ingredients.Sum(i => i.Calories);
-            if (totalCalories > 300)
-            {
-                CalorieNotification?.Invoke(totalCalories);
-            }
-            return totalCalories;
+            return ingredients.Sum(i => i.Calories);
         }
 
         public string GetCalorieInfo()

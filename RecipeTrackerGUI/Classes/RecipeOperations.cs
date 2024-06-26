@@ -8,35 +8,29 @@ namespace RecipeTrackerGUI.Classes
     {
         private static readonly Dictionary<string, double> conversionFactors = new Dictionary<string, double>
         {
-            ["tsp"] = 1,
-            ["tbsp"] = 3,
-            ["cup"] = 48,
-            ["ml"] = 0.202884,
-            ["l"] = 202.884,
-            ["g"] = 1,
-            ["kg"] = 1000,
+            ["Teaspoon"] = 1,
+            ["Tablespoon"] = 3,
+            ["Cup"] = 48,
+            ["Milliliter"] = 0.202884,
+            ["Liter"] = 202.884,
+            ["Gram"] = 1,
+            ["Kilogram"] = 1000,
         };
 
         private static readonly Dictionary<string, string> aliases = new Dictionary<string, string>
         {
-            ["tablespoons"] = "tbsp",
-            ["tablespoon"] = "tbsp",
-            ["teaspoons"] = "tsp",
-            ["teaspoon"] = "tsp",
-            ["cups"] = "cup",
-            ["grams"] = "g",
-            ["gram"] = "g",
-            ["kilograms"] = "kg",
-            ["kilogram"] = "kg",
-            ["milliliters"] = "ml",
-            ["milliliter"] = "ml",
-            ["liters"] = "l",
-            ["liter"] = "l"
+            ["Teaspoons"] = "Teaspoon",
+            ["Tablespoons"] = "Tablespoon",
+            ["Cups"] = "Cup",
+            ["Milliliters"] = "Milliliter",
+            ["Liters"] = "Liter",
+            ["Grams"] = "Gram",
+            ["Kilograms"] = "Kilogram",
         };
 
         public static (double, string) ConvertUnit(string unit, double qty, double scale)
         {
-            string standardizedUnit = unit.ToLower().Trim();
+            string standardizedUnit = unit.Trim();
 
             if (aliases.ContainsKey(standardizedUnit))
             {

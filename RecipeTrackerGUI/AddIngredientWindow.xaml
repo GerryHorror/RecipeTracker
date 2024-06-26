@@ -70,7 +70,15 @@
             <TextBox x:Name="QuantityTextBox" Grid.Row="1" Grid.Column="1" Margin="5,5,0,5" />
 
             <TextBlock Text="Unit:" Grid.Row="2" Grid.Column="0" Foreground="#333333" VerticalAlignment="Center" />
-            <TextBox x:Name="UnitTextBox" Grid.Row="2" Grid.Column="1" Margin="5,5,0,5" />
+            <ComboBox x:Name="UnitComboBox" Grid.Row="2" Grid.Column="1" Margin="5,5,0,5">
+                <ComboBoxItem>Teaspoon</ComboBoxItem>
+                <ComboBoxItem>Tablespoon</ComboBoxItem>
+                <ComboBoxItem>Cup</ComboBoxItem>
+                <ComboBoxItem>Milliliter</ComboBoxItem>
+                <ComboBoxItem>Liter</ComboBoxItem>
+                <ComboBoxItem>Gram</ComboBoxItem>
+                <ComboBoxItem>Kilogram</ComboBoxItem>
+            </ComboBox>
 
             <TextBlock Text="Calories:" Grid.Row="3" Grid.Column="0" Foreground="#333333" VerticalAlignment="Center" />
             <TextBox x:Name="CaloriesTextBox" Grid.Row="3" Grid.Column="1" Margin="5,5,0,5" />

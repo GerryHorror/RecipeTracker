@@ -18,7 +18,7 @@ namespace RecipeTrackerGUI
 
         private void AddIngredient_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(QuantityTextBox.Text) || string.IsNullOrWhiteSpace(UnitTextBox.Text) || string.IsNullOrWhiteSpace(CaloriesTextBox.Text) || FoodGroupComboBox.SelectedItem == null)
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(QuantityTextBox.Text) || string.IsNullOrWhiteSpace(UnitComboBox.Text) || string.IsNullOrWhiteSpace(CaloriesTextBox.Text) || FoodGroupComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Please fill in all fields", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -39,7 +39,7 @@ namespace RecipeTrackerGUI
             NewIngredient = new Ingredient(
                 NameTextBox.Text,
                 quantity,
-                UnitTextBox.Text,
+                UnitComboBox.Text,
                 calories,
                 (FoodGroupComboBox.SelectedItem as ComboBoxItem).Content.ToString()
                 );

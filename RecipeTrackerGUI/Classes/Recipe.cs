@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 
 namespace RecipeTrackerGUI.Classes
 {
-    public class Recipe
+    public class Recipe : INotifyPropertyChanged
     {
         public string recipeName { get; set; }
         public List<Ingredient> ingredients { get; set; }
-        public List<string> steps { get; set; }
+        public List<Step> steps { get; set; }
         public List<double> originalQty { get; set; }
         public List<string> originalUnits { get; set; }
 
@@ -15,18 +16,25 @@ namespace RecipeTrackerGUI.Classes
         {
             recipeName = string.Empty;
             ingredients = new List<Ingredient>();
-            steps = new List<string>();
+            steps = new List<Step>();
             originalQty = new List<double>();
             originalUnits = new List<string>();
         }
 
-        public Recipe(string name, List<Ingredient> ing, List<string> steps)
+        public Recipe(string name, List<Ingredient> ing, List<string> stepDescriptions)
         {
             recipeName = name;
             ingredients = ing;
-            this.steps = steps;
+            steps = stepDescriptions.Select(desc => new Step { Description = desc, IsCompleted = false }).ToList();
             originalQty = ing.Select(ingredient => ingredient.ingQty).ToList();
             originalUnits = ing.Select(ingredient => ingredient.ingUnit).ToList();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void AddIngredient(string name, double qty, string unit, int calories, string foodGroup)
@@ -37,9 +45,10 @@ namespace RecipeTrackerGUI.Classes
             originalUnits.Add(unit);
         }
 
-        public void AddStep(string step)
+        public void AddStep(string stepDescription)
         {
-            steps.Add(step);
+            steps.Add(new Step { Description = stepDescription, IsCompleted = false });
+            OnPropertyChanged(nameof(steps));
         }
 
         public bool ScaleRecipe(double factor)

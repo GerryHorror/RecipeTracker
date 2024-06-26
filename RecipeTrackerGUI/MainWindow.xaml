@@ -82,7 +82,9 @@
                             <ItemsControl x:Name="StepsItemsControl">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" Margin="0,0,0,5" Foreground="#333333" />
+                                        <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" Margin="0,0,0,5" Foreground="#333333">
+                                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                                        </CheckBox>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

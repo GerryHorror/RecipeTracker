@@ -32,9 +32,9 @@ namespace RecipeTrackerGUI
             RecipeNameTextBlock.Text = recipe.recipeName;
 
             IngredientsItemsControl.ItemsSource = recipe.ingredients.Select(i =>
-                $"{i.ingName}: {i.ingQty} {i.ingUnit} ({i.Calories} calories, {i.FoodGroup})");
+                $"{i.ingName}: {i.ingQty} {i.ingUnit}{(i.ingQty != 1 ? "s" : "")} ({i.Calories} calories, {i.FoodGroup})");
 
-            StepsItemsControl.ItemsSource = recipe.steps.Select((s, index) => $"{index + 1}. {s}");
+            StepsItemsControl.ItemsSource = recipe.steps;
 
             int totalCalories = recipe.CalculateTotalCalories();
             CaloriesTextBlock.Text = $"Total Calories: {totalCalories}";

@@ -55,9 +55,9 @@ namespace RecipeTrackerGUI
                 return;
             }
 
-            List<string> steps = new List<string>(StepsTextBox.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+            List<string> stepDescriptions = new List<string>(StepsTextBox.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
 
-            NewRecipe = new Recipe(RecipeNameTextBox.Text, ingredients, steps);
+            NewRecipe = new Recipe(RecipeNameTextBox.Text, ingredients, stepDescriptions);
             DialogResult = true;
             Close();
         }

@@ -64,6 +64,7 @@
     <Compile Include="Classes\Ingredient.cs" />
     <Compile Include="Classes\Recipe.cs" />
     <Compile Include="Classes\RecipeOperations.cs" />
+    <Compile Include="Classes\Step.cs" />
     <Compile Include="MenuChartWindow.xaml.cs">
       <DependentUpon>MenuChartWindow.xaml</DependentUpon>
     </Compile>

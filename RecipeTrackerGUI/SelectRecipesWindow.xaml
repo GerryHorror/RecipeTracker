@@ -13,20 +13,25 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <TextBlock Text="Select Recipes for Menu" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" />
+
         <ListBox x:Name="RecipesListBox" Grid.Row="1" SelectionMode="Multiple">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Content="{Binding recipeName}" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                    <CheckBox Content="{Binding Recipe.recipeName}" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Create Menu" Click="CreateMenu_Click" Grid.Row="2" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Margin="0,10,0,0" />
+
+        <Button Content="Create Menu" Click="CreateMenu_Click" Grid.Row="2"
+                Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Margin="0,10,0,0" />
     </Grid>
 </Window>

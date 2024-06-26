@@ -134,5 +134,16 @@ namespace RecipeTrackerGUI
         {
             Close();
         }
+
+        private void CreateMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var selectRecipesWindow = new SelectRecipesWindow(recipes);
+            if (selectRecipesWindow.ShowDialog() == true)
+            {
+                var selectedRecipes = selectRecipesWindow.SelectedRecipes;
+                var menuChartWindow = new MenuChartWindow(selectedRecipes);
+                menuChartWindow.Show();
+            }
+        }
     }
 }

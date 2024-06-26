@@ -9,7 +9,10 @@ using System;
 namespace RecipeTrackerGUI
 {
     /// <summary>
-    /// Interaction logic for MenuChartWindow.xaml
+    ///   Gérard Blankenberg
+    ///   ST10046280
+    ///   Module: PROG6221
+    ///   POE Final Submission
     /// </summary>
     public partial class MenuChartWindow : Window
     {

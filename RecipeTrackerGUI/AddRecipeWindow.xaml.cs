@@ -3,11 +3,14 @@ using System;
 using System.Windows;
 using RecipeTrackerGUI.Classes;
 
+/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Final Submission
+/// </summary>
 namespace RecipeTrackerGUI
 {
-    /// <summary>
-    /// Interaction logic for AddRecipeWindow.xaml
-    /// </summary>
     public partial class AddRecipeWindow : Window
     {
         public Recipe NewRecipe { get; private set; }

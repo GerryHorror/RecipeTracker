@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 
+/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Final Submission
+/// </summary>
 namespace RecipeTrackerGUI.Classes
 {
     public static class RecipeOperations

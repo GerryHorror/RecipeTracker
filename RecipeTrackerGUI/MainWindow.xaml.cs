@@ -4,11 +4,14 @@ using System.Windows;
 using System.Windows.Controls;
 using RecipeTrackerGUI.Classes;
 
+/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Final Submission
+/// </summary>
 namespace RecipeTrackerGUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private List<Recipe> recipes;

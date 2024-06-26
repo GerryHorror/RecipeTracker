@@ -2,11 +2,14 @@
 using System.Windows.Controls;
 using RecipeTrackerGUI.Classes;
 
+/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Final Submission
+/// </summary>
 namespace RecipeTrackerGUI
 {
-    /// <summary>
-    /// Interaction logic for AddIngredientWindow.xaml
-    /// </summary>
     public partial class AddIngredientWindow : Window
     {
         public Ingredient NewIngredient { get; private set; }

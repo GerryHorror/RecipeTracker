@@ -6,7 +6,10 @@ using System.Linq;
 namespace RecipeTrackerGUI
 {
     /// <summary>
-    /// Interaction logic for SelectRecipesWindow.xaml
+    ///   Gérard Blankenberg
+    ///   ST10046280
+    ///   Module: PROG6221
+    ///   POE Final Submission
     /// </summary>
     public partial class SelectRecipesWindow : Window
     {

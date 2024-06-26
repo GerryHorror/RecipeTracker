@@ -1,4 +1,10 @@
-﻿namespace RecipeTrackerGUI.Classes
+﻿/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Final Submission
+/// </summary>
+namespace RecipeTrackerGUI.Classes
 {
     public class Ingredient
     {

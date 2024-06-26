@@ -2,11 +2,15 @@
 using System.Windows.Controls;
 using RecipeTrackerGUI.Classes;
 
+/// <summary>
+///   Gérard Blankenberg
+///   ST10046280
+///   Module: PROG6221
+///   POE Final Submission
+/// </summary>
+
 namespace RecipeTrackerGUI
 {
-    /// <summary>
-    /// Interaction logic for ScaleRecipeWindow.xaml
-    /// </summary>
     public partial class ScaleRecipeWindow : Window
     {
         private Recipe recipe;

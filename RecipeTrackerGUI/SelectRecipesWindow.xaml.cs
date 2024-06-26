@@ -1,16 +1,7 @@
-﻿using System;
+﻿using RecipeTrackerGUI.Classes;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RecipeTrackerGUI
 {
@@ -19,9 +10,35 @@ namespace RecipeTrackerGUI
     /// </summary>
     public partial class SelectRecipesWindow : Window
     {
-        public SelectRecipesWindow()
+        public List<Recipe> SelectedRecipes { get; private set; }
+
+        public SelectRecipesWindow(List<Recipe> allRecipes)
         {
             InitializeComponent();
+            RecipesListBox.ItemsSource = allRecipes.Select(r => new RecipeSelection { Recipe = r, IsSelected = false }).ToList();
+        }
+
+        private void CreateMenu_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedRecipes = RecipesListBox.Items.Cast<RecipeSelection>()
+                                            .Where(rs => rs.IsSelected)
+                                            .Select(rs => rs.Recipe)
+                                            .ToList();
+
+            if (SelectedRecipes.Count == 0)
+            {
+                MessageBox.Show("Please select at least one recipe for the menu.", "No Recipes Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DialogResult = true;
+            Close();
+        }
+
+        public class RecipeSelection
+        {
+            public Recipe Recipe { get; set; }
+            public bool IsSelected { get; set; }
         }
     }
 }

@@ -39,17 +39,17 @@ namespace RecipeTrackerGUI
             var pieChart = (PieChart)FindName("Chart");
             if (pieChart != null)
             {
-                foreach (var series in pieChart.Series.OfType<PieSeries>())
+                pieChart.Series.Clear();
+                foreach (var foodGroup in foodGroups)
                 {
-                    if (foodGroups.ContainsKey(series.Title))
+                    var percentage = (double)foodGroup.Value / totalCalories * 100;
+                    pieChart.Series.Add(new PieSeries
                     {
-                        var percentage = (double)foodGroups[series.Title] / totalCalories * 100;
-                        series.Values = new ChartValues<double> { Math.Round(percentage, 2) };
-                    }
-                    else
-                    {
-                        series.Values = new ChartValues<double> { 0 };
-                    }
+                        Title = foodGroup.Key,
+                        Values = new ChartValues<double> { Math.Round(percentage, 2) },
+                        DataLabels = true,
+                        LabelPoint = PointLabel
+                    });
                 }
             }
 

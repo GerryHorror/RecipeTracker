@@ -22,16 +22,6 @@
 
         <TextBlock Text="Food Group Distribution in Menu" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" />
 
-        <lvc:PieChart Grid.Row="1" LegendLocation="Right" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}">
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Starchy foods" Values="1" DataLabels="True" LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Vegetables and fruits" Values="1" DataLabels="True" LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Dry beans, peas, lentils and soya" Values="1" DataLabels="True" LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Chicken, fish, meat and eggs" Values="1" DataLabels="True" LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Milk and dairy products" Values="1" DataLabels="True" LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Fats and oil" Values="1" DataLabels="True" LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Water" Values="1" DataLabels="True" LabelPoint="{Binding PointLabel}" />
-            </lvc:PieChart.Series>
-        </lvc:PieChart>
+        <lvc:PieChart x:Name="Chart" Grid.Row="1" LegendLocation="Right" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}" />
     </Grid>
 </Window>

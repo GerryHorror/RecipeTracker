@@ -64,6 +64,9 @@
     <Compile Include="Classes\Ingredient.cs" />
     <Compile Include="Classes\Recipe.cs" />
     <Compile Include="Classes\RecipeOperations.cs" />
+    <Compile Include="MenuChartWindow.xaml.cs">
+      <DependentUpon>MenuChartWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScaleRecipeWindow.xaml.cs">
       <DependentUpon>ScaleRecipeWindow.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MenuChartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ScaleRecipeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

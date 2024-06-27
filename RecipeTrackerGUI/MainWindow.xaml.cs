@@ -160,8 +160,6 @@ namespace RecipeTrackerGUI
             CaloriesTextBlock.Text = "";
             CalorieInfoTextBlock.Text = "";
             calorieWarningShown = false;
-
-            CalorieBorder.Background = new SolidColorBrush(Colors.LightGray);
         }
     }
 }

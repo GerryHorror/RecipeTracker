@@ -33,6 +33,12 @@ namespace RecipeTrackerGUI
                 return;
             }
 
+            if (quantity <= 0)
+            {
+                MessageBox.Show("Quantity must be greater than 0.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (!int.TryParse(CaloriesTextBox.Text, out int calories))
             {
                 MessageBox.Show("Please enter a valid number for calories.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);

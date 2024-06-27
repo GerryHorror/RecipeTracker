@@ -39,16 +39,25 @@ namespace RecipeTrackerGUI
                 return;
             }
 
-            NewIngredient = new Ingredient(
-                NameTextBox.Text,
-                quantity,
-                UnitComboBox.Text,
-                calories,
-                (FoodGroupComboBox.SelectedItem as ComboBoxItem).Content.ToString()
+            string foodGroup = (FoodGroupComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            if ((foodGroup == "Water" && calories == 0) || (foodGroup != "Water" && calories > 0))
+            {
+                NewIngredient = new Ingredient(
+                    NameTextBox.Text,
+                    quantity,
+                    (UnitComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(),
+                    calories,
+                    foodGroup
                 );
 
-            DialogResult = true;
-            Close();
+                DialogResult = true;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Only water can have 0 calories. All other ingredients must have more than 0 calories.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

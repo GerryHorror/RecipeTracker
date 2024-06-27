@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using RecipeTrackerGUI.Classes;
 
 /// <summary>
@@ -40,8 +41,8 @@ namespace RecipeTrackerGUI
             StepsItemsControl.ItemsSource = recipe.steps;
 
             int totalCalories = recipe.CalculateTotalCalories();
-            CaloriesTextBlock.Text = $"Total Calories: {totalCalories}";
-            CalorieInfoTextBlock.Text = recipe.GetCalorieInfo();
+            CaloriesTextBlock.Text = totalCalories.ToString();
+            CalorieInfoTextBlock.Text = $"Total Calories: {totalCalories}\n{recipe.GetCalorieInfo()}";
 
             if (totalCalories > 300 && !calorieWarningShown)
             {
@@ -60,6 +61,10 @@ namespace RecipeTrackerGUI
                 Recipe selectedRecipe = recipes[RecipeListBox.SelectedIndex];
                 calorieWarningShown = false;
                 DisplayRecipe(selectedRecipe);
+            }
+            else
+            {
+                ClearRecipeDisplay();
             }
         }
 
@@ -155,6 +160,8 @@ namespace RecipeTrackerGUI
             CaloriesTextBlock.Text = "";
             CalorieInfoTextBlock.Text = "";
             calorieWarningShown = false;
+
+            CalorieBorder.Background = new SolidColorBrush(Colors.LightGray);
         }
     }
 }

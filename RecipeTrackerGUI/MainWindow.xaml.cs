@@ -164,6 +164,7 @@ namespace RecipeTrackerGUI
                     // Reset the high calorie warning flag
                     calorieWarningShown = false;
                     DisplayRecipe(selectedRecipe);
+                   
                 }
             }
             // Else, display a warning message to select a recipe if no recipe is selected
@@ -184,6 +185,8 @@ namespace RecipeTrackerGUI
                 Recipe selectedRecipe = recipes[RecipeListBox.SelectedIndex];
                 selectedRecipe.ResetQuantity();
                 DisplayRecipe(selectedRecipe);
+                // Display a success message to inform the user that the recipe has been reset
+                MessageBox.Show($"Quantities for '{selectedRecipe.recipeName}' have been reset to their original values.", "Quantities Reset", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             // Else, display a warning message to select a recipe if no recipe is selected
             else

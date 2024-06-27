@@ -11,40 +11,51 @@ POE Final Submission
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeTrackerGUI"
         mc:Ignorable="d"
-        Title="Select Recipes for Menu" Height="450" Width="400" ResizeMode="NoResize" Background="#F0F0F0">
+        Title="Select Recipes for the Chart" Height="450" Width="400" ResizeMode="NoResize" Background="#F0F0F0">
     <Window.Resources>
+        <!-- Define a resource dictionary to include shared styles -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- Merging shared styles from an external XAML file -->
                 <ResourceDictionary Source="SharedStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
+    <!-- Main content area of the window -->
     <Border Background="White" CornerRadius="10" Margin="20">
         <Grid Margin="20">
+            <!-- Define the row definitions for the grid -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Select Recipes for Menu" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="{StaticResource PrimaryBrush}" />
+            <!-- Header text for selecting recipes -->
+            <TextBlock Text="Select Recipes for Chart" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="{StaticResource PrimaryBrush}" />
 
+            <!-- ListBox for displaying and selecting recipes -->
             <ListBox x:Name="RecipesListBox" Grid.Row="1" SelectionMode="Multiple" Style="{StaticResource ModernListBox}">
+                <!-- Define the item container style for the ListBox -->
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource ModernListBoxItem}">
                         <Setter Property="Margin" Value="0,0,0,5" />
                         <Setter Property="Padding" Value="5" />
                     </Style>
                 </ListBox.ItemContainerStyle>
+
+                <!-- Define the item template for the ListBox -->
                 <ListBox.ItemTemplate>
                     <DataTemplate>
+                        <!-- CheckBox for each recipe, bound to the recipe name and selection state -->
                         <CheckBox Content="{Binding Recipe.recipeName}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Foreground="{StaticResource TextBrush}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Button Content="Create Menu" Click="CreateMenu_Click" Grid.Row="2"
+            <!-- Button to create the chart with the selected recipes -->
+            <Button Content="Create Chart" Click="CreateMenu_Click" Grid.Row="2"
                     Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Margin="0,10,0,0" />
         </Grid>
     </Border>

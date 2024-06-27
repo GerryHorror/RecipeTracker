@@ -14,20 +14,35 @@ POE Final Submission
         mc:Ignorable="d"
         Title="Food Group Distribution" Height="450" Width="600" ResizeMode="NoResize" Background="#F0F0F0">
     <Window.Resources>
+        <!-- Define a resource dictionary to include shared styles -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- Merging shared styles from an external XAML file -->
                 <ResourceDictionary Source="SharedStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
+    <!-- Main content area of the window -->
     <Grid Margin="20">
+        <!-- Define the row definitions for the main grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Food Group Distribution in Menu" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="{StaticResource PrimaryBrush}" />
+        <!-- Header text for the chart -->
+        <TextBlock Text="Food Group Distribution" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="{StaticResource PrimaryBrush}" />
 
+        <!-- PieChart control from LiveCharts library -->
         <lvc:PieChart x:Name="Chart" Grid.Row="1" LegendLocation="Right" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}" />
+        <!--
+            - x:Name="Chart": Name of the PieChart control.
+            - Grid.Row="1": Place the PieChart in the second row of the grid.
+            - LegendLocation="Right": Position the legend on the right side of the chart.
+            - DataClick="Chart_OnDataClick": Event handler for data click events on the chart.
+            - Hoverable="False": Disable hover effects on the chart.
+            - DataTooltip="{x:Null}": Disable tooltips on the chart.
+        -->
     </Grid>
 </Window>

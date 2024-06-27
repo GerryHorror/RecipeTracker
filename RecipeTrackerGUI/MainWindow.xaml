@@ -13,42 +13,58 @@ POE Final Submission
         xmlns:classes="clr-namespace:RecipeTrackerGUI.Classes"
         mc:Ignorable="d"
         Title="Recipe Tracker" Height="600" Width="1000" ResizeMode="NoResize" Background="#F0F0F0">
+    <!-- Set the window title, size, and background color -->
+    <!-- Window resources -->
+    <!-- This is the styles section of the window -->
     <Window.Resources>
+        <!-- This is the dictionary of resources for the window -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- Shared styles are included from an external XAML file -->
                 <ResourceDictionary Source="SharedStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <!-- Include custom converters for binding -->
             <classes:IndexConverter x:Key="IndexConverter" />
             <classes:CalorieColorConverter x:Key="CalorieColorConverter" />
         </ResourceDictionary>
     </Window.Resources>
+
+    <!-- Window content -->
     <Grid>
+        <!-- Define the row definitions for the main grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!-- Menu bar at the top -->
         <Border Background="{StaticResource PrimaryBrush}" Grid.Row="0">
             <Menu Background="Transparent" Foreground="White">
                 <MenuItem Header="File" Foreground="White">
+                    <!-- Menu item to exit the application -->
                     <MenuItem Header="Exit" Click="ExitMenuItem_Click" Foreground="{StaticResource TextBrush}" />
                 </MenuItem>
             </Menu>
         </Border>
 
+        <!-- Main content area -->
         <Grid Grid.Row="1" Margin="20">
+            <!-- Define the column definitions for the main content grid -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
+            <!-- Recipe list section -->
             <Border Background="White" CornerRadius="10" Margin="0,0,10,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+                    <!-- Header for the recipe list -->
                     <TextBlock Text="Recipes" FontSize="24" FontWeight="Bold" Margin="15" Foreground="{StaticResource TextBrush}" />
+                    <!-- ListBox to display the recipes -->
                     <ListBox x:Name="RecipeListBox" Grid.Row="1" SelectionChanged="RecipeListBox_SelectionChanged" Style="{StaticResource ModernListBox}">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource ModernListBoxItem}" />
@@ -57,18 +73,22 @@ POE Final Submission
                 </Grid>
             </Border>
 
+            <!-- Recipe details section -->
             <Border Grid.Column="1" Background="White" CornerRadius="10" Margin="10,0,0,0">
                 <Grid Margin="20">
+                    <!-- Define the row definitions for the recipe details grid -->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
+                    <!-- StackPanel for the recipe name and calorie information -->
                     <StackPanel Grid.Row="0">
                         <TextBlock x:Name="RecipeNameTextBlock" FontSize="28" FontWeight="Bold" Margin="0,0,0,10" Foreground="{StaticResource PrimaryBrush}" TextWrapping="Wrap" />
                         <Border x:Name="CalorieBorder" CornerRadius="5" Padding="10" Margin="0,0,0,10">
                             <Border.Background>
+                                <!-- Binding to change the background color based on calorie count -->
                                 <SolidColorBrush Color="{Binding ElementName=CaloriesTextBlock, Path=Text, Converter={StaticResource CalorieColorConverter}}" />
                             </Border.Background>
                             <StackPanel>
@@ -78,8 +98,10 @@ POE Final Submission
                         </Border>
                     </StackPanel>
 
+                    <!-- ScrollViewer for ingredients and steps -->
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
+                            <!-- Expander for ingredients -->
                             <Expander Header="Ingredients" IsExpanded="True" Margin="0,0,0,10">
                                 <ItemsControl x:Name="IngredientsItemsControl" Margin="10,5,0,0">
                                     <ItemsControl.ItemTemplate>
@@ -91,6 +113,7 @@ POE Final Submission
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </Expander>
+                            <!-- Expander for steps -->
                             <Expander Header="Steps" IsExpanded="True">
                                 <ItemsControl x:Name="StepsItemsControl" Margin="10,5,0,0">
                                     <ItemsControl.ItemTemplate>
@@ -112,8 +135,9 @@ POE Final Submission
                         </StackPanel>
                     </ScrollViewer>
 
+                    <!-- Action buttons for managing recipes -->
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-                        <Button Content="Create Menu" Click="CreateMenu_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
+                        <Button Content="Create Chart" Click="CreateMenu_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
                         <Button Content="Add Recipe" Click="AddRecipe_Click" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0" />
                         <Button Content="Scale Recipe" Click="ScaleRecipe_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
                         <Button Content="Reset Quantities" Click="ResetQuantities_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />

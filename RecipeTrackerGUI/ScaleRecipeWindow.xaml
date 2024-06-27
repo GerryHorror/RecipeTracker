@@ -14,14 +14,20 @@ POE Final Submission
         mc:Ignorable="d"
         Title="Scale Recipe" Height="250" Width="350" ResizeMode="NoResize" Background="#F0F0F0">
     <Window.Resources>
+        <!-- Define a resource dictionary to include shared styles -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- Merging shared styles from an external XAML file -->
                 <ResourceDictionary Source="SharedStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
+    <!-- Main content area of the window -->
     <Border Background="White" CornerRadius="10" Margin="20">
+        <!-- Add a border around the content with white background and rounded corners -->
         <Grid Margin="20">
+            <!-- Define the row definitions for the grid -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -29,15 +35,19 @@ POE Final Submission
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!-- Text prompt for selecting a scaling factor -->
             <TextBlock Text="Select scaling factor:" Grid.Row="0" Foreground="{StaticResource TextBrush}" />
+            <!-- ComboBox for selecting the scaling factor -->
             <ComboBox x:Name="ScaleFactorComboBox" Grid.Row="1" Margin="0,10,0,0">
                 <ComboBoxItem>0,5</ComboBoxItem>
                 <ComboBoxItem>2</ComboBoxItem>
                 <ComboBoxItem>3</ComboBoxItem>
             </ComboBox>
-
+            <!-- Action buttons for scaling or cancelling -->
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <!-- Button to scale the recipe, triggers Scale_Click event -->
                 <Button Content="Scale" Click="Scale_Click" Style="{StaticResource PrimaryButton}" Width="80" Margin="0,0,10,0" />
+                <!-- Button to cancel scaling, triggers Cancel_Click event -->
                 <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource AccentButton}" Width="80" />
             </StackPanel>
         </Grid>

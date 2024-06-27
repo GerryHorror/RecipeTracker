@@ -122,9 +122,7 @@ namespace RecipeTrackerGUI
                 {
                     recipes.Remove(selectedRecipe);
                     UpdateRecipeList();
-                    RecipeNameTextBlock.Text = "";
-                    IngredientsItemsControl.ItemsSource = null;
-                    StepsItemsControl.ItemsSource = null;
+                    ClearRecipeDisplay();
                 }
             }
             else
@@ -147,6 +145,16 @@ namespace RecipeTrackerGUI
                 var menuChartWindow = new MenuChartWindow(selectedRecipes);
                 menuChartWindow.Show();
             }
+        }
+
+        private void ClearRecipeDisplay()
+        {
+            RecipeNameTextBlock.Text = "";
+            IngredientsItemsControl.ItemsSource = null;
+            StepsItemsControl.ItemsSource = null;
+            CaloriesTextBlock.Text = "";
+            CalorieInfoTextBlock.Text = "";
+            calorieWarningShown = false;
         }
     }
 }

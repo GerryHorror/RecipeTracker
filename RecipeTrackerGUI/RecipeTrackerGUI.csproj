@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\IndexConverter.cs" />
     <Compile Include="Classes\Ingredient.cs" />
     <Compile Include="Classes\Recipe.cs" />
     <Compile Include="Classes\RecipeOperations.cs" />

@@ -10,6 +10,7 @@ POE Final Submission
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeTrackerGUI"
+        xmlns:classes="clr-namespace:RecipeTrackerGUI.Classes"
         mc:Ignorable="d"
         Title="Recipe Tracker" Height="600" Width="1000" ResizeMode="NoResize" Background="#F0F0F0">
     <Window.Resources>
@@ -17,9 +18,9 @@ POE Final Submission
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <classes:IndexConverter x:Key="IndexConverter" />
         </ResourceDictionary>
     </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -88,9 +89,16 @@ POE Final Submission
                             <ItemsControl x:Name="StepsItemsControl">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" Margin="0,0,0,5" Foreground="#333333">
-                                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
-                                        </CheckBox>
+                                        <Grid Margin="0,0,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox Grid.Column="0" IsChecked="{Binding IsCompleted, Mode=TwoWay}" VerticalAlignment="Top" Margin="0,0,5,0" />
+                                            <TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={StaticResource IndexConverter}}" Margin="0,0,5,0" VerticalAlignment="Top" Foreground="#333333" />
+                                            <TextBlock Grid.Column="2" Text="{Binding Description}" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#333333" />
+                                        </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

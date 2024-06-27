@@ -5,6 +5,8 @@ Module: PROG6221
 POE Final Submission
     -->
 
+<!-- This is the window to add ingredients to the recipe -->
+
 <Window x:Class="RecipeTrackerGUI.AddIngredientWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,6 +15,9 @@ POE Final Submission
         xmlns:local="clr-namespace:RecipeTrackerGUI"
         mc:Ignorable="d"
         Title="Add Ingredient" Height="400" Width="350" ResizeMode="NoResize" Background="#F0F0F0">
+    <!-- Set the window title, size, and background color -->
+    <!-- Window resources -->
+    <!-- This is the styles section of the window -->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,8 +25,13 @@ POE Final Submission
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
+    <!-- Window content -->
+    <!-- Add a border around the content -->
     <Border Background="White" CornerRadius="10" Margin="20">
+        <!-- Add a margin around the grid -->
         <Grid Margin="20">
+            <!-- Define the row definitions for the grid -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -31,19 +41,22 @@ POE Final Submission
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <!-- Define the column definitions for the grid -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!-- Ingredient Name Field-->
             <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
             <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" />
-
+            <!-- Quantity Field -->
             <TextBlock Text="Quantity:" Grid.Row="1" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
             <TextBox x:Name="QuantityTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" />
-
+            <!-- Unit Field -->
             <TextBlock Text="Unit:" Grid.Row="2" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
             <ComboBox x:Name="UnitComboBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
+                <!-- Dropdown for selecting the unit of measurement -->
                 <ComboBoxItem>Teaspoon</ComboBoxItem>
                 <ComboBoxItem>Tablespoon</ComboBoxItem>
                 <ComboBoxItem>Cup</ComboBoxItem>
@@ -52,12 +65,13 @@ POE Final Submission
                 <ComboBoxItem>Gram</ComboBoxItem>
                 <ComboBoxItem>Kilogram</ComboBoxItem>
             </ComboBox>
-
+            <!-- Calories Field -->
             <TextBlock Text="Calories:" Grid.Row="3" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
             <TextBox x:Name="CaloriesTextBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" />
-
+            <!--Food Group Field-->
             <TextBlock Text="Food Group:" Grid.Row="4" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
             <ComboBox x:Name="FoodGroupComboBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10">
+                <!--Dropdown for selecting the food group-->
                 <ComboBoxItem>Starchy foods</ComboBoxItem>
                 <ComboBoxItem>Vegetables and fruits</ComboBoxItem>
                 <ComboBoxItem>Dry beans, peas, lentils and soya</ComboBoxItem>
@@ -66,9 +80,11 @@ POE Final Submission
                 <ComboBoxItem>Fats and oil</ComboBoxItem>
                 <ComboBoxItem>Water</ComboBoxItem>
             </ComboBox>
-
+            <!-- Action buttons -->
             <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0">
+                <!-- Add button -->
                 <Button Content="Add" Click="AddIngredient_Click" Style="{StaticResource PrimaryButton}" Width="80" Margin="0,0,10,0" />
+                <!-- Cancel button -->
                 <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource AccentButton}" Width="80" />
             </StackPanel>
         </Grid>

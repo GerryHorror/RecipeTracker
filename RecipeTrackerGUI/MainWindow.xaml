@@ -27,39 +27,43 @@ POE Final Submission
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Background="#2E86C1" Grid.Row="0">
+        <!-- Top Menu Bar -->
+        <Border Background="#2E86C1" Grid.Row="0" Padding="5">
             <Menu Background="Transparent" Foreground="White">
                 <MenuItem Header="File">
-                    <MenuItem Header="Exit" Click="ExitMenuItem_Click" Foreground="#333333" />
+                    <MenuItem Header="Exit" Click="ExitMenuItem_Click" Foreground="#FFFFFF" />
                 </MenuItem>
             </Menu>
         </Border>
 
+        <!-- Main Content -->
         <Grid Grid.Row="1" Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <Border Background="White" CornerRadius="10" Margin="0,0,10,0">
+            <!-- Recipes List -->
+            <Border Background="White" CornerRadius="10" Margin="0,0,10,0" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Recipes" FontSize="20" FontWeight="Bold" Margin="10" Foreground="#333333" />
+                    <TextBlock Text="Recipes" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" Foreground="#2E86C1" />
                     <ListBox x:Name="RecipeListBox" Grid.Row="1" SelectionChanged="RecipeListBox_SelectionChanged"
-                             BorderThickness="0" Background="Transparent">
+                             BorderThickness="0" Background="Transparent" Padding="5">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding}" Padding="5" Foreground="#333333" />
+                                <TextBlock Text="{Binding}" Padding="5" Foreground="#333333" FontSize="16" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </Border>
 
-            <Border Grid.Column="1" Background="White" CornerRadius="10" Margin="10,0,0,0">
+            <!-- Recipe Details -->
+            <Border Grid.Column="1" Background="White" CornerRadius="10" Margin="10,0,0,0" Padding="10">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -68,24 +72,24 @@ POE Final Submission
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="RecipeNameTextBlock" Grid.Row="0" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" Foreground="#333333" />
+                    <TextBlock x:Name="RecipeNameTextBlock" Grid.Row="0" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" Foreground="#2E86C1" />
 
                     <StackPanel Grid.Row="1" Margin="0,0,0,10">
-                        <TextBlock x:Name="CaloriesTextBlock" FontWeight="Bold" Foreground="#333333" />
-                        <TextBlock x:Name="CalorieInfoTextBlock" TextWrapping="Wrap" Foreground="#666666" />
+                        <TextBlock x:Name="CaloriesTextBlock" FontWeight="Bold" Foreground="#333333" FontSize="16" />
+                        <TextBlock x:Name="CalorieInfoTextBlock" TextWrapping="Wrap" Foreground="#666666" FontSize="14" />
                     </StackPanel>
 
                     <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
-                            <TextBlock Text="Ingredients:" FontWeight="Bold" Margin="0,0,0,10" Foreground="#666666" />
+                            <TextBlock Text="Ingredients:" FontWeight="Bold" Margin="0,0,0,10" Foreground="#666666" FontSize="16" />
                             <ItemsControl x:Name="IngredientsItemsControl" Margin="0,0,0,20">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" Margin="0,0,0,5" Foreground="#333333" />
+                                        <TextBlock Text="{Binding}" Margin="0,0,0,5" Foreground="#333333" FontSize="14" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                            <TextBlock Text="Steps:" FontWeight="Bold" Margin="0,0,0,10" Foreground="#666666" />
+                            <TextBlock Text="Steps:" FontWeight="Bold" Margin="0,0,0,10" Foreground="#666666" FontSize="16" />
                             <ItemsControl x:Name="StepsItemsControl">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -95,9 +99,21 @@ POE Final Submission
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox Grid.Column="0" IsChecked="{Binding IsCompleted, Mode=TwoWay}" VerticalAlignment="Top" Margin="0,0,5,0" />
-                                            <TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={StaticResource IndexConverter}}" Margin="0,0,5,0" VerticalAlignment="Top" Foreground="#333333" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Description}" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#333333" />
+                                            <CheckBox Grid.Column="0"
+                                                      IsChecked="{Binding IsCompleted, Mode=TwoWay}"
+                                                      VerticalAlignment="Top"
+                                                      Margin="0,0,5,0" />
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter},
+                                                              Converter={StaticResource IndexConverter}}"
+                                                       Margin="0,0,5,0"
+                                                       VerticalAlignment="Top"
+                                                       Foreground="#333333" FontSize="14" />
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Description}"
+                                                       TextWrapping="Wrap"
+                                                       VerticalAlignment="Top"
+                                                       Foreground="#333333" FontSize="14" />
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -106,11 +122,11 @@ POE Final Submission
                     </ScrollViewer>
 
                     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-                        <Button Content="Create Menu" Click="CreateMenu_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
-                        <Button Content="Add Recipe" Click="AddRecipe_Click" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0" />
-                        <Button Content="Scale Recipe" Click="ScaleRecipe_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
+                        <Button Content="Create Menu" Click="CreateMenu_Click" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0" />
+                        <Button Content="Add Recipe" Click="AddRecipe_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
+                        <Button Content="Scale Recipe" Click="ScaleRecipe_Click" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0" />
                         <Button Content="Reset Quantities" Click="ResetQuantities_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
-                        <Button Content="Delete Recipe" Click="DeleteRecipe_Click" Style="{StaticResource PrimaryButton}" />
+                        <Button Content="Delete Recipe" Click="DeleteRecipe_Click" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0" />
                     </StackPanel>
                 </Grid>
             </Border>

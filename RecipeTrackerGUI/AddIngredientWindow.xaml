@@ -29,20 +29,21 @@ POE Final Submission
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" Foreground="#333333" VerticalAlignment="Center" />
-            <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="5,5,0,5" />
+            <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
+            <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" />
 
-            <TextBlock Text="Quantity:" Grid.Row="1" Grid.Column="0" Foreground="#333333" VerticalAlignment="Center" />
-            <TextBox x:Name="QuantityTextBox" Grid.Row="1" Grid.Column="1" Margin="5,5,0,5" />
+            <TextBlock Text="Quantity:" Grid.Row="1" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
+            <TextBox x:Name="QuantityTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" />
 
-            <TextBlock Text="Unit:" Grid.Row="2" Grid.Column="0" Foreground="#333333" VerticalAlignment="Center" />
-            <ComboBox x:Name="UnitComboBox" Grid.Row="2" Grid.Column="1" Margin="5,5,0,5">
+            <TextBlock Text="Unit:" Grid.Row="2" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
+            <ComboBox x:Name="UnitComboBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
                 <ComboBoxItem>Teaspoon</ComboBoxItem>
                 <ComboBoxItem>Tablespoon</ComboBoxItem>
                 <ComboBoxItem>Cup</ComboBoxItem>
@@ -52,11 +53,11 @@ POE Final Submission
                 <ComboBoxItem>Kilogram</ComboBoxItem>
             </ComboBox>
 
-            <TextBlock Text="Calories:" Grid.Row="3" Grid.Column="0" Foreground="#333333" VerticalAlignment="Center" />
-            <TextBox x:Name="CaloriesTextBox" Grid.Row="3" Grid.Column="1" Margin="5,5,0,5" />
+            <TextBlock Text="Calories:" Grid.Row="3" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
+            <TextBox x:Name="CaloriesTextBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" />
 
-            <TextBlock Text="Food Group:" Grid.Row="4" Grid.Column="0" Foreground="#333333" VerticalAlignment="Center" />
-            <ComboBox x:Name="FoodGroupComboBox" Grid.Row="4" Grid.Column="1" Margin="5,5,0,5">
+            <TextBlock Text="Food Group:" Grid.Row="4" Grid.Column="0" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="0,0,10,10" />
+            <ComboBox x:Name="FoodGroupComboBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10">
                 <ComboBoxItem>Starchy foods</ComboBoxItem>
                 <ComboBoxItem>Vegetables and fruits</ComboBoxItem>
                 <ComboBoxItem>Dry beans, peas, lentils and soya</ComboBoxItem>
@@ -66,9 +67,9 @@ POE Final Submission
                 <ComboBoxItem>Water</ComboBoxItem>
             </ComboBox>
 
-            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0">
                 <Button Content="Add" Click="AddIngredient_Click" Style="{StaticResource PrimaryButton}" Width="80" Margin="0,0,10,0" />
-                <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource SecondaryButton}" Width="80" />
+                <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource AccentButton}" Width="80" />
             </StackPanel>
         </Grid>
     </Border>

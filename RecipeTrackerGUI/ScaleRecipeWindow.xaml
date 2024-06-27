@@ -29,7 +29,7 @@ POE Final Submission
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Select scaling factor:" Grid.Row="0" Foreground="#333333" />
+            <TextBlock Text="Select scaling factor:" Grid.Row="0" Foreground="{StaticResource TextBrush}" />
             <ComboBox x:Name="ScaleFactorComboBox" Grid.Row="1" Margin="0,10,0,0">
                 <ComboBoxItem>0,5</ComboBoxItem>
                 <ComboBoxItem>2</ComboBoxItem>
@@ -38,7 +38,7 @@ POE Final Submission
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
                 <Button Content="Scale" Click="Scale_Click" Style="{StaticResource PrimaryButton}" Width="80" Margin="0,0,10,0" />
-                <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource SecondaryButton}" Width="80" />
+                <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource AccentButton}" Width="80" />
             </StackPanel>
         </Grid>
     </Border>

@@ -30,23 +30,28 @@ POE Final Submission
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Text="Recipe Name:" Grid.Row="0" Foreground="#333333" />
+
+            <TextBlock Text="Recipe Name:" Grid.Row="0" Foreground="{StaticResource TextBrush}" />
             <TextBox x:Name="RecipeNameTextBox" Grid.Row="1" Margin="0,5,0,20" />
-            <GroupBox Header="Ingredients" Grid.Row="2" BorderBrush="#D5D8DC">
+
+            <GroupBox Header="Ingredients" Grid.Row="2" BorderBrush="{StaticResource PrimaryBrush}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
                     <ListBox x:Name="IngredientsListBox" Grid.Row="0" BorderThickness="0" />
                     <Button Content="Add Ingredient" Grid.Row="1" Click="AddIngredient_Click" Style="{StaticResource SecondaryButton}" Margin="0,10,0,0" />
                 </Grid>
             </GroupBox>
-            <TextBlock Text="Steps:" Grid.Row="3" Margin="0,20,0,5" Foreground="#333333" />
+
+            <TextBlock Text="Steps:" Grid.Row="3" Margin="0,20,0,5" Foreground="{StaticResource TextBrush}" />
             <TextBox x:Name="StepsTextBox" Grid.Row="4" AcceptsReturn="True" TextWrapping="Wrap" />
+
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
                 <Button Content="Save Recipe" Click="SaveRecipe_Click" Style="{StaticResource PrimaryButton}" Width="100" Margin="0,0,10,0" />
-                <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource SecondaryButton}" Width="100" />
+                <Button Content="Cancel" Click="Cancel_Click" Style="{StaticResource AccentButton}" Width="100" />
             </StackPanel>
         </Grid>
     </Border>

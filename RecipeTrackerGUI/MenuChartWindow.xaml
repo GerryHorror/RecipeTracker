@@ -26,7 +26,7 @@ POE Final Submission
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Food Group Distribution in Menu" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" />
+        <TextBlock Text="Food Group Distribution in Menu" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="{StaticResource PrimaryBrush}" />
 
         <lvc:PieChart x:Name="Chart" Grid.Row="1" LegendLocation="Right" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}" />
     </Grid>
